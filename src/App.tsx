@@ -59,6 +59,7 @@ function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const { isLoading, withLoading } = useLoading();
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [cataloguePage, setCataloguePage] = useState<number | undefined>(undefined);
 
   const handlePageTransition = async (newDirection: number) => {
     setIsTransitioning(true);
@@ -103,6 +104,12 @@ function App() {
     const direction = targetIndex > currentIndex ? 1 : -1;
     setPage([targetIndex, direction]);
     setCurrentSection("references");
+  };
+
+  // Fonction pour naviguer vers le catalogue avec une page spécifique
+  const navigateToCatalogueWithPage = (pageNumber?: number) => {
+    setCataloguePage(pageNumber);
+    handleNavigateToSection("catalogue");
   };
 
   const handleNavigateToSection = async (section: string) => {
@@ -232,7 +239,7 @@ function App() {
               }
             }}
           >
-            <References />
+            <References onNavigateToCatalogue={navigateToCatalogueWithPage} />
           </motion.div>
         ) : currentSection === "timelapses" ? (
           <motion.div
@@ -324,7 +331,7 @@ function App() {
               }
             }}
           >
-            <Catalogue />
+            <Catalogue initialPage={cataloguePage} />
           </motion.div>
         ) : (
           <motion.div

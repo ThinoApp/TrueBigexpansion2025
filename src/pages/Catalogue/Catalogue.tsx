@@ -13,13 +13,17 @@ interface CataloguePage {
   imageSrc: string;
 }
 
-const Catalogue = () => {
+interface CatalogueProps {
+  initialPage?: number;
+}
+
+const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
   const [pageWidth, setPageWidth] = useState<number>(500);
   const [pageHeight, setPageHeight] = useState<number>(700);
   const [loading, setLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(0);
+  const [initialPageSet, setInitialPageSet] = useState<boolean>(false);
   const bookRef = useRef<any>(null);
-  console.log("teste");
   // Données des pages du catalogue
   const cataloguePages: CataloguePage[] = Array.from(
     { length: 59 },
@@ -51,6 +55,22 @@ const Catalogue = () => {
       clearTimeout(timer);
     };
   }, []);
+  
+  // Effet pour aller à la page spécifiée une fois le livre chargé
+  useEffect(() => {
+    if (!loading && bookRef.current && initialPage !== undefined && !initialPageSet) {
+      // Ajouter 1 pour la couverture
+      const adjustedPage = initialPage + 1;
+      
+      if (adjustedPage >= 0 && adjustedPage <= cataloguePages.length + 1) {
+        // Utiliser setTimeout pour s'assurer que le flipbook est complètement initialisé
+        setTimeout(() => {
+          bookRef.current.pageFlip().turnToPage(adjustedPage);
+          setInitialPageSet(true);
+        }, 300);
+      }
+    }
+  }, [loading, initialPage, initialPageSet, cataloguePages.length]);
 
   // Fonction pour aller à la page suivante
   const goToNextPage = () => {
@@ -68,7 +88,8 @@ const Catalogue = () => {
 
   // Gestionnaire d'événements pour le changement de page
   const handlePageChange = (e: any) => {
-    setCurrentPage(e.data);
+    const newPage = e.data;
+    setCurrentPage(newPage);
   };
 
   // Fonction pour télécharger le catalogue

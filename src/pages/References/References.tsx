@@ -6,7 +6,11 @@ import GlobeVisualization from "./components/GlobeVisualization/GlobeVisualizati
 import ReferencesList from "./components/ReferencesList/ReferencesList";
 import "./references.scss";
 
-const References = () => {
+interface ReferencesProps {
+  onNavigateToCatalogue?: (pageNumber: number) => void;
+}
+
+const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
   const [selectedReference, setSelectedReference] = useState<Reference | null>(
     null
   );
@@ -131,6 +135,7 @@ const References = () => {
           references={filteredReferences}
           selectedReference={selectedReference}
           onReferenceSelect={handleReferenceSelect}
+          onNavigateToCatalogue={onNavigateToCatalogue}
         />
       </div>
     </div>

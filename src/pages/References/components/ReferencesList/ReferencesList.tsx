@@ -6,12 +6,14 @@ interface ReferencesListProps {
   references: Reference[];
   selectedReference: Reference | null;
   onReferenceSelect: (reference: Reference) => void;
+  onNavigateToCatalogue?: (pageNumber: number) => void;
 }
 
 const ReferencesList = ({
   references,
   selectedReference,
   onReferenceSelect,
+  onNavigateToCatalogue,
 }: ReferencesListProps) => {
   return (
     <div className="references-list">
@@ -23,6 +25,7 @@ const ReferencesList = ({
             reference={ref}
             isSelected={selectedReference?.id === ref.id}
             onClick={() => onReferenceSelect(ref)}
+            onNavigateToCatalogue={onNavigateToCatalogue}
           />
         ))}
       </div>
