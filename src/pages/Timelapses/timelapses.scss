@@ -1,0 +1,235 @@
+.timelapses-container {
+  position: relative;
+  overflow: hidden;
+  
+  // Fond avec effet de grille futuriste
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+  
+  // Titre avec effet de texte futuriste
+  .timelapses-title {
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+    
+    span {
+      background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+      
+      &::after {
+        content: attr(data-text);
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+        -webkit-text-fill-color: transparent;
+        filter: blur(8px);
+      }
+    }
+  }
+  
+  // BentoGrid avec disposition dynamique
+  .bento-grid {
+    display: grid;
+    position: relative;
+    z-index: 2;
+    
+    // Effet de profondeur pour la grille
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.2), transparent 70%);
+      z-index: -1;
+      pointer-events: none;
+      filter: blur(50px);
+    }
+  }
+  
+  // Cartes de vignettes avec effets 3D futuristes
+  .timelapse-card {
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    will-change: transform, opacity, box-shadow;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    
+    &:hover {
+      z-index: 10;
+    }
+    
+    .bento-card-inner {
+      height: 100%;
+      width: 100%;
+      transform-style: preserve-3d;
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+  }
+  
+  // Lecteur vidéo principal avec effets futuristes
+  .video-player-container {
+    position: relative;
+    box-shadow: 
+      0 20px 50px rgba(0, 0, 0, 0.3),
+      0 0 30px rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      right: -20px;
+      bottom: -20px;
+      background: radial-gradient(circle at center, rgba(79, 172, 254, 0.15), transparent 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    // Bouton de lecture avec effet de pulsation
+    .play-button {
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        inset: -5px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        animation: pulse 2s infinite;
+      }
+      
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+// Animation de scintillement pour les bordures
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+// Animation de pulsation pour les boutons
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.2); opacity: 0.3; }
+  100% { transform: scale(1); opacity: 0.7; }
+}
+
+// Animation de pulsation lente
+@keyframes pulse-slow {
+  0% { opacity: 0.2; }
+  50% { opacity: 0.4; }
+  100% { opacity: 0.2; }
+}
+
+// Effet de lueur pour les textes et icônes
+.drop-shadow-glow {
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.7));
+}
+
+// Ligne clamp pour les descriptions
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Extensions pour les transformations 3D
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.translate-z-10 {
+  transform: translateZ(10px);
+}
+
+.translate-z-20 {
+  transform: translateZ(20px);
+}
+
+.translate-z-30 {
+  transform: translateZ(30px);
+}
+
+.rotate-y-3 {
+  transform: rotateY(3deg);
+}
+
+.rotate-x-3 {
+  transform: rotateX(3deg);
+}
+
+// Effets de glassmorphism
+.backdrop-blur-md {
+  backdrop-filter: blur(12px);
+}
+
+.backdrop-blur-xl {
+  backdrop-filter: blur(24px);
+}
+
+// Custom animations
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+// Line clamp utility
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

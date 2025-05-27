@@ -1,0 +1,1083 @@
+{
+  "FAISABILITE": [
+    {
+      "id": 4,
+      "lat": 48.7899927,
+      "long": 2.2278908,
+      "title": "GYMNASE PIERRE ET MARIE CURIE",
+      "lieu": "MEUDON - 92",
+      "country": "France",
+      "travaux": [
+        "Rénovation du gymnase",
+        "Création d'une salle polyvalente",
+        "Démolition / reconstruction des vestiaires",
+        "Création d'un club-house",
+        "Rénovation et extension de la salle d'escalade"
+      ],
+      "prix": "2,3 M€",
+      "annee": 2022,
+      "superficie": "2 100 m2"
+    },
+    {
+      "id": 13,
+      "lat": -12.698817046747859,
+      "long": 45.06775828914148,
+      "title": "GYMNASE DE MTSAMBORO",
+      "lieu": "MTSAMBORO - 97630",
+      "country": "Mayotte",
+      "travaux": [
+        "Création d'un gymnase sur 2 niveaux",
+        "1 niveau semi enterré multi-sports",
+        "1 niveau supérieur en terrasse couverte multi-activités",
+        "Couverture acier et toile textile bioclimatique",
+        "Vestiaires et gradins"
+      ],
+      "prix": "14 M€",
+      "annee": 2021,
+      "superficie": "4 800 m2"
+    },
+    {
+      "id": 14,
+      "lat": -12.801334440936174,
+      "long": 45.20912684130591,
+      "title": "ESPACE CULTUREL-SALLE POLYVALENTE-GYMNASE ET TERRAIN DE FOOTBALL",
+      "lieu": "PASSAMAINTY - 97605",
+      "country": "Mayotte",
+      "travaux": [
+        "Création de 2 gymnases en superposition",
+        "Création d'une salle polyvalente",
+        "Création de vestiaires gymnases et stade",
+        "Création de locaux associatifs",
+        "Rénovation du stade de football (T4 ou T5)",
+        "Eclairage sportif E5",
+        "Aménagement du parvis",
+        "Panneaux photovoltaïques en toiture"
+      ],
+      "prix": "21 M€",
+      "annee": 2021,
+      "superficie": "12 600 m2"
+    },
+    {
+      "id": 31,
+      "lat": -12.988874126044461,
+      "long": 45.12968405884573,
+      "title": "VESTIAIRES ET TRIBUNES DU STADE DE FOOTBALL DE MBOUINI",
+      "lieu": "KANI KELI - 97625",
+      "country": "Mayotte",
+      "travaux": [
+        "Vestiaires et locaux annexes",
+        "règlementaires",
+        "Tribunes couvertes",
+        "Club house",
+        "Locaux associatifs",
+        "Accessibilité PMR"
+      ],
+      "prix": "",
+      "annee": 2022,
+      "superficie": "500 m2"
+    },
+    {
+      "id": 38,
+      "lat": -12.781593808077583,
+      "long": 45.237625799485265,
+      "title": "AMÉNAGEMENT D’ESPACES DE NATATION SUR LE LITTORAL",
+      "lieu": "MAMOUDZOU - 97600",
+      "country": "Mayotte",
+      "travaux": [
+        "Equipements aquatiques sur le lagon: Bassin de nage 25 m; Bassin d'apprentissage;Pataugeoire;Pontons",
+        "Equipements terrestres: Poste de secours;Accueil;vestiaires - sanitaires",
+        "Sécurisation du site - Billetterie FMI",
+        "Accessibilité public et accessibilité PMR",
+        "Application de la règlementation piscine publique"
+      ],
+      "prix": "3 M€",
+      "annee": 2022,
+      "superficie": ""
+    },
+    {
+      "id": 49,
+      "lat": -12.78595686150436,
+      "long": 45.22658857299226,
+      "title": "ZONE SPORTIVE ET CULTURELLE DE MTSAPÉRÉ BAOBAB",
+      "lieu": "MAMOUDZOU - 97600",
+      "country": "Mayotte",
+      "travaux": [
+        "Analyse des besoins",
+        "Scénarii et estimatifs financiers",
+        "Rédaction du programme technique détaillé"
+      ],
+      "prix": "",
+      "annee": 2022,
+      "superficie": ""
+    },
+    {
+      "id": 60,
+      "lat": -12.836404947452019,
+      "long": 45.13218865411491,
+      "title": "SALLE DES FETES DE OUANGANI",
+      "lieu": "OUANGANI - 97670",
+      "country": "Mayotte",
+      "travaux": [
+        "Construction complète",
+        "2 salles d’activités divisibles sur 2 niveaux",
+        "Cuisines",
+        "Rooftop aménagé",
+        "Zone de stationnement"
+      ],
+      "prix": "5 M€",
+      "annee": 2024,
+      "superficie": ""
+    }
+  ],
+  "AMO": [
+    {
+      "id": 12,
+      "lat": -12.683960687231975,
+      "long": 45.07680806988978,
+      "title": "STADE DE FOOTBALL DE M’TSAHARA",
+      "lieu": "MTSAMBORO - 97630",
+      "country": "Mayotte",
+      "travaux": [
+        "Création d'un terrain de football en gazon synthétique",
+        "Éclairage sportif E4",
+        "Clôture et pare-ballons",
+        "Vestiaires, annexes, locaux associatifs",
+        "Tribunes",
+        "Stationnement",
+        "Accessibilité PMR",
+        "Aménagement de l'espace extérieur",
+        "Contraintes géo-techniques importantes"
+      ],
+      "prix": "5,8 M€",
+      "annee": 2022,
+      "superficie": "8 900 m2"
+    },
+    {
+      "id": 43,
+      "lat": -12.785060836514393,
+      "long": 45.27096704378242,
+      "title": "TERRAIN DE FOOTBALL CENTRE",
+      "lieu": "PAMANDZI - 97610",
+      "country": "Mayotte",
+      "travaux": [
+        "Terrain de football T4 FFF",
+        "Création de vestiaires sportifs et locaux annexes",
+        "Tribunes couvertes",
+        "Éclairage sportif",
+        "Sécurisation du site, stationnement et accès PMR"
+      ],
+      "prix": "3.6M€",
+      "annee": 2022,
+      "superficie": ""
+    },
+    {
+      "id": 54,
+      "lat": -12.848793291992083,
+      "long": 45.106628994993386,
+      "title": "CRÉATION TERRRAIN DE FOOTBALL DE BANDRANI",
+      "lieu": "SADA - 97640",
+      "country": "Mayotte",
+      "travaux": [
+        "Création d’un terrain de football en gazon synthétique",
+        "Création d’un éclairage sportif",
+        "Équipements sportifs et sécurisation du site",
+        "Assistance administrative et financière",
+        "Assistance au suivi des travaux",
+        "Assistance aux opérations de réception"
+      ],
+      "prix": "2 M€",
+      "annee": "2022 - 2023",
+      "superficie": ""
+    },
+    {
+      "id": 55,
+      "lat": -12.8518289,
+      "long": 45.0993169,
+      "title": "CONSTRUCTION DE LA NOUVELLE MAIRIE",
+      "lieu": "SADA - 97640",
+      "country": "Mayotte",
+      "travaux": [
+        "Création de la nouvelle Mairie de SADA",
+        "Assistance administrative et financière",
+        "Assistance au suivi des travaux",
+        "Assistance aux opérations de réception"
+      ],
+      "prix": "8 M€",
+      "annee": "2022 - 2023",
+      "superficie": ""
+    }
+  ],
+  "MOE": [
+    {
+      "id": 1,
+      "lat": 48.782763447444786,
+      "long": 2.2266157100236805,
+      "title": "COMPLEXE SPORTIF DE LA POINTE DE TRIVAUX",
+      "lieu": "MEUDON - 92",
+      "country": "France",
+      "travaux": [
+        "Construction d'un stade de football en toiture terrasse (R+2)",
+        "Niveau T4 FFF",
+        "Eclairage sportif E5",
+        "Club-house R+2",
+        "Vestiaires et annexes R0",
+        "Parking 96pl. sur 2 niveaux",
+        "Ecrans géants",
+        "Bassin de rétention en sous-face de la globalité du terrain"
+      ],
+      "prix": "4,5 M€",
+      "annee": "2021",
+      "superficie": "8 900 m2"
+    },
+    {
+      "id": 2,
+      "lat": 43.5298424,
+      "long": 5.4474738,
+      "title": "CENTRE FOOTBALLISTIQUE LMF",
+      "lieu": "AIX EN PROVENCE - 13",
+      "country": "France",
+      "travaux": [
+        "1 terrain d'honneur Niv.3 hybride",
+        "1 terrain annexe Niv.5 synthétique",
+        "2 terrains entrainement Niv.5 synthétique",
+        "2 terrain de foot à 5",
+        "1 terrain beach soccer",
+        "1 terrain de futsal couvert",
+        "1 piste d’athlétisme",
+        "Ensemble vestiaires et tribunes",
+        "Eclairage sportif des installations"
+      ],
+      "prix": "15 M€",
+      "annee": "2022",
+      "superficie": "55 000 m2"
+    },
+    {
+      "id": 3,
+      "lat": 48.963563419579536,
+      "long": 2.6011872656868507,
+      "title": "CENTRE FOOTBALLISTIQUE ROBERT MARCHAND",
+      "lieu": "MITRY-MORY - 77",
+      "country": "France",
+      "travaux": [
+        "Création d'un centre footballistique",
+        "1 terrain de football honneur T3 synthétique liège",
+        "1 terrain de football annexe T5 synthétique sable",
+        "Tribunes et vestiaires sportifs",
+        "Eclairage sportif des installations"
+      ],
+      "prix": "4,5 M€",
+      "annee": "2022",
+      "superficie": "30 000 m2"
+    },
+    {
+      "id": 5,
+      "lat": -12.732236461387036,
+      "long": 45.18883097765744,
+      "title": "STADE DE FOOTBALL DE KANGANI",
+      "lieu": "KOUNGOU - 97690",
+      "country": "Mayotte",
+      "travaux": [
+        "Rénovation Terrain de football T4 FFF",
+        "Création de vestiaires sportifs",
+        "Création de tribunes couvertes",
+        "Rénovation de l'éclairage sportif"
+      ],
+      "prix": "2,2 M€",
+      "annee": "2022",
+      "superficie": "10 000 m2"
+    },
+    {
+      "id": 6,
+      "lat": -12.747862414092381,
+      "long": 45.22069018212641,
+      "title": "PLATEAU SPORTIF ET ESPACE CULTUREL DE MAJICAVO KOROPA",
+      "lieu": "KOUNGOU - 97690",
+      "country": "Mayotte",
+      "travaux": [
+        "Rénovation d'un plateau sportif multisports",
+        "Réaménagement de l'espace culturel",
+        "Couverture du plateau sportif",
+        "Panneaux photovoltaïques en toiture",
+        "Eclairage sportif et locaux annexes",
+        "Vestiaires et gradins",
+        "Création d'un parking sous scène de 50 places",
+        "Sanitaires publics",
+        "toiture mixte (photovoltaïque)"
+      ],
+      "prix": "7 M€",
+      "annee": "2022",
+      "superficie": "3 950 m2"
+    },
+    {
+      "id": 7,
+      "lat": -12.723302416363005,
+      "long": 45.05621155534697,
+      "title": "STADE DE FOOTBALL ACOUA CENTRE",
+      "lieu": "ACOUA - 97630",
+      "country": "Mayotte",
+      "travaux": [
+        "Création d'un terrain de football en gazon synthétique T3",
+        "Éclairage sportif E3",
+        "Clôture et pare-ballons",
+        "6 Vestiaires sur 2 niveaux et locaux annexes",
+        "Club house - Espace VIP",
+        "Tribunes couvertes et espace de restauration",
+        "Stationnement",
+        "Accessibilité PMR"
+      ],
+      "prix": "6 M€",
+      "annee": "2022",
+      "superficie": "8 900 m2"
+    },
+    {
+      "id": 8,
+      "lat": -12.716384841236065,
+      "long": 45.04923857236742,
+      "title": "STADE DE FOOTBALL DE MTSANGADOUA",
+      "lieu": "ACOUA - 97630",
+      "country": "Mayotte",
+      "travaux": [
+        "Création d'un terrain de football en gazon synthétique",
+        "Terrain de basket 3x3 en accès libre",
+        "Création de 2 couloirs de vitesse et 1 sautoir en longueur",
+        "Eclairage sportif",
+        "Clôtures et pare-ballons",
+        "2 vestiaires et locaux annexes",
+        "règlementaires",
+        "Gradins",
+        "Stationnement VL et Bus",
+        "Accessibilité PMR"
+      ],
+      "prix": "3,6 M€",
+      "annee": "2022",
+      "superficie": "8 900 m2"
+    },
+    {
+      "id": 9,
+      "lat": -12.714394246896148,
+      "long": 45.0504686778501,
+      "title": "PLATEAU SPORTIF ET DOJO DE MTSANGADOUA",
+      "lieu": "ACOUA - 97630",
+      "country": "Mayotte",
+      "travaux": [
+        "Rénovation d'un plateau sportif multi-activités",
+        "Création d'un DOJO",
+        "Couverture textile du plateau sportif",
+        "Eclairage sportif",
+        "2 vestiaires et locaux annexes",
+        "Gradins",
+        "Bureaux associatifs et salle de réunion",
+        "Accessibilité PMR"
+      ],
+      "prix": "2,2 M€",
+      "annee": "2022",
+      "superficie": "1 845 m2"
+    },
+    {
+      "id": 10,
+      "lat": -12.847780344476554,
+      "long": 45.136145994524725,
+      "title": "PLATEAU SPORTIF CENTRE",
+      "lieu": "ACOUA - 97630",
+      "country": "Mayotte",
+      "travaux": [
+        "Rénovation d'un plateau sportif multi-activités",
+        "Couverture du plateau sportif",
+        "Eclairage sportif",
+        "Vestiaires et locaux annexes",
+        "Création de bureaux associatifs en R+1",
+        "Rénovation de gradins",
+        "Accessibilité PMR"
+      ],
+      "prix": "2 M€",
+      "annee": "2022",
+      "superficie": "1 800 m2"
+    },
+    {
+      "id": 11,
+      "lat": -12.837749787000073,
+      "long": 45.13165360736637,
+      "title": "PLATEAU SPORTIF DE BARAKANI",
+      "lieu": "ACOUA - 97630",
+      "country": "Mayotte",
+      "travaux": [
+        "Rénovation d'un plateau",
+        "sportif multi-activités",
+        "Couverture avec panneaux photovoltaïques",
+        "Eclairage sportif",
+        "Vestiaires",
+        "Gradins",
+        "Accessibilité PMR"
+      ],
+      "prix": "1,2 M€",
+      "annee": "2022",
+      "superficie": "1 800 m2"
+    },
+    {
+      "id": 15,
+      "lat": 48.81888849637072,
+      "long": 2.3468116056203314,
+      "title": "STADE CHARLETY - ATHLÉTISME",
+      "lieu": "PARIS - 75",
+      "country": "France",
+      "travaux": [
+        "Rénovation de la piste d'athlétisme en piste Niv. 1 IAAF",
+        "Rénovation de la piste annexe",
+        "Rénovation de l'éclairage du stade en LED 2000 Lux",
+        "Mise aux normes contrôle d’accès",
+        "Écran géant + infrastructures Génie-civil"
+      ],
+      "prix": "4,8 M€",
+      "annee": "2019",
+      "superficie": "15 000 m2"
+    },
+    {
+      "id": 16,
+      "lat": 48.73024292230335,
+      "long": 2.2943092482821825,
+      "title": "STADE LADOUMEGUE - PRO D2",
+      "lieu": "MASSY - 91",
+      "country": "France",
+      "travaux": [
+        "Construction d'un terrain de rugby en synthétique",
+        "Cat. B FFR",
+        "Éclairage sportif E3 600 Lux",
+        "Clôture et pares-ballons"
+      ],
+      "prix": "1,5 M€",
+      "annee": "2019",
+      "superficie": "11 000 m2"
+    },
+    {
+      "id": 17,
+      "lat": 48.73085532453305,
+      "long": 2.2968624677260108,
+      "title": "STADE LADOUMEGUE ECLAIRAGE TOP 14",
+      "lieu": "MASSY - 91",
+      "country": "France",
+      "travaux": ["Éclairage sportif TOP 14 1 800 lux"],
+      "prix": "1,4 M€",
+      "annee": "2019",
+      "superficie": "11 000 m2"
+    },
+    {
+      "id": 18,
+      "lat": 47.11544576485359,
+      "long": 2.3971768873958466,
+      "title": "STADE JACQUES RIMBAULT",
+      "lieu": "BOURGES - 18",
+      "country": "France",
+      "travaux": [
+        "Création d'un terrain de football en synthétique",
+        "Niveau 4 SYE FFF - Remplissage liège",
+        "Éclairage sportif E3/400 Lux",
+        "Clôtures et pares-ballons"
+      ],
+      "prix": "1 M€",
+      "annee": "2020",
+      "superficie": ""
+    },
+    {
+      "id": 19,
+      "lat": 48.9623140868633,
+      "long": 2.4958306229257987,
+      "title": "STADE DE LA ROSE DES VENTS",
+      "lieu": "AULNAY-SOUS-BOIS - 94",
+      "country": "France",
+      "travaux": [
+        "Terrain de football en gazon synthétique sablé",
+        "Niveau 4 SYE FFF",
+        "Tunnel d'accès 21 ml",
+        "Clôtures et pares-ballons"
+      ],
+      "prix": "517 k€",
+      "annee": "2020",
+      "superficie": "8 800 m2"
+    },
+    {
+      "id": 20,
+      "lat": 48.93725742352223,
+      "long": 2.5076112931951,
+      "title": "STADE DU MOULIN NEUF - TERRAIN DE RUGBY",
+      "lieu": "AULNAY-SOUS-BOIS - 94",
+      "country": "France",
+      "travaux": [
+        "Création d'un terrain de rugby en synthétique liège",
+        "Cat.C FFR",
+        "Éclairage sportif 300 Lux",
+        "Tribunes 100p.",
+        "Clôtures et pare-ballons"
+      ],
+      "prix": "1,3 M€",
+      "annee": "2021",
+      "superficie": "9 000 m2"
+    },
+    {
+      "id": 21,
+      "lat": 48.97684579700885,
+      "long": 2.631970619564772,
+      "title": "STADE DE RUGBY",
+      "lieu": "MITRY-MORY - 77",
+      "country": "France",
+      "travaux": [
+        "Création d'un stade de rugby",
+        ",Terrain gazonné cat. C",
+        ",Vestiaires - Club-house sur 600 m2",
+        ",Tribunes 150 pl.",
+        ",VRD parking officiels"
+      ],
+      "prix": "2,1 M€",
+      "annee": "2020",
+      "superficie": "9 000 m2"
+    },
+    {
+      "id": 22,
+      "lat": 48.40420518079484,
+      "long": 2.683136995876514,
+      "title": "STADE PHILIPPE MAHUT MAISON DES SPORTS",
+      "lieu": "FONTAINEBLEAU - 77",
+      "country": "France",
+      "travaux": [
+        "Rénovation complète et restructuration de la maison des sports"
+      ],
+      "prix": "0,4 M€",
+      "annee": "2021",
+      "superficie": "1 400 m2"
+    },
+    {
+      "id": 24,
+      "lat": 49.2855313250891,
+      "long": -0.20638964427331707,
+      "title": "PUMP TRACK",
+      "lieu": "MERVILLE - 14",
+      "country": "France",
+      "travaux": [
+        "Aire de Pump-track",
+        "3 pistes",
+        "Niveau débutant/confirmé/expert"
+      ],
+      "prix": "150 k€",
+      "annee": "2020",
+      "superficie": "1 800 m2"
+    },
+    {
+      "id": 25,
+      "lat": 48.849070271446244,
+      "long": 1.8992319728487406,
+      "title": "PSTADE DE MORTEMAIN TERRAIN DE FOOTBALL",
+      "lieu": "BEYNES - 78",
+      "country": "France",
+      "travaux": [
+        "Création d'un terrain en gazon synthétique sablé",
+        "Niveau 6 FFF",
+        "Éclairage sportif 150 Lux",
+        "Tribunes 200p.",
+        "Clôtures et pare-ballons"
+      ],
+      "prix": "0,9 M€",
+      "annee": "2021",
+      "superficie": "8 000 m2"
+    },
+    {
+      "id": 26,
+      "lat": 48.734458031353945,
+      "long": 2.240971612816849,
+      "title": "GYMNASE DE VILGENIS",
+      "lieu": "MASSY - 91",
+      "country": "France",
+      "travaux": [
+        "Réhabilitation du gymnase",
+        "Création d'une piste d’athlétisme",
+        "Création d'un terrain de Handball outdoor",
+        "Création de 2 terrains de basket",
+        "Création d'un terrain de foot à 5 synthétique",
+        "Éclairage sportif 200 Lux"
+      ],
+      "prix": "2,1 M€",
+      "annee": "2022",
+      "superficie": "7 200 m2"
+    },
+    {
+      "id": 27,
+      "lat": -12.78802840706433,
+      "long": 45.130235440448146,
+      "title": "Maison des sports de combat de Mroalé",
+      "lieu": "TSINGONI - 97680",
+      "country": "Mayotte",
+      "travaux": [
+        "Dojo départemental 4 aires de combat et tribunes de 150 places",
+        "Salle de boxe et échauffement DOJO",
+        "Salle sports de bien-être",
+        "Vestiaires et locaux annexes pour réception des compétitions de l’ensemble des Arts Martiaux",
+        "Club house - Terrasse VIP panoramique",
+        "Accessibilité PMR"
+      ],
+      "prix": "6 M€",
+      "annee": "2022",
+      "superficie": ""
+    },
+    {
+      "id": 28,
+      "lat": -12.79036329229775,
+      "long": 45.11487492335691,
+      "title": "Maison des sports de combat de Mroalé",
+      "lieu": "TSINGONI - 97680",
+      "country": "Mayotte",
+      "travaux": [
+        "Rénovation d'un terrain de football en gazon naturel",
+        "Piste d'athlétisme 6 couloirs et vitesse 8 couloirs",
+        "Plateau sportif multi-sports avec couverture photovoltaïque",
+        "Éclairage sportif",
+        "Clôtures et pares-ballons",
+        "Vestiaires et locaux annexes règlementaires",
+        "Tribunes couvertes",
+        "Stationnements VL et BUS",
+        "Accessibilité PMR"
+      ],
+      "prix": "13 M€",
+      "annee": "2022",
+      "superficie": ""
+    },
+    {
+      "id": 29,
+      "lat": -12.786734646595665,
+      "long": 45.14231692225665,
+      "title": "STADE DE FOOTBALL DE MIRÉRÉNI",
+      "lieu": "TSINGONI - 97680",
+      "country": "Mayotte",
+      "travaux": [
+        "Rénovation d'un terrain de football en gazon naturel",
+        "Éclairage sportif",
+        "Clôtures et pares-ballons",
+        "Vestiaires et locaux annexes règlementaires",
+        "Tribunes couvertes",
+        "Stationnements avec accès BUS",
+        " Accessibilité PMR"
+      ],
+      "prix": "",
+      "annee": "2022",
+      "superficie": "11 000 m2"
+    },
+    {
+      "id": 30,
+      "lat": -12.789229441284633,
+      "long": 45.125989591727425,
+      "title": "PLATEAU SPORTIF CENTRE",
+      "lieu": "TSINGONI - 97680",
+      "country": "Mayotte",
+      "travaux": [
+        "Transformation du terrain de tennis en plateau sportif multisports",
+        "Couverture",
+        "Mur d’apprentissage escalade",
+        "Éclairage sportif",
+        "Vestiaires",
+        "Accessibilité PMR"
+      ],
+      "prix": "",
+      "annee": "2022",
+      "superficie": "2 500 m2"
+    },
+    {
+      "id": 32,
+      "lat": 48.4644154661264,
+      "long": 2.6035283455718794,
+      "title": "TERRAIN DE FOOTBALL",
+      "lieu": "CHAILLY EN BIERE - 77",
+      "country": "France",
+      "travaux": [
+        "Création d'un terrain de football en gazon synthétique",
+        "Niveau T5 F.F.F.",
+        "Vestiaires et locaux annexes règlementaires",
+        "Éclairage sportif",
+        "Clôtures et pares-ballons"
+      ],
+      "prix": "",
+      "annee": "2022",
+      "superficie": "8 530 m2"
+    },
+    {
+      "id": 33,
+      "lat": -12.791133821038251,
+      "long": 45.10365500528473,
+      "title": "PLATEAU SPORTIF CENTRE",
+      "lieu": "TSINGONI - 97680",
+      "country": "Mayotte",
+      "travaux": [
+        "Rénovation d'un plateau sportif multi-activités",
+        "Couverture avec panneaux photovoltaïques",
+        "Eclairage sportif",
+        "Vestiaires",
+        "Gradins",
+        "Accessibilité PMR"
+      ],
+      "prix": "3.5 M€",
+      "annee": "2022",
+      "superficie": "2 500 m2"
+    },
+    {
+      "id": 34,
+      "lat": -12.79073384928255,
+      "long": 45.134633944426355,
+      "title": "PLATEAU SPORTIF MJC COMBANI",
+      "lieu": "TSINGONI - 97680",
+      "country": "Mayotte",
+      "travaux": [
+        "Rénovation d'un plateau sportif multi-activités",
+        "Couverture toile",
+        "Eclairage sportif",
+        "Gradins",
+        "Accessibilité PMR"
+      ],
+      "prix": "3.3 M€",
+      "annee": "2022",
+      "superficie": "2 500 m2"
+    },
+    {
+      "id": 35,
+      "lat": -12.847133147771219,
+      "long": 45.1357139667863,
+      "title": "STADE DE FOOTBALL CENTRE",
+      "lieu": "OUANGANI - 97670",
+      "country": "Mayotte",
+      "travaux": [
+        "Rénovation d'un terrain de football en gazon synthétique",
+        "Éclairage sportif",
+        "Clôtures et pares-ballons",
+        "Vestiaires et locaux annexes règlementaires",
+        "Club house",
+        "Tribunes couvertes",
+        "Aménagement pour stationnements",
+        "Accessibilité PMR"
+      ],
+      "prix": "6 M€",
+      "annee": "2022",
+      "superficie": "11 000 m2"
+    },
+    {
+      "id": 36,
+      "lat": 47.11616801626558,
+      "long": 2.3955185674223056,
+      "title": "STADE DE FOOTBALL - TERRAIN D’HONNEUR DE JACQUES RIMBAULT",
+      "lieu": "BOURGES - 18",
+      "country": "France",
+      "travaux": [
+        "Réhabilitation du terrain d'honneur de football en gazon naturel avec substrat élaboré",
+        "Niveau T2",
+        "Rénovation complète du système d’arrosage",
+        "Équipements sportifs"
+      ],
+      "prix": "1,1 M€",
+      "annee": "2022",
+      "superficie": "11 000 m2"
+    },
+    {
+      "id": 37,
+      "lat": -12.690587532418256,
+      "long": 45.10697552521374,
+      "title": "STADE DE FOOTBALLDE MTSANGAMBOUA",
+      "lieu": "BANDRABOUA - 97650",
+      "country": "Mayotte",
+      "travaux": [
+        "Rénovation d'un terrain de football en gazon synthétique",
+        "Niveau T4",
+        "Éclairage sportif E4",
+        "Clôtures et pare-ballons",
+        "Vestiaires et locaux annexes règlementaires",
+        "Gradins",
+        "Aménagement pour stationnements",
+        "Accessibilité PMR"
+      ],
+      "prix": "2,7 M€",
+      "annee": "2022",
+      "superficie": "11 000 m2"
+    },
+    {
+      "id": 39,
+      "lat": -12.737972074572525,
+      "long": 45.159471172482355,
+      "title": "RELOCALISATION STADE DE FOOTBALL LONGONI",
+      "lieu": "KOUNGOU - 97690",
+      "country": "Mayotte",
+      "travaux": [
+        "Terrain de football en gazon naturel",
+        "Piste d’athlétisme 8/8 avec ateliers de sauts et lancers",
+        "Vestiaires et locaux annexes",
+        "Tribunes en surélévation avec couverture",
+        "Éclairage sportif",
+        "Sécurisation du site",
+        "Liaisons piétonnes et aménagements stationnements VL",
+        "Accessibilité public et PMR"
+      ],
+      "prix": "15 M€",
+      "annee": "2022",
+      "superficie": ""
+    },
+    {
+      "id": 40,
+      "lat": -12.738031707056182,
+      "long": 45.164988801159026,
+      "title": "REHABILITATION DE L’ESPACE SPORTIF DE LONGONI",
+      "lieu": "KOUNGOU - 97690",
+      "country": "Mayotte",
+      "travaux": [
+        "Réfection du City-stade",
+        "Couverture légère du City stade",
+        "Surface sportive",
+        "Aménagement de l’espace extérieur : street workout - parcours santé - terrain de pétanque - tables tennis de table - jeux d’enfants - mobiliers urbains …surface sportive",
+        "Création de sanitaires publics",
+        "Voirie et mur en gabion",
+        "Création d’une passerelle piétonne"
+      ],
+      "prix": "1 M€",
+      "annee": "2022",
+      "superficie": ""
+    },
+    {
+      "id": 41,
+      "lat": -12.73286044964477,
+      "long": 45.200171481643515,
+      "title": "ESPACE SPORTIF DE TREVANI",
+      "lieu": "KOUNGOU - 97690",
+      "country": "Mayotte",
+      "travaux": [
+        "Création d’un plateau sportif couvert",
+        "Création de vestiaires et de ses annexes",
+        "Mise aux normes du terrain de football",
+        "Création de tribunes couvertes",
+        "Création des accès et accessibilité"
+      ],
+      "prix": "6.3 M€",
+      "annee": "2022",
+      "superficie": ""
+    },
+    {
+      "id": 42,
+      "lat": -12.74981639654155,
+      "long": 45.22716006893927,
+      "title": "REHABILITATION DU TERRAIN DE FOOTBALL DE MAJIKAVO KOROPA",
+      "lieu": "KOUNGOU - 97690",
+      "country": "Mayotte",
+      "travaux": [
+        "Création d’un terrain synthétique",
+        "Création d’un éclairage E3",
+        "Aménagement de parking public"
+      ],
+      "prix": "5.6 M€",
+      "annee": "2022",
+      "superficie": ""
+    },
+    {
+      "id": 44,
+      "lat": -12.866616527294559,
+      "long": 45.198178337467695,
+      "title": "PLATEAU SPORTIF DE HAJANGOUA GYMNASE",
+      "lieu": "DEMBENI - 97660",
+      "country": "Mayotte",
+      "travaux": [
+        "Construction d’un plateau sportif avec couverture",
+        "Construction de vestiaires / tribunes",
+        "Eclairage sportif",
+        "Accessibilité PMR et cheminement piétons"
+      ],
+      "prix": "5 M€",
+      "annee": "2022",
+      "superficie": "5 000 m2"
+    },
+    {
+      "id": 45,
+      "lat": -12.845521528764126,
+      "long": 45.192023076781304,
+      "title": "PLATEAU SPORTIF D’ ILONI : POLE ESPOIR DU HANDBALL FEMININ",
+      "lieu": "DEMBENI - 97660",
+      "country": "Mayotte",
+      "travaux": [
+        "Rénovation du plateau sportif",
+        "Création d’une couverture en toile tendue",
+        "Construction de vestiaires / tribunes",
+        "Espace VIP en terrasse",
+        "Tribunes"
+      ],
+      "prix": "2.9M€",
+      "annee": "2022",
+      "superficie": "2500 m2"
+    },
+    {
+      "id": 46,
+      "lat": -12.845453183405807,
+      "long": 45.190979669214116,
+      "title": "STADE DE FOOTBALL D’ ILONI",
+      "lieu": "DEMBENI - 97660",
+      "country": "Mayotte",
+      "travaux": [
+        "Construction de vestiaires",
+        "Construction de tribunes couvertes"
+      ],
+      "prix": "1.5M€",
+      "annee": "2022",
+      "superficie": ""
+    },
+    {
+      "id": 47,
+      "lat": -12.761872985777918,
+      "long": 45.084548048005686,
+      "title": "STADE DE FOOTBALL CENTRE",
+      "lieu": "MTSANGAMOUJI - 97656",
+      "country": "Mayotte",
+      "travaux": [
+        "Construction d’un terrain de football T3 FFF et rugby en gazon synthétique",
+        "Construction de vestiaires et tribunes couvertes",
+        " Éclairage sportif",
+        "Accessibilité"
+      ],
+      "prix": "5 M€",
+      "annee": "2022 - 2023",
+      "superficie": "11 000 m2"
+    },
+    {
+      "id": 48,
+      "lat": 48.807756936107076,
+      "long": 2.24747512934528,
+      "title": "COMPLEXE SPORTIF RENÉ LEDUC",
+      "lieu": "MEUDON - 92",
+      "country": "France",
+      "travaux": [
+        "Création de 6 terrains de tennis en terre battue aux normes compétitions",
+        "Création de 2 terrains en résine extérieurs",
+        "Création de sanitaires publics",
+        "Système d’arrosage",
+        "Création d’un accès pompier et PMR"
+      ],
+      "prix": "2,3 M€",
+      "annee": "2021",
+      "superficie": ""
+    },
+    {
+      "id": 50,
+      "lat": -20.959581971281636,
+      "long": 55.652958913735574,
+      "title": "REHABILITATION/EXTENSION ECOLE DE MUSIQUE ET ECOLE DE DANSE",
+      "lieu": "SAINT ANDRÉ - 97440",
+      "country": "La Réunion",
+      "travaux": [
+        "Réhabilitation complète d’un espace",
+        "Scénarii et estimatifs financiers"
+      ],
+      "prix": "",
+      "annee": "2022",
+      "superficie": ""
+    },
+    {
+      "id": 51,
+      "lat": -12.84963292760737,
+      "long": 45.1379769737789,
+      "title": "MAISON DES ASSOCIATIONS",
+      "lieu": "SOUANGANI - 97670",
+      "country": "Mayotte",
+      "travaux": [
+        "Construction complète",
+        "Scénarii et estimatifs financiers",
+        "Niveau R+2 avec toiture terrasse"
+      ],
+      "prix": "2 M€",
+      "annee": "2022 - 2023",
+      "superficie": ""
+    },
+    {
+      "id": 52,
+      "lat": -12.849509881960163,
+      "long": 45.10721150230549,
+      "title": "PLATEAU SPORTIF BANDRANI",
+      "lieu": "SADA - 97640",
+      "country": "Mayotte",
+      "travaux": [
+        "Couverture du plateau sportif",
+        "Rénovation de la surface de jeu",
+        "Accessibilité, stationnement et vestiaires annexes"
+      ],
+      "prix": "2 M€",
+      "annee": "2022 - 2023",
+      "superficie": ""
+    },
+    {
+      "id": 53,
+      "lat": 47.06557809916176,
+      "long": 2.3839613658483128,
+      "title": "RENOVATION TERRAIN DE RUGBY STADE JEAN BRIVOT",
+      "lieu": "BOURGES - 18000",
+      "country": "France",
+      "travaux": ["Remplacement du gazon synthétique"],
+      "prix": "1 M€",
+      "annee": "2022 - 2023",
+      "superficie": ""
+    },
+    {
+      "id": 56,
+      "lat": 48.001663665946104,
+      "long": 3.7237516626332656,
+      "title": "CONSTRUCTION FOOT5 ET STREET WORK",
+      "lieu": "SAINT FLORENTIN - 89345",
+      "country": "France",
+      "travaux": [
+        "Création d’un terrain Foot5",
+        "Création d’un espace street",
+        "Création d’un sanitaire public",
+        "Accessibilité surveillée",
+        "Éclairage"
+      ],
+      "prix": "250 k€",
+      "annee": "2023",
+      "superficie": ""
+    },
+    {
+      "id": 57,
+      "lat": 48.8194749,
+      "long": 2.3457777,
+      "title": "RÉNOVATION PELOUSE DU STADE SEBASTIEN CHARLETY",
+      "lieu": "PARIS 75000",
+      "country": "France",
+      "travaux": [
+        "Rénovation de la surface sportive en pelouse naturelle système HYBRIDE sur SUBSTRAT ÉLABORÉ RENFORCÉ",
+        "Rénovation complète du sytème d’arrosage",
+        "Équipements sportifs"
+      ],
+      "prix": "1,5 M€",
+      "annee": "2023",
+      "superficie": ""
+    },
+    {
+      "id": 58,
+      "lat": -12.9107086,
+      "long": 45.0801256,
+      "title": "CITY STADE DE BOUENI",
+      "lieu": "BOUENI - 97620",
+      "country": "Mayotte",
+      "travaux": [
+        "Création d’un city stade en accès libre",
+        "Aménagement complémentaire sportif",
+        "Création d’une servitude de passage",
+        "Création d’une zone de stationnement",
+        "Aménagement de sanitaires"
+      ],
+      "prix": "1,4 M€",
+      "annee": "2023",
+      "superficie": ""
+    },
+    {
+      "id": 61,
+      "lat": -12.684138573172405,
+      "long": 45.07776533239021,
+      "title": "PLATEAU DE M’TSAHARA",
+      "lieu": "M’TSAMBORO - 97630",
+      "country": "Mayotte",
+      "travaux": [
+        "Couvrture plateau sportif",
+        "Création de vestiaires modulaires sur le bâtiment existant",
+        "Plateau dédié au développement du basket 3x3",
+        "Éclairage sportif"
+      ],
+      "prix": "3,5 M€",
+      "annee": "2024",
+      "superficie": ""
+    }
+  ]
+}

@@ -1,0 +1,179 @@
+.page-transition-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  
+  .page-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    will-change: transform, filter;
+  }
+  
+  .panels-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    opacity: 0.85;
+    mix-blend-mode: soft-light;
+
+    .transition-panel {
+      width: 20%;
+      height: 100%;
+      background: linear-gradient(135deg, 
+        rgba(20, 22, 32, 0.9) 0%,
+        rgba(74, 144, 226, 0.7) 30%,
+        rgba(113, 42, 249, 0.6) 70%,
+        rgba(20, 22, 32, 0.9) 100%
+      );
+      transform-origin: bottom;
+      will-change: transform;
+      backdrop-filter: blur(8px);
+
+      &:nth-child(2) { 
+        background: linear-gradient(135deg, 
+          rgba(20, 22, 32, 0.9) 0%,
+          rgba(113, 42, 249, 0.6) 40%,
+          rgba(233, 74, 135, 0.5) 60%,
+          rgba(20, 22, 32, 0.9) 100%
+        );
+      }
+      &:nth-child(3) { 
+        background: linear-gradient(135deg, 
+          rgba(20, 22, 32, 0.9) 0%,
+          rgba(233, 74, 135, 0.5) 50%,
+          rgba(74, 144, 226, 0.7) 80%,
+          rgba(20, 22, 32, 0.9) 100%
+        );
+      }
+      &:nth-child(4) { 
+        background: linear-gradient(135deg, 
+          rgba(20, 22, 32, 0.9) 0%,
+          rgba(74, 144, 226, 0.7) 30%,
+          rgba(233, 74, 135, 0.5) 70%,
+          rgba(20, 22, 32, 0.9) 100%
+        );
+      }
+      &:nth-child(5) { 
+        background: linear-gradient(135deg, 
+          rgba(20, 22, 32, 0.9) 0%,
+          rgba(113, 42, 249, 0.6) 40%,
+          rgba(74, 144, 226, 0.7) 60%,
+          rgba(20, 22, 32, 0.9) 100%
+        );
+      }
+    }
+  }
+
+  .particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1001;
+    pointer-events: none;
+    mix-blend-mode: screen;
+
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      will-change: transform, opacity;
+      opacity: 0.6;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: inherit;
+        border-radius: inherit;
+        filter: blur(3px);
+        opacity: 0.2;
+      }
+
+      @for $i from 1 through 3 {
+        &:nth-child(#{$i}n) {
+          background: rgba(74, 144, 226, 0.8);
+          width: 12px;
+          height: 12px;
+        }
+        &:nth-child(#{$i}n + 1) {
+          background: rgba(113, 42, 249, 0.7);
+          width: 6px;
+          height: 6px;
+        }
+        &:nth-child(#{$i}n + 2) {
+          background: rgba(233, 74, 135, 0.6);
+          width: 10px;
+          height: 10px;
+        }
+      }
+    }
+  }
+}
+
+// Styles pour le Hero
+.Hero {
+  .word {
+    display: block;
+    overflow: hidden;
+    margin-bottom: 0.2em;
+
+    span {
+      display: block;
+      will-change: transform, opacity;
+    }
+  }
+
+  .hero-title {
+    perspective: 1000px;
+  }
+
+  // Styles pour l'indicateur de défilement
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    transform-origin: top;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      transform-origin: top;
+      transform: scaleY(0.5);
+    }
+  }
+}
+
+// Animation keyframes pour les particules
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
