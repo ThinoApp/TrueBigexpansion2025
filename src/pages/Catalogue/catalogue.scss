@@ -1,4 +1,4 @@
-.catalogue-container {
+.catalogue-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -38,7 +38,7 @@
     }
   }
 
-  .book-container {
+  .catalogue-book-container {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -79,7 +79,7 @@
   }
 }
 
-.book-controls {
+.catalogue-controls {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -124,7 +124,7 @@
   }
 }
 
-.loading-container {
+.catalogue-loading {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -171,7 +171,7 @@
 }
 
 // Conteneur du livre PDF
-.flipbook-container {
+.catalogue-flipbook {
   position: relative;
   width: 100%;
   display: flex;
@@ -205,7 +205,7 @@
   }
 
   // Style pour le livre
-  .demo-book {
+  .catalogue-book {
     transform-style: preserve-3d;
     transform: rotateX(10deg);
     transition: transform 0.5s ease;
@@ -218,7 +218,7 @@
 
 // Styles pour les pages PDF
 // Styles pour les pages du catalogue
-.page {
+.catalogue-page {
   background-color: white;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.4), 0 0 10px rgba(59, 130, 246, 0.2);
   overflow: hidden;
@@ -266,7 +266,7 @@
 }
 
 // Styles pour les couvertures
-.page-content {
+.catalogue-page-content {
   width: 100%;
   height: 100%;
   display: flex;
@@ -276,7 +276,7 @@
   position: relative;
 
   // Style pour la couverture avant
-  &.cover {
+  &.catalogue-cover {
     background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
     color: white;
     text-align: center;
@@ -284,6 +284,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    position: relative;
 
     &::before {
       content: "";
@@ -297,23 +299,65 @@
       z-index: 1;
     }
 
-    .cover-logo {
-      width: 200px;
+    .catalogue-logo-container {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin-bottom: 30px;
-      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
-      position: relative;
-      z-index: 2;
+      
+      .catalogue-cover-logo {
+        width: 200px;
+        filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.4));
+        position: relative;
+        z-index: 2;
+        animation: pulse-subtle 3s ease-in-out infinite;
+      }
+      
+      .catalogue-logo-glow {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        animation: pulse-glow 4s ease-in-out infinite;
+      }
     }
-
-    h1 {
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    
+    .catalogue-cover-title {
       position: relative;
       z-index: 2;
+      
+      .catalogue-glowing-text {
+        font-size: 42px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        color: white;
+        text-shadow: 
+          0 0 5px rgba(255, 255, 255, 0.3),
+          0 0 10px rgba(59, 130, 246, 0.5),
+          0 0 15px rgba(59, 130, 246, 0.3),
+          0 0 20px rgba(59, 130, 246, 0.2);
+        animation: text-flicker 5s linear infinite;
+      }
+    }
+    
+    .catalogue-divider {
+      position: relative;
+      z-index: 2;
+      animation: pulse-width 4s ease-in-out infinite;
+    }
+    
+    .catalogue-particles {
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
+      background-size: 20px 20px;
+      animation: particles-float 20s linear infinite;
+    }
+    
+    .catalogue-glow {
+      opacity: 0.6;
+      animation: pulse-opacity 6s ease-in-out infinite;
     }
 
     p {
@@ -386,6 +430,49 @@
   0% { opacity: 0.6; }
   50% { opacity: 1; }
   100% { opacity: 0.6; }
+}
+
+// Animation de pulsation subtile
+@keyframes pulse-subtle {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+// Animation de pulsation pour la lueur
+@keyframes pulse-glow {
+  0% { opacity: 0.3; transform: scale(0.95); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+  100% { opacity: 0.3; transform: scale(0.95); }
+}
+
+// Animation de variation d'opacité
+@keyframes pulse-opacity {
+  0% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+  100% { opacity: 0.4; }
+}
+
+// Animation de variation de largeur
+@keyframes pulse-width {
+  0% { width: 30px; }
+  50% { width: 40px; }
+  100% { width: 30px; }
+}
+
+// Animation de flottement des particules
+@keyframes particles-float {
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 100px; }
+}
+
+// Animation de scintillement du texte
+@keyframes text-flicker {
+  0% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 10px rgba(59, 130, 246, 0.5), 0 0 15px rgba(59, 130, 246, 0.3), 0 0 20px rgba(59, 130, 246, 0.2); }
+  25% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.4), 0 0 10px rgba(59, 130, 246, 0.6), 0 0 15px rgba(59, 130, 246, 0.4), 0 0 20px rgba(59, 130, 246, 0.3); }
+  50% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 10px rgba(59, 130, 246, 0.5), 0 0 15px rgba(59, 130, 246, 0.3), 0 0 20px rgba(59, 130, 246, 0.2); }
+  75% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(59, 130, 246, 0.7), 0 0 15px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.4); }
+  100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 10px rgba(59, 130, 246, 0.5), 0 0 15px rgba(59, 130, 246, 0.3), 0 0 20px rgba(59, 130, 246, 0.2); }
 }
 
 // Animation de lueur

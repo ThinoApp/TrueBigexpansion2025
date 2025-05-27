@@ -101,7 +101,7 @@ const Catalogue = () => {
 
     // Animation pour le flipbook
     gsap.fromTo(
-      ".flipbook-container",
+      ".catalogue-flipbook",
       {
         opacity: 0,
         scale: 0.95,
@@ -118,7 +118,7 @@ const Catalogue = () => {
 
   return (
     <div
-      className="catalogue-container min-h-screen bg-black text-white py-10 px-0 overflow-y-auto overflow-x-hidden"
+      className="catalogue-wrapper min-h-screen bg-black text-white py-10 px-0 overflow-y-auto overflow-x-hidden"
       style={{
         height: "100vh",
         overflowY: "auto",
@@ -139,10 +139,10 @@ const Catalogue = () => {
         </p>
       </div>
 
-      <div className="book-container relative z-10 mx-auto max-w-7xl">
+      <div className="catalogue-book-container relative z-10 mx-auto max-w-7xl">
         {loading ? (
           <motion.div
-            className="loading-container bg-gray-900/50 backdrop-blur-md rounded-xl border border-blue-500/20 p-10"
+            className="catalogue-loading bg-gray-900/50 backdrop-blur-md rounded-xl border border-blue-500/20 p-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -166,7 +166,7 @@ const Catalogue = () => {
             </div>
 
             <motion.div
-              className="flipbook-container relative"
+              className="catalogue-flipbook relative"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -182,7 +182,7 @@ const Catalogue = () => {
                 maxShadowOpacity={0.7}
                 showCover={true}
                 mobileScrollSupport={true}
-                className="demo-book"
+                className="catalogue-book"
                 ref={bookRef}
                 startPage={0}
                 drawShadow={true}
@@ -199,9 +199,12 @@ const Catalogue = () => {
                 onFlip={handlePageChange}
               >
                 {/* Couverture */}
-                <div className="page">
-                  <div className="page-content cover bg-gradient-to-br from-blue-900 to-blue-500">
-                    <div className="absolute inset-0 bg-black/20 z-0"></div>
+                <div className="catalogue-page">
+                  <div className="catalogue-page-content catalogue-cover bg-gradient-to-br from-blue-900 via-indigo-800 to-blue-500">
+                    {/* Overlay de base avec opacité */}
+                    <div className="absolute inset-0 bg-black/30 z-0"></div>
+                    
+                    {/* Motif de grille en arrière-plan */}
                     <div className="absolute inset-0 overflow-hidden z-0">
                       <div
                         className="w-full h-full opacity-10"
@@ -213,24 +216,49 @@ const Catalogue = () => {
                         }}
                       ></div>
                     </div>
-                    <img
-                      src="/images/assets/Logo BIG 2022.png"
-                      alt="BIG Logo"
-                      className="cover-logo relative z-10 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]"
-                    />
-                    <h1 className="relative z-10 text-4xl font-bold tracking-wider mb-4 drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
-                      Catalogue
-                    </h1>
-                    <p className="relative z-10 text-xl font-light tracking-wide drop-shadow-[0_0_5px_rgba(0,0,0,0.5)]">
-                      BIG Expansion 2025
-                    </p>
+                    
+                    {/* Effet de particules/étoiles */}
+                    <div className="absolute inset-0 z-0 catalogue-particles"></div>
+                    
+                    {/* Cercle décoratif lumineux */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full bg-blue-500/10 blur-3xl z-0 catalogue-glow"></div>
+                    
+                    {/* Contenu de la couverture */}
+                    <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
+                      {/* Logo avec effet amélioré */}
+                      <div className="catalogue-logo-container mb-8">
+                        <img
+                          src="/images/assets/Logo BIG 2022.png"
+                          alt="BIG Logo"
+                          className="catalogue-cover-logo relative drop-shadow-[0_0_20px_rgba(255,255,255,0.7)]"
+                        />
+                        <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full catalogue-logo-glow"></div>
+                      </div>
+                      
+                      {/* Titre avec effet de texte amélioré */}
+                      <h1 className="relative z-10 text-5xl font-bold tracking-wider mb-6 catalogue-cover-title">
+                        <span className="catalogue-glowing-text">CATALOGUE</span>
+                      </h1>
+                      
+                      {/* Ligne décorative */}
+                      <div className="w-32 h-1 bg-gradient-to-r from-blue-300/80 via-white/90 to-blue-300/80 rounded-full mb-6 catalogue-divider"></div>
+                      
+                      {/* Sous-titre */}
+                      <p className="relative z-10 text-2xl font-light tracking-widest mb-2 text-blue-100 drop-shadow-[0_0_8px_rgba(0,0,0,0.6)]">
+                        BIG EXPANSION
+                      </p>
+                      
+                      <p className="relative z-10 text-xl font-light tracking-wide text-blue-200/90 drop-shadow-[0_0_5px_rgba(0,0,0,0.5)]">
+                        2025
+                      </p>
+                    </div>
                   </div>
                 </div>
 
                 {/* Pages du catalogue */}
                 {cataloguePages.map((page) => (
-                  <div className="page" key={page.id}>
-                    <div className="page-content bg-white">
+                  <div className="catalogue-page" key={page.id}>
+                    <div className="catalogue-page-content bg-white">
                       <div className="catalogue-page-container">
                         <img
                           src={page.imageSrc}
@@ -246,8 +274,8 @@ const Catalogue = () => {
                 ))}
 
                 {/* Quatrième de couverture */}
-                <div className="page">
-                  <div className="page-content back-cover bg-gradient-to-br from-blue-500 to-blue-900">
+                <div className="catalogue-page">
+                  <div className="catalogue-page-content back-cover bg-gradient-to-br from-blue-500 to-blue-900">
                     <div className="absolute inset-0 bg-black/20 z-0"></div>
                     <div className="absolute inset-0 overflow-hidden z-0">
                       <div
@@ -280,7 +308,7 @@ const Catalogue = () => {
             </motion.div>
 
             <motion.div
-              className="book-controls mt-8"
+              className="catalogue-controls mt-8"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
