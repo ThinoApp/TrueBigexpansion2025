@@ -11,40 +11,40 @@ interface RealisationsProps {
 const projects = [
   {
     id: 1,
-    title: "Équipements Haute Performance",
-    location: "Lyon, France",
-    year: "2024",
+    title: "BOURGES - STADE ALFRED DEPÈGE",
+    location: "BOURGES 18000",
+    year: "2025",
     category: "Équipements Sportifs",
     description:
-      "Installation complète d'équipements de musculation et de cardio de dernière génération pour les athlètes de haut niveau.",
-    image: "/images/BOURGES RIMBAULT/DJI_0500.JPG",
-    stats: ["300m² d'espace", "50+ machines", "Suivi connecté"],
-    tags: ["#Performance", "#Musculation", "#HautNiveau"],
+      "Agrandissement et rénovation complète d'une piste d'athlétisme 8 couloirs avex agrés sportifs et remise à niveau de l'éclairage",
+    image: "/images/Realisations/STADE ALFRED DEPÈGE - BOURGES 18000.jpg",
+    stats: ["Piste 8 couloirs", "400m homologuée", "Éclairage LED"],
+    tags: ["#Athlétisme", "#Rénovation", "#ÉquipementSportif"],
   },
-  {
-    id: 2,
-    title: "Zone CrossTraining Pro",
-    location: "Bordeaux, France",
-    year: "2023",
-    category: "Équipements Fonctionnels",
-    description:
-      "Espace fonctionnel équipé pour le CrossTraining avec racks, barres olympiques, et zones d'entraînement polyvalentes.",
-    image: "/images/MEUDON/IMG_4224.jpeg",
-    stats: ["200m² dédiés", "Équipement Rogue", "Zone libre"],
-    tags: ["#CrossTraining", "#Fonctionnel", "#Performance"],
-  },
-  {
-    id: 3,
-    title: "Studio Cardio Connecté",
-    location: "Nantes, France",
-    year: "2023",
-    category: "Équipements Cardio",
-    description:
-      "Espace cardio nouvelle génération avec vélos, tapis et rameurs connectés offrant une expérience immersive.",
-    image: "/images/MEUDON/IMG_5886.jpeg",
-    stats: ["30 machines", "Écrans HD", "App dédiée"],
-    tags: ["#Cardio", "#Innovation", "#Connected"],
-  },
+  // {
+  //   id: 2,
+  //   title: "Zone CrossTraining Pro",
+  //   location: "Bordeaux, France",
+  //   year: "2023",
+  //   category: "Équipements Fonctionnels",
+  //   description:
+  //     "Espace fonctionnel équipé pour le CrossTraining avec racks, barres olympiques, et zones d'entraînement polyvalentes.",
+  //   image: "/images/MEUDON/IMG_4224.jpeg",
+  //   stats: ["200m² dédiés", "Équipement Rogue", "Zone libre"],
+  //   tags: ["#CrossTraining", "#Fonctionnel", "#Performance"],
+  // },
+  // {
+  //   id: 3,
+  //   title: "Studio Cardio Connecté",
+  //   location: "Nantes, France",
+  //   year: "2023",
+  //   category: "Équipements Cardio",
+  //   description:
+  //     "Espace cardio nouvelle génération avec vélos, tapis et rameurs connectés offrant une expérience immersive.",
+  //   image: "/images/MEUDON/IMG_5886.jpeg",
+  //   stats: ["30 machines", "Écrans HD", "App dédiée"],
+  //   tags: ["#Cardio", "#Innovation", "#Connected"],
+  // },
 ];
 
 const Realisations = ({

@@ -1,6 +1,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { Home, Briefcase, Building2, Users, Clock, BookOpen, MapPin, ChevronDown } from "lucide-react";
+import {
+  Home,
+  Briefcase,
+  Building2,
+  Users,
+  Clock,
+  BookOpen,
+  MapPin,
+  ChevronDown,
+} from "lucide-react";
 
 interface BottomSheetProps {
   currentSection: string;
@@ -8,44 +17,48 @@ interface BottomSheetProps {
   disabled?: boolean;
 }
 
-const BottomSheet = ({ currentSection, onNavigate, disabled }: BottomSheetProps) => {
+const BottomSheet = ({
+  currentSection,
+  onNavigate,
+  disabled,
+}: BottomSheetProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
-    { 
-      id: "hero", 
+    {
+      id: "hero",
       label: "Accueil",
-      icon: <Home size={24} strokeWidth={1.5} />
+      icon: <Home size={24} strokeWidth={1.5} />,
     },
-    { 
-      id: "services", 
+    {
+      id: "services",
       label: "Services",
-      icon: <Briefcase size={24} strokeWidth={1.5} />
+      icon: <Briefcase size={24} strokeWidth={1.5} />,
     },
-    { 
-      id: "realisations", 
-      label: "Réalisations",
-      icon: <Building2 size={24} strokeWidth={1.5} />
+    {
+      id: "realisations",
+      label: "Travaux en cours",
+      icon: <Building2 size={24} strokeWidth={1.5} />,
     },
-    { 
-      id: "references", 
+    {
+      id: "references",
       label: "Références",
-      icon: <Users size={24} strokeWidth={1.5} />
+      icon: <Users size={24} strokeWidth={1.5} />,
     },
-    { 
-      id: "timelapses", 
-      label: "Timelapses",
-      icon: <Clock size={24} strokeWidth={1.5} />
+    {
+      id: "timelapses",
+      label: "Vidéo et Timelapses",
+      icon: <Clock size={24} strokeWidth={1.5} />,
     },
-    { 
-      id: "catalogue", 
-      label: "Catalogue",
-      icon: <BookOpen size={24} strokeWidth={1.5} />
-    },
-    { 
-      id: "agencies", 
+    // {
+    //   id: "catalogue",
+    //   label: "Catalogue",
+    //   icon: <BookOpen size={24} strokeWidth={1.5} />,
+    // },
+    {
+      id: "agencies",
       label: "Agences",
-      icon: <MapPin size={24} strokeWidth={1.5} />
+      icon: <MapPin size={24} strokeWidth={1.5} />,
     },
   ];
 
@@ -56,7 +69,9 @@ const BottomSheet = ({ currentSection, onNavigate, disabled }: BottomSheetProps)
         className={`fixed bottom-8 right-8 z-50 bg-white/90 backdrop-blur-lg rounded-full p-4 
         border border-white/50 shadow-[0_0_20px_rgba(255,255,255,0.3)] 
         hover:bg-white hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] 
-        transition-all duration-300 ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+        transition-all duration-300 ${
+          disabled ? "opacity-50 cursor-not-allowed" : ""
+        }`}
         whileHover={!disabled ? { scale: 1.1 } : {}}
         whileTap={!disabled ? { scale: 0.95 } : {}}
       >
@@ -99,7 +114,9 @@ const BottomSheet = ({ currentSection, onNavigate, disabled }: BottomSheetProps)
                       }
                     }}
                     className={`group relative overflow-hidden p-6 rounded-2xl transition-all duration-300
-                    border backdrop-blur-sm ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
+                    border backdrop-blur-sm ${
+                      disabled ? "opacity-50 cursor-not-allowed" : ""
+                    }
                     ${
                       currentSection === item.id
                         ? "bg-black text-white border-black shadow-[0_0_20px_rgba(0,0,0,0.2)]"
@@ -108,20 +125,26 @@ const BottomSheet = ({ currentSection, onNavigate, disabled }: BottomSheetProps)
                     whileHover={!disabled ? { scale: 1.02 } : {}}
                     whileTap={!disabled ? { scale: 0.98 } : {}}
                   >
-                    <motion.div 
+                    <motion.div
                       className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
                       initial={{ x: "-100%" }}
                       whileHover={{ x: "100%" }}
                       transition={{ duration: 0.8 }}
                     />
                     <div className="relative z-10 flex flex-col items-center gap-3 text-center">
-                      <motion.div 
-                        className={currentSection === item.id ? "text-white" : "text-black/60"}
+                      <motion.div
+                        className={
+                          currentSection === item.id
+                            ? "text-white"
+                            : "text-black/60"
+                        }
                         whileHover={{ scale: 1.1 }}
                       >
                         {item.icon}
                       </motion.div>
-                      <span className="text-lg font-light tracking-wide">{item.label}</span>
+                      <span className="text-lg font-light tracking-wide">
+                        {item.label}
+                      </span>
                       {currentSection === item.id && (
                         <motion.div
                           initial={{ scale: 0 }}
@@ -141,4 +164,4 @@ const BottomSheet = ({ currentSection, onNavigate, disabled }: BottomSheetProps)
   );
 };
 
-export default BottomSheet; 
+export default BottomSheet;
