@@ -1,14 +1,16 @@
 export interface Reference {
   id: number;
-  lat: number;
-  long: number;
-  title: string;
-  lieu: string;
-  travaux: string[];
-  prix: string;
-  annee: number | string;
-  superficie: string;
-  country: string;
+  name: string;
+  location: string;
+  description: string;
+  mission: string;
+  total_area_m2: number;
+  built_area_m2: number;
+  year: number;
+  cost_eur_ht: number;
+  moa_contact: string;
+  category?: string; // To store the category (terrains_synthetiques, terrains_naturels, etc.)
+  page?: number; // Numéro de page dans le catalogue
 }
 
 export interface Arc {
@@ -26,9 +28,7 @@ export interface Filters {
   minPrice: number | null;
   maxPrice: number | null;
   projectType: string;
-  countryGroup: string;
-  country: string;
-  lieu?: string;
+  category: string;
 }
 
 export interface GlobePoint {

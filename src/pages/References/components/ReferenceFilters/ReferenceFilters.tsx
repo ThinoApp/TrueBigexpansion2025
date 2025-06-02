@@ -10,22 +10,26 @@ interface ReferenceFiltersProps {
 
 const ReferenceFilters = ({ references, filters, onFiltersChange }: ReferenceFiltersProps) => {
   // Extract unique values for filters
-  const years = [...new Set(references.map(ref => Number(ref.annee)).filter(year => !isNaN(year)))].sort((a, b) => b - a);
+  const years = [...new Set(references.map(ref => ref.year))].sort((a, b) => b - a);
+  
+  // Define project types based on common terms in the data
   const projectTypes = [
+    "Stade",
+    "Terrain",
+    "Piste",
     "Gymnase",
-    "Stade de football",
-    "Salle polyvalente",
-    "Équipement aquatique",
+    "Tennis",
     "Plateau sportif",
+    "Complexe sportif",
+    "Vestiaires",
     "Autres"
   ];
 
-  // Extract unique countries from the `country` field
-  const countries = [...new Set(references.map(ref => ref.country))].sort();
-
-  // Extract unique locations based on the selected country
-  const filteredReferences = filters.country ? references.filter(ref => ref.country === filters.country) : references;
-  const locations = [...new Set(filteredReferences.map(ref => ref.lieu))].sort();
+  // Extract unique categories from the references
+  const categories = [...new Set(references.map(ref => ref.category))].sort();
+  
+  // Extract unique locations
+  const locations = [...new Set(references.map(ref => ref.location))].sort();
 
   const handleTypeChange = useCallback((type: string, checked: boolean) => {
     const newTypes = checked
@@ -47,7 +51,8 @@ const ReferenceFilters = ({ references, filters, onFiltersChange }: ReferenceFil
                   checked={filters.type.includes(type)}
                   onChange={e => handleTypeChange(type, e.target.checked)}
                 />
-                {type}
+                {type === "FAISABILITE" ? "Études de faisabilité" : 
+                 type === "AMO" ? "Assistance à maîtrise d'ouvrage" : "Maîtrise d'œuvre"}
               </label>
             ))}
           </div>
@@ -72,10 +77,10 @@ const ReferenceFilters = ({ references, filters, onFiltersChange }: ReferenceFil
         <div className="filter-group">
           <label>Localisation</label>
           <select
-            value={filters.lieu || ""}
+            value={filters.location || ""}
             onChange={e => onFiltersChange({
               ...filters,
-              lieu: e.target.value
+              location: e.target.value
             })}
           >
             <option value="">Toutes les localisations</option>
@@ -86,7 +91,7 @@ const ReferenceFilters = ({ references, filters, onFiltersChange }: ReferenceFil
         </div>
 
         <div className="filter-group">
-          <label>Budget (M€)</label>
+          <label>Budget (€)</label>
           <div className="price-range">
             <input
               type="number"
@@ -111,17 +116,28 @@ const ReferenceFilters = ({ references, filters, onFiltersChange }: ReferenceFil
         </div>
 
         <div className="filter-group">
-          <label>Pays</label>
+          <label>Catégorie</label>
           <select
-            value={filters.country || ""}
+            value={filters.category || ""}
             onChange={e => onFiltersChange({
               ...filters,
-              country: e.target.value
+              category: e.target.value
             })}
           >
-            <option value="">Tous les pays</option>
-            {countries.map(country => (
-              <option key={country} value={country}>{country}</option>
+            <option value="">Toutes les catégories</option>
+            {categories.map(category => (
+              <option key={category} value={category}>
+                {category === "terrains_synthetiques" ? "Terrains synthétiques" :
+                 category === "terrains_naturels" ? "Terrains naturels" :
+                 category === "pistes_athletisme" ? "Pistes d'athlétisme" :
+                 category === "complexes_sportifs_multisport" ? "Complexes sportifs multisport" :
+                 category === "tennis_padel" ? "Tennis et padel" :
+                 category === "vestiaires_structures_tribunes" ? "Vestiaires, structures et tribunes" :
+                 category === "batiments" ? "Bâtiments" :
+                 category === "amo_faisabilites_programmes" ? "AMO, faisabilités et programmes" :
+                 category === "etudes_en_cours" ? "Études en cours" :
+                 category}
+              </option>
             ))}
           </select>
         </div>

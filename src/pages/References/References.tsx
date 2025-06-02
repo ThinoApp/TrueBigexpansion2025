@@ -1,5 +1,5 @@
-import { useState, useCallback } from "react";
-import referencesData from "../../data/references.json";
+import { useState, useCallback, useEffect } from "react";
+import projectsData from "../../data/BIG Project JSON.json";
 import { Reference, Filters } from "./types";
 import ReferenceFilters from "./components/ReferenceFilters/ReferenceFilters";
 import GlobeVisualization from "./components/GlobeVisualization/GlobeVisualization";
@@ -14,11 +14,8 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
   const [selectedReference, setSelectedReference] = useState<Reference | null>(
     null
   );
-  const [references] = useState(() => [
-    ...referencesData.FAISABILITE,
-    ...referencesData.AMO,
-    ...referencesData.MOE,
-  ]);
+  const [references, setReferences] = useState<Reference[]>([]);
+  const [showFilters, setShowFilters] = useState<boolean>(true);
   const [filters, setFilters] = useState<Filters>({
     type: [],
     year: null,
@@ -26,67 +23,79 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
     minPrice: null,
     maxPrice: null,
     projectType: "",
-    countryGroup: "",
-    country: "",
-    lieu: "",
+    category: "",
   });
-
-  const parsePrix = (prix: string): number => {
-    if (!prix) return 0;
-    const numStr = prix.replace(/[^0-9,.]/g, "").replace(",", ".");
-    return parseFloat(numStr);
-  };
+  
+  // Process the JSON data when the component mounts
+  useEffect(() => {
+    const allReferences: Reference[] = [];
+    
+    // Process each category of projects
+    Object.entries(projectsData.projects).forEach(([category, projects]) => {
+      projects.forEach((project: any) => {
+        allReferences.push({
+          ...project,
+          category
+        });
+      });
+    });
+    
+    setReferences(allReferences);
+  }, []);
 
   const getFilteredReferences = useCallback(() => {
     let filtered = references;
 
+    // Filter by mission type
     if (filters.type.length > 0) {
       filtered = filtered.filter((ref) => {
-        if (
-          filters.type.includes("FAISABILITE") &&
-          referencesData.FAISABILITE.some((r) => r.id === ref.id)
-        )
+        if (filters.type.includes("FAISABILITE") && ref.mission.includes("Faisabilité")) {
           return true;
-        if (
-          filters.type.includes("AMO") &&
-          referencesData.AMO.some((r) => r.id === ref.id)
-        )
+        }
+        if (filters.type.includes("AMO") && 
+            (ref.mission.includes("Assistance") || ref.mission.includes("Programmiste"))) {
           return true;
-        if (
-          filters.type.includes("MOE") &&
-          referencesData.MOE.some((r) => r.id === ref.id)
-        )
+        }
+        if (filters.type.includes("MOE") && ref.mission.includes("ESQ")) {
           return true;
+        }
         return false;
       });
     }
 
+    // Filter by year
     if (filters.year) {
-      filtered = filtered.filter((ref) => Number(ref.annee) === filters.year);
+      filtered = filtered.filter((ref) => ref.year === filters.year);
     }
 
+    // Filter by location
     if (filters.location) {
       filtered = filtered.filter((ref) =>
-        ref.lieu.startsWith(filters.location)
+        ref.location.toLowerCase().includes(filters.location.toLowerCase())
       );
     }
 
+    // Filter by min price
     if (filters.minPrice !== null) {
       filtered = filtered.filter(
-        (ref) => parsePrix(ref.prix) >= (filters.minPrice || 0)
+        (ref) => ref.cost_eur_ht >= (filters.minPrice || 0)
       );
     }
 
+    // Filter by max price
     if (filters.maxPrice !== null) {
       filtered = filtered.filter(
-        (ref) => parsePrix(ref.prix) <= (filters.maxPrice || Infinity)
+        (ref) => ref.cost_eur_ht <= (filters.maxPrice || Infinity)
       );
     }
 
+    // Filter by project type
     if (filters.projectType) {
       filtered = filtered.filter((ref) => {
-        const title = ref.title.toUpperCase();
+        const name = ref.name.toUpperCase();
+        const description = ref.description.toUpperCase();
         const type = filters.projectType.toUpperCase();
+        
         if (type === "AUTRES") {
           return ![
             "GYMNASE",
@@ -94,18 +103,15 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
             "SALLE POLYVALENTE",
             "ÉQUIPEMENT AQUATIQUE",
             "PLATEAU SPORTIF",
-          ].some((t) => title.includes(t.toUpperCase()));
+          ].some((t) => name.includes(t.toUpperCase()) || description.includes(t.toUpperCase()));
         }
-        return title.includes(type);
+        return name.includes(type) || description.includes(type);
       });
     }
 
-    if (filters.country) {
-      filtered = filtered.filter((ref) => ref.country === filters.country);
-    }
-
-    if (filters.lieu) {
-      filtered = filtered.filter((ref) => ref.lieu === filters.lieu);
+    // Filter by category
+    if (filters.category) {
+      filtered = filtered.filter((ref) => ref.category === filters.category);
     }
 
     return filtered;
@@ -120,11 +126,25 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
   console.log("FILTERED REF: ", filteredReferences);
   return (
     <div className="references-page">
-      <ReferenceFilters
-        references={references}
-        filters={filters}
-        onFiltersChange={setFilters}
-      />
+      <div className="filters-container">
+        <button 
+          className={`filter-toggle-button ${showFilters ? 'filters-visible' : ''}`}
+          onClick={() => setShowFilters(!showFilters)}
+          title={showFilters ? "Masquer les filtres" : "Afficher les filtres"}
+        >
+          {showFilters ? "Masquer les filtres" : "Afficher les filtres"}
+          <span className="toggle-icon">{showFilters ? "▲" : "▼"}</span>
+        </button>
+        
+        <div className={`filters-panel ${showFilters ? 'visible' : ''}`}>
+          <ReferenceFilters
+            references={references}
+            filters={filters}
+            onFiltersChange={setFilters}
+          />
+        </div>
+      </div>
+      
       <div className="flex items-start">
         {/* <GlobeVisualization
           references={filteredReferences}

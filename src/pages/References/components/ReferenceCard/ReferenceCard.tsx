@@ -1,7 +1,5 @@
-import { Reference } from '../../types';
-import referencesData from '../../../../data/references.json';
-import { getCataloguePageForReference } from '../../../../data/catalogueMapping';
-import './ReferenceCard.scss';
+import { Reference } from "../../types";
+import "./ReferenceCard.scss";
 
 interface ReferenceCardProps {
   reference: Reference;
@@ -10,22 +8,33 @@ interface ReferenceCardProps {
   onNavigateToCatalogue?: (pageNumber: number) => void;
 }
 
-const ReferenceCard = ({ reference, isSelected, onClick, onNavigateToCatalogue }: ReferenceCardProps) => {
+const ReferenceCard = ({
+  reference,
+  isSelected,
+  onClick,
+  onNavigateToCatalogue,
+}: ReferenceCardProps) => {
   const getColorByType = (ref: Reference) => {
-    if (referencesData.FAISABILITE.some((r) => r.id === ref.id)) {
+    if (ref.mission.includes("Faisabilité")) {
       return "#00ffff";
     }
-    if (referencesData.AMO.some((r) => r.id === ref.id)) {
+    if (
+      ref.mission.includes("Assistance") ||
+      ref.mission.includes("Programmiste")
+    ) {
       return "#ffff00";
     }
     return "#ff69b4";
   };
 
   const getTypeLabel = (ref: Reference) => {
-    if (referencesData.FAISABILITE.some((r) => r.id === ref.id)) {
+    if (ref.mission.includes("Faisabilité")) {
       return "Études de faisabilité";
     }
-    if (referencesData.AMO.some((r) => r.id === ref.id)) {
+    if (
+      ref.mission.includes("Assistance") ||
+      ref.mission.includes("Programmiste")
+    ) {
       return "Assistance à maîtrise d'ouvrage";
     }
     return "Maîtrise d'œuvre";
@@ -33,34 +42,32 @@ const ReferenceCard = ({ reference, isSelected, onClick, onNavigateToCatalogue }
 
   const getBackgroundImage = (ref: Reference) => {
     // Check if it's in Meudon
-    if (ref.lieu.includes("MEUDON")) {
+    if (ref.location.includes("Meudon")) {
       return "/images/MEUDON/IMG_4224.jpeg";
     }
     // Check if it's in Bourges
-    if (ref.lieu.includes("BOURGES")) {
+    if (ref.location.includes("Bourges")) {
       return "/images/BOURGES RIMBAULT/DJI_0676.JPG";
     }
-    // For references in Mayotte (based on coordinates)
-    if (ref.lat < 0) {
+    // For references in Mayotte
+    if (ref.location.includes("97")) {
       return "/images/SADA/Capture d'écran 2023-07-21 à 13.08.28.png";
     }
     // Default image for other locations
     return "/images/BOURGES RIMBAULT/DJI_0879.JPG";
   };
-  
+
   // Fonction pour naviguer vers le catalogue à la page correspondante
   const navigateToCatalogue = (event: React.MouseEvent) => {
     event.stopPropagation(); // Empêcher le déclenchement du onClick du parent
-    
+
     if (!onNavigateToCatalogue) return;
-    
-    const cataloguePage = getCataloguePageForReference(reference.id);
-    
-    if (cataloguePage !== undefined) {
-      onNavigateToCatalogue(cataloguePage);
+
+    if (reference.page) {
+      onNavigateToCatalogue(reference.page);
     } else {
-      // Si aucune page correspondante n'est trouvée, naviguer vers la première page du catalogue
-      onNavigateToCatalogue(0);
+      // Si aucune page n'est définie, naviguer vers la première page du catalogue
+      onNavigateToCatalogue(1);
     }
   };
 
@@ -76,42 +83,46 @@ const ReferenceCard = ({ reference, isSelected, onClick, onNavigateToCatalogue }
         backgroundPosition: "center",
       }}
     >
-      <h3>{reference.title}</h3>
+      <h3>{reference.name}</h3>
       <div
         className="reference-type"
         style={{ backgroundColor: getColorByType(reference) }}
       >
         {getTypeLabel(reference)}
       </div>
-      <p className="reference-location">{reference.lieu}</p>
+      <p className="reference-location">{reference.location}</p>
       <div className="reference-details">
-        <span>Année: {reference.annee}</span>
-        {reference.prix && <span>Prix: {reference.prix}</span>}
-        {reference.superficie && <span>Superficie: {reference.superficie}</span>}
+        <span>Année: {reference.year}</span>
+        <span>Budget: {reference.cost_eur_ht.toLocaleString()} € HT</span>
+        <span>Surface totale: {reference.total_area_m2} m²</span>
+        {reference.built_area_m2 > 0 && (
+          <span>Surface bâtie: {reference.built_area_m2} m²</span>
+        )}
       </div>
-      
+      <p className="reference-description">{reference.description}</p>
+
       {/* Bouton pour voir dans le catalogue */}
-      {getCataloguePageForReference(reference.id) !== undefined && (
-        <button 
-          className="view-in-catalogue-btn" 
+      {reference.page && (
+        <button
+          className="view-in-catalogue-btn"
           onClick={navigateToCatalogue}
-          title="Voir dans le catalogue"
+          title={`Voir page ${reference.page} du catalogue`}
         >
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="20" 
-            height="20" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
             strokeLinejoin="round"
           >
             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
             <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
           </svg>
-          <span>Voir dans le catalogue</span>
+          <span>Page {reference.page + 1}</span>
         </button>
       )}
     </div>
