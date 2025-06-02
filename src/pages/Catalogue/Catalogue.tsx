@@ -26,7 +26,7 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
   const bookRef = useRef<any>(null);
   // Données des pages du catalogue
   const cataloguePages: CataloguePage[] = Array.from(
-    { length: 59 },
+    { length: 77 },
     (_, i) => ({
       id: String(i + 1).padStart(2, "0"),
       imageSrc: `/images/catalogue/${i + 1}.jpg`,
@@ -55,13 +55,18 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
       clearTimeout(timer);
     };
   }, []);
-  
+
   // Effet pour aller à la page spécifiée une fois le livre chargé
   useEffect(() => {
-    if (!loading && bookRef.current && initialPage !== undefined && !initialPageSet) {
+    if (
+      !loading &&
+      bookRef.current &&
+      initialPage !== undefined &&
+      !initialPageSet
+    ) {
       // Ajouter 1 pour la couverture
       const adjustedPage = initialPage + 1;
-      
+
       if (adjustedPage >= 0 && adjustedPage <= cataloguePages.length + 1) {
         // Utiliser setTimeout pour s'assurer que le flipbook est complètement initialisé
         setTimeout(() => {
@@ -224,7 +229,7 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
                   <div className="catalogue-page-content catalogue-cover bg-gradient-to-br from-blue-900 via-indigo-800 to-blue-500">
                     {/* Overlay de base avec opacité */}
                     <div className="absolute inset-0 bg-black/30 z-0"></div>
-                    
+
                     {/* Motif de grille en arrière-plan */}
                     <div className="absolute inset-0 overflow-hidden z-0">
                       <div
@@ -237,13 +242,13 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
                         }}
                       ></div>
                     </div>
-                    
+
                     {/* Effet de particules/étoiles */}
                     <div className="absolute inset-0 z-0 catalogue-particles"></div>
-                    
+
                     {/* Cercle décoratif lumineux */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full bg-blue-500/10 blur-3xl z-0 catalogue-glow"></div>
-                    
+
                     {/* Contenu de la couverture */}
                     <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
                       {/* Logo avec effet amélioré */}
@@ -255,20 +260,22 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
                         />
                         <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full catalogue-logo-glow"></div>
                       </div>
-                      
+
                       {/* Titre avec effet de texte amélioré */}
                       <h1 className="relative z-10 text-5xl font-bold tracking-wider mb-6 catalogue-cover-title">
-                        <span className="catalogue-glowing-text">CATALOGUE</span>
+                        <span className="catalogue-glowing-text">
+                          CATALOGUE
+                        </span>
                       </h1>
-                      
+
                       {/* Ligne décorative */}
                       <div className="w-32 h-1 bg-gradient-to-r from-blue-300/80 via-white/90 to-blue-300/80 rounded-full mb-6 catalogue-divider"></div>
-                      
+
                       {/* Sous-titre */}
                       <p className="relative z-10 text-2xl font-light tracking-widest mb-2 text-blue-100 drop-shadow-[0_0_8px_rgba(0,0,0,0.6)]">
                         BIG EXPANSION
                       </p>
-                      
+
                       <p className="relative z-10 text-xl font-light tracking-wide text-blue-200/90 drop-shadow-[0_0_5px_rgba(0,0,0,0.5)]">
                         2025
                       </p>
