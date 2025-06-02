@@ -124,16 +124,21 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
   const filteredReferences = getFilteredReferences();
 
   console.log("FILTERED REF: ", filteredReferences);
+  // Afficher un message de débogage
+  console.log("Show Filters State:", showFilters);
+  
   return (
     <div className="references-page">
+      {/* Bouton de toggle des filtres avec style amélioré */}
       <div className="filters-container">
         <button 
           className={`filter-toggle-button ${showFilters ? 'filters-visible' : ''}`}
           onClick={() => setShowFilters(!showFilters)}
           title={showFilters ? "Masquer les filtres" : "Afficher les filtres"}
+          style={{ position: 'sticky', top: 0, zIndex: 1000, width: '100%', padding: '1rem', backgroundColor: '#333', color: 'white', fontWeight: 'bold' }}
         >
           {showFilters ? "Masquer les filtres" : "Afficher les filtres"}
-          <span className="toggle-icon">{showFilters ? "▲" : "▼"}</span>
+          <span className="toggle-icon" style={{ marginLeft: '8px' }}>{showFilters ? "▲" : "▼"}</span>
         </button>
         
         <div className={`filters-panel ${showFilters ? 'visible' : ''}`}>
