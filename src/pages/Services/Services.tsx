@@ -9,35 +9,35 @@ const services = [
     title: "Conception Réalisation",
     description:
       "Nous concevons et réalisons vos projets d'équipements sportifs et culturels avec une approche innovante et durable. Notre expertise technique garantit une exécution précise de la conception à la réalisation.",
-    image: "/images/BOURGES RIMBAULT/DJI_0676.JPG", // Vue aérienne du projet
+    image: "/images/hero_services/DJI_0879.JPG", // Vue aérienne du projet
   },
   {
     id: 2,
     title: "Assistance à Maîtrise d'Ouvrage",
     description:
       "Nous accompagnons les collectivités dans leurs prises de décisions techniques et budgétaires. Notre expertise permet d'optimiser les ressources tout en respectant les objectifs du projet.",
-    image: "/images/MEUDON/20210429_181820.jpg", // Vue du site
+    image: "/images/hero_services/image_processing20250424-21341-tz6yfk.jpeg", // Vue du site
   },
   {
     id: 3,
     title: "Maîtrise d'Oeuvre",
     description:
       "De la conception à l'exécution, nous assurons la coordination complète de votre projet. Notre approche intégrée garantit une cohérence parfaite entre la vision architecturale et sa réalisation technique.",
-    image: "/images/BOURGES RIMBAULT/DJI_0879.JPG", // Vue du chantier
+    image: "/images/hero_services/MAX_0006 2.JPG", // Vue du chantier
   },
   {
     id: 4,
     title: "Programmation",
     description:
       "Nous établissons une programmation détaillée de vos projets, intégrant les aspects techniques, fonctionnels et environnementaux. Notre méthodologie assure une planification optimale des ressources.",
-    image: "/images/MEUDON/IMG_1006.jpeg", // Vue du site
+    image: "/images/hero_services/Stade-Charlety_Paris_MONDO-track.jpeg", // Vue du site
   },
   {
     id: 5,
     title: "Pilotage d'Opérations",
     description:
       "Nous pilotons vos opérations de A à Z, assurant une gestion rigoureuse des délais, des coûts et de la qualité. Notre expertise en gestion de projet garantit une exécution fluide et maîtrisée.",
-    image: "/images/BOURGES RIMBAULT/20220427_092742.jpg", // Vue du site en construction
+    image: "/images/hero_services/20250523_101909.jpg", // Vue du site en construction
   },
 ];
 

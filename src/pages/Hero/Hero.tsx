@@ -25,10 +25,10 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   const images = [
-    "/images/MEUDON/20210429_181820.jpg",
-    "/images/MEUDON/IMG_1006.jpeg",
-    "/images/MEUDON/IMG_4224.jpeg",
-    "/images/MEUDON/IMG_5886.jpeg",
+    "/images/hero_services/9-erieta-attali-scaled.jpeg",
+    "/images/hero_services/551-Bannière pointe de Trivaux.webp",
+    "/images/hero_services/20250523_101225.jpg",
+    "/images/hero_services/20250523_101909.jpg",
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
