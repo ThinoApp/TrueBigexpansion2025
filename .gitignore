@@ -25,6 +25,6 @@ dist-ssr
 
 # Large media files
 public/images/TIMELAPSE/
-public/images/thumbnails/
-public/images/catalogue/
+# public/images/thumbnails/
+# public/images/catalogue/
 
