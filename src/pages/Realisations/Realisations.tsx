@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { motion, useScroll } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
 import "./realisations.scss";
 
@@ -53,11 +53,11 @@ const Realisations = ({
 }: RealisationsProps) => {
   const [isEntering, setIsEntering] = useState(false);
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
+  // const containerRef = useRef(null);
+  // const { scrollYProgress } = useScroll({
+  //   target: containerRef,
+  //   offset: ["start start", "end start"],
+  // });
 
   const handleWheel = (e: React.WheelEvent) => {
     if (e.deltaY < -50 && window.scrollY === 0) {
@@ -181,7 +181,7 @@ const Realisations = ({
                 d'urbanisme durable.
               </p>
               <div className="project-preview-grid">
-                {projects.map((project, index) => (
+                {projects.map((project) => (
                   <motion.div
                     key={project.id}
                     className="project-preview"

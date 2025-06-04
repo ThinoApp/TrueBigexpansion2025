@@ -6,7 +6,6 @@ import {
   Building2,
   Users,
   Clock,
-  BookOpen,
   MapPin,
   ChevronDown,
 } from "lucide-react";

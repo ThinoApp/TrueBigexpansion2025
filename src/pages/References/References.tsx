@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import projectsData from "../../data/BIG Project JSON.json";
 import { Reference, Filters } from "./types";
 import ReferenceFilters from "./components/ReferenceFilters/ReferenceFilters";
-import GlobeVisualization from "./components/GlobeVisualization/GlobeVisualization";
+// import GlobeVisualization from "./components/GlobeVisualization/GlobeVisualization";
 import ReferencesList from "./components/ReferencesList/ReferencesList";
 import "./references.scss";
 
@@ -25,21 +25,21 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
     projectType: "",
     category: "",
   });
-  
+
   // Process the JSON data when the component mounts
   useEffect(() => {
     const allReferences: Reference[] = [];
-    
+
     // Process each category of projects
     Object.entries(projectsData.projects).forEach(([category, projects]) => {
       projects.forEach((project: any) => {
         allReferences.push({
           ...project,
-          category
+          category,
         });
       });
     });
-    
+
     setReferences(allReferences);
   }, []);
 
@@ -49,11 +49,17 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
     // Filter by mission type
     if (filters.type.length > 0) {
       filtered = filtered.filter((ref) => {
-        if (filters.type.includes("FAISABILITE") && ref.mission.includes("Faisabilité")) {
+        if (
+          filters.type.includes("FAISABILITE") &&
+          ref.mission.includes("Faisabilité")
+        ) {
           return true;
         }
-        if (filters.type.includes("AMO") && 
-            (ref.mission.includes("Assistance") || ref.mission.includes("Programmiste"))) {
+        if (
+          filters.type.includes("AMO") &&
+          (ref.mission.includes("Assistance") ||
+            ref.mission.includes("Programmiste"))
+        ) {
           return true;
         }
         if (filters.type.includes("MOE") && ref.mission.includes("ESQ")) {
@@ -95,7 +101,7 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
         const name = ref.name.toUpperCase();
         const description = ref.description.toUpperCase();
         const type = filters.projectType.toUpperCase();
-        
+
         if (type === "AUTRES") {
           return ![
             "GYMNASE",
@@ -103,7 +109,11 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
             "SALLE POLYVALENTE",
             "ÉQUIPEMENT AQUATIQUE",
             "PLATEAU SPORTIF",
-          ].some((t) => name.includes(t.toUpperCase()) || description.includes(t.toUpperCase()));
+          ].some(
+            (t) =>
+              name.includes(t.toUpperCase()) ||
+              description.includes(t.toUpperCase())
+          );
         }
         return name.includes(type) || description.includes(type);
       });
@@ -126,22 +136,35 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
   console.log("FILTERED REF: ", filteredReferences);
   // Afficher un message de débogage
   console.log("Show Filters State:", showFilters);
-  
+
   return (
     <div className="references-page">
       {/* Bouton de toggle des filtres avec style amélioré */}
       <div className="filters-container">
-        <button 
-          className={`filter-toggle-button ${showFilters ? 'filters-visible' : ''}`}
+        <button
+          className={`filter-toggle-button ${
+            showFilters ? "filters-visible" : ""
+          }`}
           onClick={() => setShowFilters(!showFilters)}
           title={showFilters ? "Masquer les filtres" : "Afficher les filtres"}
-          style={{ position: 'sticky', top: 0, zIndex: 1000, width: '100%', padding: '1rem', backgroundColor: '#333', color: 'white', fontWeight: 'bold' }}
+          style={{
+            position: "sticky",
+            top: 0,
+            zIndex: 1000,
+            width: "100%",
+            padding: "1rem",
+            backgroundColor: "#333",
+            color: "white",
+            fontWeight: "bold",
+          }}
         >
           {showFilters ? "Masquer les filtres" : "Afficher les filtres"}
-          <span className="toggle-icon" style={{ marginLeft: '8px' }}>{showFilters ? "▲" : "▼"}</span>
+          <span className="toggle-icon" style={{ marginLeft: "8px" }}>
+            {showFilters ? "▲" : "▼"}
+          </span>
         </button>
-        
-        <div className={`filters-panel ${showFilters ? 'visible' : ''}`}>
+
+        <div className={`filters-panel ${showFilters ? "visible" : ""}`}>
           <ReferenceFilters
             references={references}
             filters={filters}
@@ -149,7 +172,7 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
           />
         </div>
       </div>
-      
+
       <div className="flex items-start">
         {/* <GlobeVisualization
           references={filteredReferences}

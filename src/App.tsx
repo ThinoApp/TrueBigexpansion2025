@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Hero from "./pages/Hero/Hero";
 import Services from "./pages/Services/Services";
@@ -15,7 +15,14 @@ import ContactForm from "./components/ContactForm/ContactForm";
 import LoadingScreen from "./components/LoadingScreen/LoadingScreen";
 import { useLoading } from "./hooks/useLoading";
 
-type Section = "hero" | "services" | "realisations" | "references" | "agencies" | "timelapses" | "catalogue";
+type Section =
+  | "hero"
+  | "services"
+  | "realisations"
+  | "references"
+  | "agencies"
+  | "timelapses"
+  | "catalogue";
 
 const variants = {
   enter: (direction: number) => ({
@@ -59,25 +66,35 @@ function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const { isLoading, withLoading } = useLoading();
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [cataloguePage, setCataloguePage] = useState<number | undefined>(undefined);
+  const [cataloguePage, setCataloguePage] = useState<number | undefined>(
+    undefined
+  );
 
   const handlePageTransition = async (newDirection: number) => {
     setIsTransitioning(true);
-    
-    const sections: Section[] = ["hero", "services", "realisations", "references", "timelapses", "catalogue", "agencies"];
+
+    const sections: Section[] = [
+      "hero",
+      "services",
+      "realisations",
+      "references",
+      "timelapses",
+      "catalogue",
+      "agencies",
+    ];
     const currentIndex = sections.indexOf(currentSection);
     const nextIndex = currentIndex + newDirection;
 
     if (nextIndex >= 0 && nextIndex < sections.length) {
-      await new Promise(resolve => setTimeout(resolve, 800));
+      await new Promise((resolve) => setTimeout(resolve, 800));
       setPage([page + newDirection, newDirection]);
       setCurrentSection(sections[nextIndex]);
     } else if (nextIndex >= sections.length) {
-      await new Promise(resolve => setTimeout(resolve, 800));
+      await new Promise((resolve) => setTimeout(resolve, 800));
       setPage([0, newDirection]);
       setCurrentSection(sections[0]);
     }
-    
+
     setIsTransitioning(false);
   };
 
@@ -114,16 +131,24 @@ function App() {
 
   const handleNavigateToSection = async (section: string) => {
     if (isTransitioning) return;
-    
+
     await withLoading(async () => {
       setIsTransitioning(true);
-      const sections: Section[] = ["hero", "services", "realisations", "references", "timelapses", "catalogue", "agencies"];
+      const sections: Section[] = [
+        "hero",
+        "services",
+        "realisations",
+        "references",
+        "timelapses",
+        "catalogue",
+        "agencies",
+      ];
       const currentIndex = sections.indexOf(currentSection);
       const targetIndex = sections.indexOf(section as Section);
       const direction = targetIndex > currentIndex ? 1 : -1;
-      
-      await new Promise(resolve => setTimeout(resolve, 800));
-      
+
+      await new Promise((resolve) => setTimeout(resolve, 800));
+
       setPage([targetIndex, direction]);
       setCurrentSection(section as Section);
       setIsTransitioning(false);
@@ -132,20 +157,20 @@ function App() {
 
   const handleContactSubmit = async (formData: any) => {
     await withLoading(async () => {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log('Form submitted:', formData);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log("Form submitted:", formData);
     });
   };
 
   return (
     <main className="min-h-screen relative overflow-hidden bg-gradient-to-b from-gray-900 to-black perspective-1000">
       <LoadingScreen isLoading={isLoading || isTransitioning} />
-      
-      <Header 
-        currentSection={currentSection} 
-        onContactClick={() => setIsContactOpen(true)} 
+
+      <Header
+        currentSection={currentSection}
+        onContactClick={() => setIsContactOpen(true)}
       />
-      
+
       <AnimatePresence initial={false} mode="wait" custom={direction}>
         {currentSection === "hero" ? (
           <motion.div
@@ -255,13 +280,16 @@ function App() {
             dragElastic={0.2}
             onDrag={(e, _) => {
               // Empêcher le comportement de drag par défaut si l'utilisateur fait défiler le contenu
-              const scrollableElement = document.querySelector('.timelapses-container');
+              const scrollableElement = document.querySelector(
+                ".timelapses-container"
+              );
               if (scrollableElement) {
-                const { scrollTop, scrollHeight, clientHeight } = scrollableElement;
+                const { scrollTop, scrollHeight, clientHeight } =
+                  scrollableElement;
                 const isScrollable = scrollHeight > clientHeight;
                 const isAtTop = scrollTop <= 0;
                 const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
-                
+
                 // Si on peut défiler et qu'on n'est ni en haut ni en bas, bloquer le drag
                 if (isScrollable && !isAtTop && !isAtBottom) {
                   e.stopPropagation();
@@ -270,12 +298,15 @@ function App() {
             }}
             onDragEnd={(_, { offset, velocity }) => {
               // Seulement activer les gestes de navigation quand on est en haut ou en bas de la page
-              const scrollableElement = document.querySelector('.timelapses-container');
+              const scrollableElement = document.querySelector(
+                ".timelapses-container"
+              );
               if (scrollableElement) {
-                const { scrollTop, scrollHeight, clientHeight } = scrollableElement;
+                const { scrollTop, scrollHeight, clientHeight } =
+                  scrollableElement;
                 const isAtTop = scrollTop <= 0;
                 const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
-                
+
                 const swipe = swipePower(offset.y, velocity.y);
                 if (swipe < -swipeConfidenceThreshold && isAtBottom) {
                   paginate(1);
@@ -301,13 +332,16 @@ function App() {
             dragElastic={0.2}
             onDrag={(e, _) => {
               // Empêcher le comportement de drag par défaut si l'utilisateur fait défiler le contenu
-              const scrollableElement = document.querySelector('.catalogue-container');
+              const scrollableElement = document.querySelector(
+                ".catalogue-container"
+              );
               if (scrollableElement) {
-                const { scrollTop, scrollHeight, clientHeight } = scrollableElement;
+                const { scrollTop, scrollHeight, clientHeight } =
+                  scrollableElement;
                 const isScrollable = scrollHeight > clientHeight;
                 const isAtTop = scrollTop <= 0;
                 const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
-                
+
                 // Si on peut défiler et qu'on n'est ni en haut ni en bas, bloquer le drag
                 if (isScrollable && !isAtTop && !isAtBottom) {
                   e.stopPropagation();
@@ -316,12 +350,15 @@ function App() {
             }}
             onDragEnd={(_, { offset, velocity }) => {
               // Seulement activer les gestes de navigation quand on est en haut ou en bas de la page
-              const scrollableElement = document.querySelector('.catalogue-container');
+              const scrollableElement = document.querySelector(
+                ".catalogue-container"
+              );
               if (scrollableElement) {
-                const { scrollTop, scrollHeight, clientHeight } = scrollableElement;
+                const { scrollTop, scrollHeight, clientHeight } =
+                  scrollableElement;
                 const isAtTop = scrollTop <= 0;
                 const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
-                
+
                 const swipe = swipePower(offset.y, velocity.y);
                 if (swipe < -swipeConfidenceThreshold && isAtBottom) {
                   paginate(1);
@@ -356,14 +393,14 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
-      
-      <BottomSheet 
-        currentSection={currentSection} 
+
+      <BottomSheet
+        currentSection={currentSection}
         onNavigate={handleNavigateToSection}
         disabled={isTransitioning}
       />
 
-      <ContactForm 
+      <ContactForm
         isOpen={isContactOpen}
         onClose={() => setIsContactOpen(false)}
         onSubmit={handleContactSubmit}

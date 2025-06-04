@@ -1,0 +1,45 @@
+name: Deploy React dist to OVH WebCloud
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # Ajustez à la version de Node.js souhaitée (ex. '24')
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build React project
+        run: npm run build
+
+      - name: Deploy dist folder to OVH via SFTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.OVH_SFTP_HOST }}
+          username: ${{ secrets.OVH_SFTP_USER }}
+          password: ${{ secrets.OVH_SFTP_PASSWORD }}
+          port: 22
+          local-dir: ./dist/ # Déploie uniquement le dossier dist
+          server-dir: /www/ # Répertoire cible sur OVH
+          delete: true # Supprime les anciens fichiers dans /www
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/node_modules/**
+            **/src/**
+            **/public/**
+            **/package.json
+            **/package-lock.json
+            **/tsconfig.json

@@ -6,7 +6,7 @@ interface HeaderProps {
   onContactClick: () => void;
 }
 
-const Header = ({ currentSection, onContactClick }: HeaderProps) => {
+const Header = ({ onContactClick }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
