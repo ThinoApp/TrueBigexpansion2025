@@ -78,9 +78,11 @@ const timelapseVideos: TimelapseVideo[] = [
 const Timelapses = () => {
   const [activeVideo, setActiveVideo] = useState<TimelapseVideo | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const timelapseGridRef = useRef<HTMLDivElement>(null);
+  const videoSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Animation d'entrée pour la grille de timelapses avec un délai plus court
@@ -129,15 +131,19 @@ const Timelapses = () => {
     }
   }, [activeVideo, isPlaying]);
 
+  // Faire défiler vers la vidéo active lorsqu'elle est définie
+  useEffect(() => {
+    if (activeVideo && videoSectionRef.current) {
+      videoSectionRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [activeVideo]);
+
   const handleVideoSelect = (video: TimelapseVideo) => {
     setActiveVideo(video);
     setIsPlaying(true);
-
-    // Scroll vers le haut de la page pour voir la vidéo sélectionnée
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
   };
 
   const handlePlayPause = () => {
@@ -185,6 +191,7 @@ const Timelapses = () => {
 
         {activeVideo && (
           <motion.div
+            ref={videoSectionRef}
             className="video-player-container mb-10 md:mb-16 rounded-lg overflow-hidden shadow-2xl bg-gray-900"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -196,13 +203,34 @@ const Timelapses = () => {
                 className="w-full h-auto"
                 controls={false}
                 playsInline
+                onWaiting={() => setIsLoading(true)}
+                onPlaying={() => setIsLoading(false)}
+                onLoadStart={() => setIsLoading(true)}
               >
                 <source src={activeVideo.path} type="video/mp4" />
                 Votre navigateur ne supporte pas la lecture de vidéos.
               </video>
 
               <div className="absolute inset-0 flex items-center justify-center">
-                {!isPlaying && (
+                {isLoading && (
+                  <div className="loading-indicator flex flex-col items-center justify-center w-24 h-24 rounded-full bg-white/15 backdrop-blur-sm">
+                    <div className="relative w-16 h-16">
+                      <div
+                        className="absolute inset-0 border-3 border-t-transparent border-white rounded-full animate-spin"
+                        style={{ animationDuration: "1.5s" }}
+                      ></div>
+                      <div
+                        className="absolute inset-2 border-2 border-t-transparent border-blue-400 rounded-full animate-spin"
+                        style={{ animationDuration: "1s" }}
+                      ></div>
+                      <div
+                        className="absolute inset-4 border-1 border-t-transparent border-blue-300 rounded-full animate-pulse"
+                        style={{ animationDuration: "0.8s" }}
+                      ></div>
+                    </div>
+                  </div>
+                )}
+                {!isPlaying && !isLoading && (
                   <button
                     onClick={handlePlayPause}
                     className="play-button w-20 h-20 rounded-full bg-white bg-opacity-30 flex items-center justify-center backdrop-blur-sm transition-transform transform hover:scale-110"
