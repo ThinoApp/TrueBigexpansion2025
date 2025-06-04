@@ -128,7 +128,7 @@ const Agencies = () => {
                         transition={{ duration: 0.3 }}
                       >
                         <motion.div
-                          className="agency-image"
+                          className="agency-image my-4 !h-full"
                           initial={{ scale: 1.2 }}
                           animate={{ scale: 1 }}
                           style={{ backgroundImage: `url(${agency.image})` }}
