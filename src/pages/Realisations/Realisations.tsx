@@ -17,7 +17,7 @@ const projects = [
     category: "Équipements Sportifs",
     description:
       "Agrandissement et rénovation complète d'une piste d'athlétisme 8 couloirs avex agrés sportifs et remise à niveau de l'éclairage",
-    image: "/images/Realisations/STADE ALFRED DEPÈGE - BOURGES 18000.jpg",
+    image: "/images/Realisations/STADE BOURGES 18000.jpg",
     stats: ["Piste 8 couloirs", "400m homologuée", "Éclairage LED"],
     tags: ["#Athlétisme", "#Rénovation", "#ÉquipementSportif"],
   },
