@@ -155,12 +155,6 @@ function App() {
     });
   };
 
-  const handleContactSubmit = async (formData: any) => {
-    await withLoading(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log("Form submitted:", formData);
-    });
-  };
 
   return (
     <main className="min-h-screen relative overflow-hidden bg-gradient-to-b from-gray-900 to-black perspective-1000">
@@ -403,7 +397,6 @@ function App() {
       <ContactForm
         isOpen={isContactOpen}
         onClose={() => setIsContactOpen(false)}
-        onSubmit={handleContactSubmit}
       />
     </main>
   );

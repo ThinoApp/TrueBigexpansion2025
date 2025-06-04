@@ -1,13 +1,13 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { useEmailForm } from "../../hooks/useEmailForm";
 
 interface ContactFormProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: any) => Promise<void>;
 }
 
-const ContactForm = ({ isOpen, onClose, onSubmit }: ContactFormProps) => {
+const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,10 +16,28 @@ const ContactForm = ({ isOpen, onClose, onSubmit }: ContactFormProps) => {
     message: "",
   });
 
+  const { sendEmail, isLoading, error } = useEmailForm(
+    'service_9snjbyr', // À remplacer avec votre Service ID EmailJS
+    'template_kb4gkxe', // À remplacer avec votre Template ID EmailJS
+    'VJenmFA09CzRk5HDo' // À remplacer avec votre Public Key EmailJS
+  );
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await onSubmit(formData);
-    onClose();
+    try {
+      await sendEmail(formData);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        projectType: "",
+        message: "",
+      });
+      onClose();
+    } catch (err) {
+      // L'erreur est déjà gérée par le hook
+      console.error(err);
+    }
   };
 
   const inputClasses = `w-full px-4 py-3 bg-white/50 rounded-xl border border-white/20 
