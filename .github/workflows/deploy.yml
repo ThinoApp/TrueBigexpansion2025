@@ -1,4 +1,4 @@
-name: Deploy React dist to OVH WebCloud
+name: Deploy React dist to OVH WebCloud via SSH Password
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20" # Ajustez à la version de Node.js souhaitée (ex. '24')
+          node-version: "20"
 
       - name: Install dependencies
         run: npm install
@@ -25,22 +25,12 @@ jobs:
         run: npm run build
 
       - name: Deploy dist folder to OVH via SFTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
-          server: ${{ secrets.OVH_SFTP_HOST }}
           username: ${{ secrets.OVH_SFTP_USER }}
-          password: ${{ secrets.OVH_SFTP_PASSWORD }}
+          server: ${{ secrets.OVH_SFTP_HOST }}
           port: 22
-          protocol: sftp
-          local-dir: ./dist/ # Déploie uniquement le dossier dist
-          server-dir: /www/ # Répertoire cible sur OVH
-          dangerous-clean-slate: true # Supprime les anciens fichiers dans /www
-          exclude: |
-            **/.git*
-            **/.github/**
-            **/node_modules/**
-            **/src/**
-            **/public/**
-            **/package.json
-            **/package-lock.json
-            **/tsconfig.json
+          password: ${{ secrets.OVH_SFTP_PASSWORD }}
+          local_path: "./dist/*"
+          remote_path: "/www/"
+          args: "-o StrictHostKeyChecking=no"
