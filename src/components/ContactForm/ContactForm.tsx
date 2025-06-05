@@ -16,10 +16,10 @@ const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
     message: "",
   });
 
-  const { sendEmail} = useEmailForm(
-    'service_9snjbyr', // À remplacer avec votre Service ID EmailJS
-    'template_kb4gkxe', // À remplacer avec votre Template ID EmailJS
-    'VJenmFA09CzRk5HDo' // À remplacer avec votre Public Key EmailJS
+  const { sendEmail } = useEmailForm(
+    "service_0f4p9z6", // À remplacer avec votre Service ID EmailJS
+    "template_6em9nat", // À remplacer avec votre Template ID EmailJS
+    "9yP1AeZzN0qOg6QOI" // À remplacer avec votre Public Key EmailJS
   );
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -66,7 +66,7 @@ const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
           >
             {/* En-tête du formulaire */}
             <div className="text-center mb-8">
-              <motion.h3 
+              <motion.h3
                 className="text-3xl font-light mb-3 text-black/80"
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -74,7 +74,7 @@ const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
               >
                 Parlons de votre projet
               </motion.h3>
-              <motion.p 
+              <motion.p
                 className="text-black/60"
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -100,7 +100,9 @@ const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
                     placeholder="John Doe"
                     className={inputClasses}
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                   />
                 </motion.div>
                 <motion.div
@@ -116,7 +118,9 @@ const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
                     placeholder="john@example.com"
                     className={inputClasses}
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                   />
                 </motion.div>
               </div>
@@ -134,7 +138,9 @@ const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
                   placeholder="+33 X XX XX XX XX"
                   className={inputClasses}
                   value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, phone: e.target.value })
+                  }
                 />
               </motion.div>
 
@@ -149,11 +155,15 @@ const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
                 <select
                   className={`${inputClasses} appearance-none`}
                   value={formData.projectType}
-                  onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, projectType: e.target.value })
+                  }
                 >
                   <option value="">Sélectionnez un type de projet</option>
                   <option value="conception">Conception Réalisation</option>
-                  <option value="assistance">Assistance à Maîtrise d'Ouvrage</option>
+                  <option value="assistance">
+                    Assistance à Maîtrise d'Ouvrage
+                  </option>
                   <option value="maitrise">Maîtrise d'Oeuvre</option>
                   <option value="programmation">Programmation</option>
                 </select>
@@ -172,11 +182,13 @@ const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
                   rows={4}
                   className={`${inputClasses} resize-none`}
                   value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
                 />
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 className="flex gap-4 pt-2"
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -211,4 +223,4 @@ const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
   );
 };
 
-export default ContactForm; 
+export default ContactForm;
