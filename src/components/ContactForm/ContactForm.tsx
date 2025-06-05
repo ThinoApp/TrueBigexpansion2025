@@ -18,7 +18,7 @@ const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
 
   const { sendEmail } = useEmailForm(
     "service_0f4p9z6", // À remplacer avec votre Service ID EmailJS
-    "template_6em9nat", // À remplacer avec votre Template ID EmailJS
+    "template_kj662na", // À remplacer avec votre Template ID EmailJS
     "9yP1AeZzN0qOg6QOI" // À remplacer avec votre Public Key EmailJS
   );
 
