@@ -61,8 +61,8 @@ const projects = [
 
 const Realisations = ({
   onNavigateToServices,
-  onNavigateToReferences,
-}: RealisationsProps) => {
+}: // onNavigateToReferences,
+RealisationsProps) => {
   const [isEntering, setIsEntering] = useState(false);
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
