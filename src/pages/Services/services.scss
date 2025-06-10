@@ -1,4 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap");
+
 .Services {
+  font-family: "Inter", sans-serif;
+
   // Pattern d'arrière-plan optimisé
   .bg-pattern {
     background-image: linear-gradient(
@@ -9,21 +13,33 @@
     background-size: 40px 40px;
     transform: translateZ(0);
     will-change: opacity;
+
+    @media (max-width: 768px) {
+      background-size: 20px 20px; // Pattern plus petit sur mobile
+      opacity: 0.2; // Moins visible sur mobile
+    }
   }
 
   // Perspective pour les effets 3D
   .perspective {
     perspective: 2000px;
     transform-style: preserve-3d;
+
+    @media (max-width: 768px) {
+      perspective: 1000px; // Réduire l'effet 3D sur mobile
+    }
   }
 
   // Effet de glitch sur le titre
   .glitch-text {
     position: relative;
-    text-shadow: 
-      0 0 20px rgba(255, 255, 255, 0.7),
-      0 0 30px rgba(255, 255, 255, 0.4),
-      0 0 40px rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.7),
+      0 0 30px rgba(255, 255, 255, 0.4), 0 0 40px rgba(255, 255, 255, 0.2);
+
+    @media (max-width: 768px) {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.7),
+        0 0 15px rgba(255, 255, 255, 0.4); // Ombre moins intense sur mobile
+    }
 
     .dot {
       position: relative;
@@ -41,6 +57,12 @@
     box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border-radius: 4px;
+
+    @media (max-width: 768px) {
+      padding: 1.25rem; // Padding réduit sur mobile
+      backdrop-filter: blur(5px); // Effet de flou réduit pour les performances
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.03); // Ombre moins intense
+    }
 
     &::before {
       content: "";
@@ -80,6 +102,18 @@
     }
   }
 
+  // Boutons de navigation mobile
+  .nav-button-mobile {
+    position: relative;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+
   // Indicateurs de progression futuristes
   .progress-indicator-container {
     position: relative;
@@ -113,6 +147,13 @@
     justify-content: center;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 
+    &.mobile {
+      width: 20px;
+      height: 20px;
+      border-width: 1px;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+    }
+
     &::before {
       content: "";
       position: absolute;
@@ -134,9 +175,14 @@
     height: 8px;
     background: white;
     border-radius: 50%;
-    box-shadow: 
-      0 0 15px rgba(255, 255, 255, 0.7),
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.7),
       0 0 25px rgba(255, 255, 255, 0.4);
+
+    @media (max-width: 768px) {
+      width: 6px;
+      height: 6px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
   }
 
   .progress-indicator-line {
@@ -147,12 +193,22 @@
     background: white;
     transform-origin: left;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+
+    @media (max-width: 768px) {
+      bottom: -6px;
+      height: 1px;
+    }
   }
 
   // Bouton retour futuriste
   .back-button {
     position: relative;
     padding: 0.5rem 1rem;
+
+    @media (max-width: 768px) {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.75rem;
+    }
 
     &::before {
       content: "";
@@ -178,6 +234,11 @@
     transform: translateZ(0);
     will-change: transform;
 
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+      padding: 0.75rem;
+    }
+
     &:focus {
       outline: none;
     }
@@ -196,12 +257,21 @@
     transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
     transform: translateZ(0);
     will-change: transform, opacity;
+
+    @media (max-width: 768px) {
+      transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; // Transition plus rapide sur mobile
+    }
   }
 
   // Styles du titre
   h2 {
     font-weight: 200;
     letter-spacing: -0.02em;
+
+    @media (max-width: 768px) {
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+    }
 
     span {
       opacity: 0.5;
@@ -214,6 +284,12 @@
     margin: 0 auto;
     font-weight: 300;
     line-height: 1.8;
+
+    @media (max-width: 768px) {
+      line-height: 1.6;
+      font-weight: 400; // Plus lisible sur mobile
+      font-size: 0.95rem;
+    }
   }
 
   // Indicateurs de progression
@@ -245,5 +321,53 @@
   }
   100% {
     transform: translateX(100%);
+  }
+}
+
+// Optimisations pour la performance mobile
+@media (max-width: 768px) {
+  .Services {
+    .will-change-transform {
+      background-position: center; // Assure un bon centrage sur mobile
+    }
+
+    // Optimisations de performance pour les appareils mobiles
+    * {
+      backface-visibility: hidden;
+    }
+
+    // Réduire les animations sur mobile pour de meilleures performances
+    .glitch-text .dot {
+      animation-duration: 3s; // Animation plus lente sur mobile
+    }
+  }
+}
+
+// Ajustements pour les petits écrans
+@media (max-width: 360px) {
+  .Services {
+    h2 {
+      font-size: 2rem !important;
+    }
+
+    p {
+      font-size: 0.85rem !important;
+      padding: 1rem !important;
+    }
+
+    .progress-indicator-container {
+      width: 16px !important;
+      height: 16px !important;
+    }
+
+    .progress-indicator-outer {
+      width: 16px !important;
+      height: 16px !important;
+    }
+
+    .progress-indicator-inner {
+      width: 5px !important;
+      height: 5px !important;
+    }
   }
 }

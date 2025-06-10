@@ -52,6 +52,7 @@ const Services = ({
 }: ServicesProps) => {
   const [isEntering, setIsEntering] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   // @ts-expect-error c'est une erreur voulue
   const ref = React.createRef(null);
   // @ts-expect-error c'est une erreur voulue
@@ -62,9 +63,23 @@ const Services = ({
   const lastScrollTime = React.createRef(Date.now());
   const scrollThreshold = 50; // Seuil de défilement en pixels
   const scrollCooldown = 500; // Temps minimum entre les changements de slide en ms
+  const [touchStartY, setTouchStartY] = useState<number | null>(null);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   useEffect(() => {
     setIsEntering(true);
+
+    // Détection de l'appareil mobile
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkIfMobile();
+    window.addEventListener("resize", checkIfMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkIfMobile);
+    };
   }, []);
 
   const handleWheel = (e: React.WheelEvent) => {
@@ -114,27 +129,64 @@ const Services = ({
     }
   };
 
+  // Gestion améliorée des événements tactiles
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartY(e.touches[0].clientY);
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartY === null || touchStartX === null) return;
+
+    const touchEndY = e.changedTouches[0].clientY;
+    const touchEndX = e.changedTouches[0].clientX;
+
+    const deltaY = touchStartY - touchEndY;
+    const deltaX = touchStartX - touchEndX;
+
+    // Si le mouvement horizontal est plus important que le vertical, c'est un swipe horizontal
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+      if (deltaX > 0) {
+        // Swipe vers la gauche -> service suivant
+        setActiveIndex((prev) =>
+          prev < services.length - 1 ? prev + 1 : prev
+        );
+      } else {
+        // Swipe vers la droite -> service précédent
+        setActiveIndex((prev) => (prev > 0 ? prev - 1 : prev));
+      }
+    }
+    // Sinon c'est un swipe vertical
+    else if (Math.abs(deltaY) > 50) {
+      if (deltaY > 0 && activeIndex === services.length - 1) {
+        // Swipe vers le haut au dernier service -> Réalisations
+        onNavigateToRealisations();
+      } else if (deltaY < 0 && activeIndex === 0) {
+        // Swipe vers le bas au premier service -> Hero
+        onNavigateToHero();
+      } else if (deltaY > 0) {
+        // Swipe vers le haut -> service suivant
+        setActiveIndex((prev) =>
+          prev < services.length - 1 ? prev + 1 : prev
+        );
+      } else {
+        // Swipe vers le bas -> service précédent
+        setActiveIndex((prev) => (prev > 0 ? prev - 1 : prev));
+      }
+    }
+
+    setTouchStartY(null);
+    setTouchStartX(null);
+  };
+
   return (
     <PageTransition isEntering={isEntering}>
       <motion.section
         ref={ref as Ref<HTMLElement> | undefined}
         className="Services min-h-screen relative bg-black overflow-hidden"
         onWheel={handleWheel}
-        onTouchMove={(e) => {
-          const touch = e.touches[0];
-          const startY = touch.clientY;
-
-          const handleTouchEnd = (e: TouchEvent) => {
-            const endY = e.changedTouches[0].clientY;
-            if (startY - endY < -50) {
-              // Direction inversée pour le retour
-              onNavigateToHero();
-            }
-            document.removeEventListener("touchend", handleTouchEnd);
-          };
-
-          document.addEventListener("touchend", handleTouchEnd);
-        }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         {/* Background images avec transition horizontale */}
         <div className="absolute inset-0 z-0">
@@ -170,7 +222,7 @@ const Services = ({
         {/* Contenu */}
         <div className="relative z-20 container mx-auto px-4 h-screen flex items-center">
           <div className="w-full flex justify-between items-center">
-            {/* Navigation gauche */}
+            {/* Navigation gauche - caché sur mobile */}
             <motion.button
               whileHover={{ x: -5, scale: 1.2 }}
               onClick={() =>
@@ -178,13 +230,19 @@ const Services = ({
                   prev > 0 ? prev - 1 : services.length - 1
                 )
               }
-              className="text-white/70 hover:text-white transform-gpu text-4xl px-8 nav-button"
+              className={`text-white/70 hover:text-white transform-gpu text-4xl px-8 nav-button ${
+                isMobile ? "hidden" : ""
+              }`}
             >
               ←
             </motion.button>
 
             {/* Contenu central */}
-            <div className="flex-1 max-w-4xl mx-auto relative min-h-[400px]">
+            <div
+              className={`flex-1 ${
+                isMobile ? "w-full" : "max-w-4xl"
+              } mx-auto relative min-h-[400px]`}
+            >
               {services.map((service, index) => (
                 <motion.div
                   key={service.id}
@@ -219,7 +277,7 @@ const Services = ({
                   }}
                 >
                   <motion.h2
-                    className="text-6xl md:text-7xl font-light text-white mb-12 glitch-text"
+                    className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-white mb-6 sm:mb-12 glitch-text"
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.2, duration: 0.6 }}
@@ -228,7 +286,7 @@ const Services = ({
                     <span className="text-white/50 dot">.</span>
                   </motion.h2>
                   <motion.p
-                    className="text-xl text-white/80 font-light leading-relaxed mx-auto px-4 service-description"
+                    className="text-base sm:text-lg md:text-xl text-white/80 font-light leading-relaxed mx-auto px-2 sm:px-4 service-description"
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.4, duration: 0.6 }}
@@ -239,7 +297,7 @@ const Services = ({
               ))}
             </div>
 
-            {/* Navigation droite */}
+            {/* Navigation droite - caché sur mobile */}
             <motion.button
               whileHover={{ x: 5, scale: 1.2 }}
               onClick={() =>
@@ -247,30 +305,70 @@ const Services = ({
                   prev < services.length - 1 ? prev + 1 : 0
                 )
               }
-              className="text-white/70 hover:text-white transform-gpu text-4xl px-8 nav-button"
+              className={`text-white/70 hover:text-white transform-gpu text-4xl px-8 nav-button ${
+                isMobile ? "hidden" : ""
+              }`}
             >
               →
             </motion.button>
           </div>
         </div>
 
+        {/* Navigation mobile (visible uniquement sur mobile) */}
+        {isMobile && (
+          <div className="absolute bottom-32 left-0 right-0 z-20 flex justify-center space-x-12">
+            <motion.button
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() =>
+                setActiveIndex((prev) =>
+                  prev > 0 ? prev - 1 : services.length - 1
+                )
+              }
+              className="text-white/70 hover:text-white transform-gpu text-4xl nav-button-mobile bg-black/30 rounded-full w-12 h-12 flex items-center justify-center"
+            >
+              ←
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() =>
+                setActiveIndex((prev) =>
+                  prev < services.length - 1 ? prev + 1 : 0
+                )
+              }
+              className="text-white/70 hover:text-white transform-gpu text-4xl nav-button-mobile bg-black/30 rounded-full w-12 h-12 flex items-center justify-center"
+            >
+              →
+            </motion.button>
+          </div>
+        )}
+
         {/* Indicateurs de progression et retour */}
         <motion.div
-          className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-20"
+          className="absolute bottom-8 sm:bottom-12 left-1/2 transform -translate-x-1/2 z-20"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
         >
-          <div className="flex flex-col items-center space-y-8">
-            <div className="flex items-center space-x-6">
+          <div className="flex flex-col items-center space-y-6 sm:space-y-8">
+            <div className="flex items-center space-x-3 sm:space-x-6">
               {services.map((_, index) => (
                 <motion.button
                   key={index}
                   className="progress-indicator-container"
                   onClick={() => setActiveIndex(index)}
                   whileHover={{ scale: 1.2 }}
+                  style={{
+                    width: isMobile ? "20px" : "24px",
+                    height: isMobile ? "20px" : "24px",
+                  }}
                 >
-                  <div className="progress-indicator-outer">
+                  <div
+                    className={`progress-indicator-outer ${
+                      isMobile ? "mobile" : ""
+                    }`}
+                  >
                     <motion.div
                       className="progress-indicator-inner"
                       initial={false}
@@ -295,7 +393,7 @@ const Services = ({
             </div>
             <motion.button
               onClick={onNavigateToHero}
-              className="text-white/50 text-sm uppercase tracking-widest hover:text-white transition-colors duration-300 back-button"
+              className="text-white/50 text-xs sm:text-sm uppercase tracking-widest hover:text-white transition-colors duration-300 back-button"
               whileHover={{ y: 2, scale: 1.05 }}
             >
               Retour
