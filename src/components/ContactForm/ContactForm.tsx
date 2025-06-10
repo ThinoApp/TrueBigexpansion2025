@@ -411,8 +411,8 @@ const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
                     {/* Dropdown des préfixes avec recherche */}
                     {showPrefixes && (
                       <div
-                        className="absolute top-full left-0 right-0 mt-1 bg-white/90 backdrop-blur-md 
-                        border border-white/20 rounded-xl shadow-lg max-h-60 overflow-y-auto z-50"
+                        className="absolute top-full left-0 mt-1 bg-white/90 backdrop-blur-md 
+                        border border-white/20 rounded-xl shadow-lg z-50 w-[300px] max-h-[320px]"
                       >
                         <div className="sticky top-0 bg-white/95 backdrop-blur-md p-2 border-b border-white/20">
                           <input
@@ -424,7 +424,7 @@ const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
                             onChange={(e) => setPrefixSearch(e.target.value)}
                           />
                         </div>
-                        <div className="max-h-48 overflow-y-auto">
+                        <div className="overflow-y-auto max-h-[250px]">
                           {filteredPrefixes.map((item) => (
                             <button
                               key={`${item.code}-${item.country}`}
@@ -435,11 +435,13 @@ const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
                               <span className="text-xl mr-3">
                                 {item.country}
                               </span>
-                              <div>
-                                <span className="font-medium">{item.code}</span>
-                                {/* <span className="text-xs text-black/50 block">
+                              <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
+                                <span className="font-medium whitespace-nowrap">
+                                  {item.code}
+                                </span>
+                                <span className="text-xs text-black/50 truncate">
                                   {item.name}
-                                </span> */}
+                                </span>
                               </div>
                             </button>
                           ))}
