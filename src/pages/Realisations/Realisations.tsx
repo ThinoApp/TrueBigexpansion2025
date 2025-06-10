@@ -21,6 +21,18 @@ const projects = [
     stats: ["Piste 8 couloirs", "400m homologuée", "Éclairage LED"],
     tags: ["#Athlétisme", "#Rénovation", "#ÉquipementSportif"],
   },
+  {
+    id: 2,
+    title: "BEAUGENCY - STADE BEL AIR",
+    location: "BEAUGENCY",
+    year: "2025",
+    category: "Équipements Sportifs",
+    description:
+      "Stade de Bel Air - Construction d'un terrain de football et d'un bâtiment vestiaires niveau T3 FFF",
+    image: "/images/Realisations/BEAUGENCY - STADE BEL AIR.jpg",
+    stats: ["Terrain de football", "Bâtiment vestiaires", "Éclairage LED"],
+    tags: ["#Football", "#Rénovation", "#ÉquipementSportif"],
+  },
   // {
   //   id: 2,
   //   title: "Zone CrossTraining Pro",
