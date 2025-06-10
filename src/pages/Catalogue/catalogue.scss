@@ -86,7 +86,8 @@
   margin-top: 20px;
   gap: 20px;
 
-  .control-button {
+  .control-button,
+  .view-toggle-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -111,6 +112,22 @@
       width: 20px;
       height: 20px;
       color: #64748b;
+    }
+  }
+
+  .view-toggle-button {
+    &.active-view {
+      background-color: rgba(59, 130, 246, 0.2);
+      border-color: rgba(59, 130, 246, 0.4);
+
+      svg {
+        color: #3b82f6;
+      }
+    }
+
+    // Cacher le bouton sur les petits écrans
+    @media (max-width: 767px) {
+      display: none !important;
     }
   }
 
@@ -180,6 +197,15 @@
   margin: 20px auto;
   perspective: 2000px;
   transform-style: preserve-3d;
+  transition: all 0.5s ease-in-out;
+
+  &[data-single-view="true"] {
+    animation: switchToSingleView 0.7s ease-in-out;
+  }
+
+  &[data-single-view="false"] {
+    animation: switchToDoubleView 0.7s ease-in-out;
+  }
 
   .stf__parent {
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
@@ -307,7 +333,7 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 30px;
-      
+
       .catalogue-cover-logo {
         width: 200px;
         filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.4));
@@ -315,7 +341,7 @@
         z-index: 2;
         animation: pulse-subtle 3s ease-in-out infinite;
       }
-      
+
       .catalogue-logo-glow {
         position: absolute;
         width: 100%;
@@ -323,38 +349,40 @@
         animation: pulse-glow 4s ease-in-out infinite;
       }
     }
-    
+
     .catalogue-cover-title {
       position: relative;
       z-index: 2;
-      
+
       .catalogue-glowing-text {
         font-size: 42px;
         font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 4px;
         color: white;
-        text-shadow: 
-          0 0 5px rgba(255, 255, 255, 0.3),
-          0 0 10px rgba(59, 130, 246, 0.5),
-          0 0 15px rgba(59, 130, 246, 0.3),
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3),
+          0 0 10px rgba(59, 130, 246, 0.5), 0 0 15px rgba(59, 130, 246, 0.3),
           0 0 20px rgba(59, 130, 246, 0.2);
         animation: text-flicker 5s linear infinite;
       }
     }
-    
+
     .catalogue-divider {
       position: relative;
       z-index: 2;
       animation: pulse-width 4s ease-in-out infinite;
     }
-    
+
     .catalogue-particles {
-      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
+      background-image: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.4) 1px,
+        transparent 1px
+      );
       background-size: 20px 20px;
       animation: particles-float 20s linear infinite;
     }
-    
+
     .catalogue-glow {
       opacity: 0.6;
       animation: pulse-opacity 6s ease-in-out infinite;
@@ -427,59 +455,122 @@
 
 // Animation de pulsation
 @keyframes pulse {
-  0% { opacity: 0.6; }
-  50% { opacity: 1; }
-  100% { opacity: 0.6; }
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }
 
 // Animation de pulsation subtile
 @keyframes pulse-subtle {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 // Animation de pulsation pour la lueur
 @keyframes pulse-glow {
-  0% { opacity: 0.3; transform: scale(0.95); }
-  50% { opacity: 0.7; transform: scale(1.05); }
-  100% { opacity: 0.3; transform: scale(0.95); }
+  0% {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
 }
 
 // Animation de variation d'opacité
 @keyframes pulse-opacity {
-  0% { opacity: 0.4; }
-  50% { opacity: 0.7; }
-  100% { opacity: 0.4; }
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.4;
+  }
 }
 
 // Animation de variation de largeur
 @keyframes pulse-width {
-  0% { width: 30px; }
-  50% { width: 40px; }
-  100% { width: 30px; }
+  0% {
+    width: 30px;
+  }
+  50% {
+    width: 40px;
+  }
+  100% {
+    width: 30px;
+  }
 }
 
 // Animation de flottement des particules
 @keyframes particles-float {
-  0% { background-position: 0 0; }
-  100% { background-position: 100px 100px; }
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 100px;
+  }
 }
 
 // Animation de scintillement du texte
 @keyframes text-flicker {
-  0% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 10px rgba(59, 130, 246, 0.5), 0 0 15px rgba(59, 130, 246, 0.3), 0 0 20px rgba(59, 130, 246, 0.2); }
-  25% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.4), 0 0 10px rgba(59, 130, 246, 0.6), 0 0 15px rgba(59, 130, 246, 0.4), 0 0 20px rgba(59, 130, 246, 0.3); }
-  50% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 10px rgba(59, 130, 246, 0.5), 0 0 15px rgba(59, 130, 246, 0.3), 0 0 20px rgba(59, 130, 246, 0.2); }
-  75% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(59, 130, 246, 0.7), 0 0 15px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.4); }
-  100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 10px rgba(59, 130, 246, 0.5), 0 0 15px rgba(59, 130, 246, 0.3), 0 0 20px rgba(59, 130, 246, 0.2); }
+  0% {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3),
+      0 0 10px rgba(59, 130, 246, 0.5), 0 0 15px rgba(59, 130, 246, 0.3),
+      0 0 20px rgba(59, 130, 246, 0.2);
+  }
+  25% {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.4),
+      0 0 10px rgba(59, 130, 246, 0.6), 0 0 15px rgba(59, 130, 246, 0.4),
+      0 0 20px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3),
+      0 0 10px rgba(59, 130, 246, 0.5), 0 0 15px rgba(59, 130, 246, 0.3),
+      0 0 20px rgba(59, 130, 246, 0.2);
+  }
+  75% {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5),
+      0 0 10px rgba(59, 130, 246, 0.7), 0 0 15px rgba(59, 130, 246, 0.5),
+      0 0 20px rgba(59, 130, 246, 0.4);
+  }
+  100% {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3),
+      0 0 10px rgba(59, 130, 246, 0.5), 0 0 15px rgba(59, 130, 246, 0.3),
+      0 0 20px rgba(59, 130, 246, 0.2);
+  }
 }
 
 // Animation de lueur
 @keyframes glow {
-  0% { box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
-  50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
-  100% { box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+  0% {
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  }
 }
 
 @keyframes bookShake {
@@ -503,6 +594,37 @@
   }
 }
 
+// Animation pour le changement de mode d'affichage
+@keyframes switchToSingleView {
+  0% {
+    transform: scale(1) rotateX(10deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.95) rotateX(15deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1) rotateX(10deg);
+    opacity: 1;
+  }
+}
+
+@keyframes switchToDoubleView {
+  0% {
+    transform: scale(1) rotateX(10deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.95) rotateX(5deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1) rotateX(10deg);
+    opacity: 1;
+  }
+}
+
 @media (max-width: 768px) {
   .catalogue-title {
     font-size: 2.5rem;
@@ -510,5 +632,253 @@
 
   .catalogue-subtitle {
     font-size: 1rem;
+  }
+
+  .catalogue-controls {
+    gap: 10px;
+
+    .control-button,
+    .view-toggle-button {
+      width: 36px;
+      height: 36px;
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    .page-indicator {
+      font-size: 12px;
+      padding: 4px 12px;
+    }
+  }
+
+  .catalogue-page-content {
+    padding: 15px;
+
+    &.catalogue-cover {
+      .catalogue-logo-container {
+        width: 180px;
+        height: 180px;
+        margin-bottom: 20px;
+
+        .catalogue-cover-logo {
+          width: 160px;
+        }
+      }
+
+      .catalogue-cover-title {
+        .catalogue-glowing-text {
+          font-size: 32px;
+          letter-spacing: 3px;
+        }
+      }
+
+      p {
+        font-size: 16px;
+      }
+    }
+
+    &.back-cover {
+      h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .catalogue-page {
+    .catalogue-page-container {
+      .page-number {
+        font-size: 10px;
+        padding: 3px 8px;
+      }
+    }
+  }
+
+  .catalogue-flipbook {
+    .catalogue-book {
+      transform: rotateX(5deg);
+
+      &:hover {
+        transform: rotateX(2deg) scale(1.01);
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .catalogue-controls {
+    gap: 8px;
+
+    .control-button,
+    .view-toggle-button {
+      width: 32px;
+      height: 32px;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .page-indicator {
+      font-size: 11px;
+      padding: 3px 10px;
+    }
+  }
+
+  .catalogue-page-content {
+    padding: 10px;
+
+    &.catalogue-cover {
+      .catalogue-logo-container {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 15px;
+
+        .catalogue-cover-logo {
+          width: 120px;
+        }
+      }
+
+      .catalogue-cover-title {
+        .catalogue-glowing-text {
+          font-size: 24px;
+          letter-spacing: 2px;
+        }
+      }
+
+      .catalogue-divider {
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .catalogue-flipbook {
+    margin: 10px auto;
+
+    .catalogue-book {
+      transform: none;
+
+      &:hover {
+        transform: scale(1.01);
+      }
+    }
+  }
+
+  .catalogue-loading {
+    min-height: 300px;
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+}
+
+// Optimisation pour l'orientation portrait sur mobile
+.stf__parent.--portrait {
+  .catalogue-page {
+    .catalogue-page-container {
+      .catalogue-page-image {
+        object-fit: cover;
+      }
+    }
+  }
+
+  .catalogue-page-content {
+    &.catalogue-cover,
+    &.back-cover {
+      padding: 10px;
+    }
+  }
+}
+
+// Optimisation pour les écrans très petits
+@media (max-width: 360px) {
+  .catalogue-page-content {
+    &.catalogue-cover {
+      .catalogue-logo-container {
+        width: 120px;
+        height: 120px;
+
+        .catalogue-cover-logo {
+          width: 100px;
+        }
+      }
+
+      .catalogue-cover-title {
+        .catalogue-glowing-text {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  .catalogue-controls {
+    .control-button,
+    .view-toggle-button {
+      width: 28px;
+      height: 28px;
+    }
+  }
+}
+
+// Optimisation pour les grands écrans
+@media (min-width: 1440px) {
+  .catalogue-flipbook {
+    .catalogue-book {
+      transform: rotateX(12deg);
+
+      &:hover {
+        transform: rotateX(8deg) scale(1.03);
+      }
+    }
+  }
+
+  .catalogue-page-content {
+    &.catalogue-cover {
+      .catalogue-logo-container {
+        width: 260px;
+        height: 260px;
+
+        .catalogue-cover-logo {
+          width: 240px;
+        }
+      }
+
+      .catalogue-cover-title {
+        .catalogue-glowing-text {
+          font-size: 48px;
+        }
+      }
+    }
+  }
+}
+
+// Amélioration du chargement des images
+.catalogue-page-image {
+  transition: opacity 0.3s ease;
+
+  &[loading="lazy"] {
+    opacity: 0;
+  }
+
+  &.loaded {
+    opacity: 1;
   }
 }

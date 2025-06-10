@@ -5,6 +5,12 @@
     background-size: cover;
     background-position: center;
     will-change: transform, opacity;
+
+    @media (max-width: 768px) {
+      // Optimisation pour les appareils mobiles
+      background-attachment: initial;
+      transform: translateZ(0);
+    }
   }
   font-family: "Inter", sans-serif;
 
@@ -19,12 +25,24 @@
     opacity: 0.4;
     transform: translateZ(0); // Force l'accélération matérielle
     will-change: opacity;
+
+    @media (max-width: 768px) {
+      background-size: 20px 20px; // Pattern plus petit sur mobile
+      opacity: 0.3; // Légèrement moins visible sur mobile pour de meilleures performances
+    }
   }
 
   // Styles du titre optimisés
   .hero-title {
     font-weight: 200;
     letter-spacing: -0.02em;
+
+    @media (max-width: 640px) {
+      letter-spacing: -0.01em;
+      // Optimisation des performances de rendu du texte sur mobile
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
     span {
       display: block;
@@ -33,6 +51,11 @@
       transform: translateZ(0);
       will-change: transform, opacity;
       text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+
+      @media (max-width: 640px) {
+        line-height: 1.2; // Meilleure lisibilité sur mobile
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      }
 
       &:after {
         content: ".";
@@ -48,6 +71,14 @@
     transform: translateZ(0);
     will-change: transform;
 
+    @media (max-width: 640px) {
+      letter-spacing: 0.05em;
+      // Amélioration du rendu des boutons sur mobile
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      padding: 0.75rem 1.25rem; // Padding ajusté pour mobile
+    }
+
     .arrow {
       transition: transform 0.2s ease;
     }
@@ -59,6 +90,13 @@
     letter-spacing: 0.02em;
     opacity: 0.9;
     transform: translateZ(0);
+
+    @media (max-width: 640px) {
+      font-weight: 400; // Texte légèrement plus gras pour la lisibilité
+      letter-spacing: 0.01em;
+      // Optimisation du rendu du texte sur mobile
+      -webkit-font-smoothing: antialiased;
+    }
   }
 
   // Animation moderne du titre
@@ -67,14 +105,17 @@
     transition: all 0.3s ease;
     animation: titleAnimation 2s ease-in-out infinite;
     background: rgba(255, 255, 255, 0.95);
-    box-shadow: 
-      0 0 20px rgba(255, 255, 255, 0.2),
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2),
       0 0 40px rgba(255, 255, 255, 0.1);
+
+    @media (max-width: 640px) {
+      animation: none; // Désactiver l'animation sur mobile pour les performances
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
 
     &:hover {
       background: white;
-      box-shadow: 
-        0 0 30px rgba(255, 255, 255, 0.3),
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3),
         0 0 50px rgba(255, 255, 255, 0.2);
     }
   }
@@ -97,6 +138,10 @@
     position: relative;
     overflow: hidden;
 
+    @media (max-width: 640px) {
+      height: 40px; // Plus petit sur mobile
+    }
+
     &:after {
       content: "";
       position: absolute;
@@ -108,6 +153,10 @@
       animation: scrollLine 2s ease-in-out infinite;
       transform: translateZ(0);
       will-change: transform;
+
+      @media (max-width: 640px) {
+        animation-duration: 1.5s; // Animation légèrement plus rapide sur mobile
+      }
     }
   }
 }
@@ -125,5 +174,50 @@
   }
   100% {
     transform: translateY(-100%);
+  }
+}
+
+// Optimisations pour la performance mobile
+@media (max-width: 768px) {
+  .Hero {
+    .will-change-transform {
+      background-position: center; // Assure un bon centrage sur mobile
+    }
+
+    // Optimisations de performance pour les appareils mobiles
+    * {
+      backface-visibility: hidden;
+    }
+  }
+}
+
+// Ajustements spécifiques pour les très petits écrans
+@media (max-width: 360px) {
+  .Hero {
+    .hero-title {
+      font-size: 2.5rem; // Taille de police réduite pour les très petits écrans
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// Optimisations pour les appareils à écran de taille moyenne
+@media (min-width: 641px) and (max-width: 1024px) {
+  .Hero {
+    .hero-title {
+      letter-spacing: -0.015em;
+    }
+
+    button {
+      transition: all 0.2s ease; // Transition plus rapide sur tablette
+    }
   }
 }

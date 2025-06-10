@@ -13,6 +13,8 @@ interface HeroProps {
 
 const Hero = ({ onNavigateToServices }: HeroProps) => {
   const [isEntering, setIsEntering] = useState(false);
+  const [touchStartY, setTouchStartY] = useState<number | null>(null);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   useEffect(() => {
     setIsEntering(true);
@@ -33,12 +35,40 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  // Préchargement des images pour une meilleure performance mobile
+  useEffect(() => {
+    const preloadImages = async () => {
+      try {
+        const promises = images.map((src) => {
+          return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = src;
+            img.onload = resolve;
+            img.onerror = reject;
+          });
+        });
+
+        await Promise.all(promises);
+        setImagesLoaded(true);
+      } catch (error) {
+        console.error("Failed to preload images", error);
+        // En cas d'erreur, on continue quand même
+        setImagesLoaded(true);
+      }
+    };
+
+    preloadImages();
+  }, []);
+
   const { scrollY } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
   useEffect(() => {
+    // Ne démarrer le diaporama que lorsque les images sont chargées
+    if (!imagesLoaded) return;
+
     // Gestion du diaporama avec GSAP
     const slideInterval = setInterval(() => {
       const nextIndex = (currentImageIndex + 1) % images.length;
@@ -48,13 +78,15 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
         nextBgRef.current.style.backgroundImage = `url(${images[nextIndex]})`;
         nextBgRef.current.style.filter = "brightness(0.6)";
 
-        // Animation de transition
+        // Animation de transition - optimisée pour mobile
+        const duration = window.innerWidth < 768 ? 1 : 1.5;
+
         gsap.fromTo(
           nextBgRef.current,
           { opacity: 0 },
           {
             opacity: 1,
-            duration: 1.5,
+            duration,
             ease: "power2.inOut",
             onComplete: () => {
               // Mettre à jour l'image actuelle
@@ -73,9 +105,11 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
     }, 3000);
 
     return () => clearInterval(slideInterval);
-  }, [currentImageIndex, images.length]);
+  }, [currentImageIndex, images.length, imagesLoaded]);
 
   useEffect(() => {
+    if (!imagesLoaded) return;
+
     // Définir l'état initial
     gsap.set(
       [
@@ -88,7 +122,8 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
       }
     );
 
-    // Animation initiale
+    // Animation initiale - optimisée pour mobile
+    const isMobile = window.innerWidth < 768;
     const tl = gsap.timeline({
       defaults: { ease: "power3.out" },
     });
@@ -97,13 +132,13 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
     tl.fromTo(
       bgRef.current,
       {
-        scale: 1.1,
+        scale: isMobile ? 1.05 : 1.1,
         filter: "brightness(0) blur(10px)",
       },
       {
         scale: 1,
         filter: "brightness(0.5) blur(0px)",
-        duration: 1.5,
+        duration: isMobile ? 1 : 1.5,
       }
     );
 
@@ -115,8 +150,8 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
         {
           y: 0,
           opacity: 1,
-          duration: 1,
-          stagger: 0.2,
+          duration: isMobile ? 0.8 : 1,
+          stagger: isMobile ? 0.15 : 0.2,
           ease: "power4.out",
         },
         "-=1"
@@ -130,7 +165,7 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
       {
         y: 0,
         opacity: 1,
-        duration: 0.8,
+        duration: isMobile ? 0.6 : 0.8,
         stagger: 0.1,
         ease: "power2.out",
       },
@@ -163,7 +198,7 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
     return () => {
       tl.kill();
     };
-  }, []);
+  }, [imagesLoaded]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (latest > 50) {
@@ -173,6 +208,25 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
 
   const handleServicesClick = () => {
     onNavigateToServices();
+  };
+
+  // Gestion améliorée des événements tactiles
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartY(e.touches[0].clientY);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartY === null) return;
+
+    const touchEndY = e.changedTouches[0].clientY;
+    const diff = touchStartY - touchEndY;
+
+    // Seuil de swipe plus sensible pour mobile
+    if (diff > 30) {
+      onNavigateToServices();
+    }
+
+    setTouchStartY(null);
   };
 
   return (
@@ -185,20 +239,8 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
             onNavigateToServices();
           }
         }}
-        onTouchMove={(e) => {
-          const touch = e.touches[0];
-          const startY = touch.clientY;
-
-          const handleTouchEnd = (e: TouchEvent) => {
-            const endY = e.changedTouches[0].clientY;
-            if (startY - endY > 50) {
-              onNavigateToServices();
-            }
-            document.removeEventListener("touchend", handleTouchEnd);
-          };
-
-          document.addEventListener("touchend", handleTouchEnd);
-        }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         {/* Background avec effet optimisé */}
         <div
@@ -227,9 +269,9 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
         {/* Contenu */}
         <div
           ref={contentRef}
-          className="relative z-20 container mx-auto px-4 h-screen flex flex-col justify-center items-start"
+          className="relative z-20 container mx-auto px-4 sm:px-6 h-screen flex flex-col justify-center items-start"
         >
-          <div className="w-full md:w-2/3 lg:w-1/2 space-y-12">
+          <div className="w-full md:w-2/3 lg:w-1/2 space-y-8 sm:space-y-12">
             {/* Tag line */}
             <div className="space-y-3">
               {/* <div className="text-white/70 text-lg tracking-wider uppercase">
@@ -250,10 +292,10 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
             </div>
 
             {/* Titre principal */}
-            <div className="space-y-5">
+            <div className="space-y-4 sm:space-y-5">
               <h1
                 ref={titleRef}
-                className="hero-title text-5xl md:text-7xl lg:text-8xl font-light text-white leading-tight"
+                className="hero-title text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-light text-white leading-tight"
               >
                 <div className="word overflow-hidden">
                   <span className="block">Penser.</span>
@@ -268,14 +310,14 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
             </div>
 
             {/* Description */}
-            <p className="text-white/80 text-lg md:text-xl leading-relaxed max-w-2xl">
+            <p className="text-white/80 text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl">
               Nous sommes spécialisés dans la conception et la réalisation de
               projets innovants, alliant expertise technique et créativité pour
               donner vie à vos ambitions.
             </p>
 
             {/* Call to action */}
-            <div className="flex space-x-6">
+            <div className="flex flex-row space-x-6">
               <button className="px-8 py-4 bg-white text-black hover:bg-opacity-90 transition-colors duration-300">
                 Découvrir
               </button>
@@ -289,18 +331,25 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
           </div>
         </div>
 
-        {/* Scroll indicator */}
+        {/* Scroll indicator - Meilleure visibilité sur mobile */}
         <div
           ref={scrollIndicatorRef}
-          className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-20 cursor-pointer"
+          className="absolute bottom-8 sm:bottom-12 left-1/2 transform -translate-x-1/2 z-20 cursor-pointer"
           onClick={onNavigateToServices}
         >
-          <div className="flex flex-col items-center space-y-4">
-            <div className="text-white/50 text-sm uppercase tracking-widest">
+          <div className="flex flex-col items-center space-y-3 sm:space-y-4">
+            <div className="text-white/50 text-xs sm:text-sm uppercase tracking-widest">
               Explorer
             </div>
             <div className="scroll-line" />
           </div>
+        </div>
+
+        {/* Préchargement invisible des images */}
+        <div className="hidden">
+          {images.map((src, index) => (
+            <img key={index} src={src} alt="preload" />
+          ))}
         </div>
       </section>
     </PageTransition>

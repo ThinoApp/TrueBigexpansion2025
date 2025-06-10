@@ -23,6 +23,8 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [initialPageSet, setInitialPageSet] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [singlePageView, setSinglePageView] = useState<boolean>(false);
   const bookRef = useRef<any>(null);
   // Données des pages du catalogue
   const cataloguePages: CataloguePage[] = Array.from(
@@ -33,10 +35,41 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
     })
   );
 
+  // Fonction pour gérer le chargement des images
+  const handleImageLoad = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    event.currentTarget.classList.add("loaded");
+  };
+
+  // Fonction pour basculer entre la vue une page et deux pages
+  const togglePageView = () => {
+    setSinglePageView(!singlePageView);
+    // Nous forcerons un remontage du composant grâce à la clé
+  };
+
   useEffect(() => {
     // Ajuster la taille des pages en fonction de la taille de l'écran
     const handleResize = () => {
-      const width = Math.min(window.innerWidth * 0.4, 500);
+      const screenWidth = window.innerWidth;
+      const isSmallScreen = screenWidth < 768;
+      setIsMobile(isSmallScreen);
+
+      // Forcer le mode une page sur les petits écrans
+      if (isSmallScreen && !singlePageView) {
+        setSinglePageView(true);
+      }
+
+      // Ajustement plus réactif pour différentes tailles d'écran
+      let width;
+      if (screenWidth < 480) {
+        width = screenWidth * 0.8; // 80% de la largeur sur mobile
+      } else if (screenWidth < 768) {
+        width = screenWidth * 0.6; // 60% sur tablette
+      } else if (screenWidth < 1024) {
+        width = screenWidth * 0.45; // 45% sur petit écran
+      } else {
+        width = Math.min(screenWidth * 0.4, 500); // Max 500px sur grand écran
+      }
+
       const height = width * 1.4; // Ratio approximatif d'une page A4
       setPageWidth(width);
       setPageHeight(height);
@@ -54,7 +87,7 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
       window.removeEventListener("resize", handleResize);
       clearTimeout(timer);
     };
-  }, []);
+  }, [singlePageView]);
 
   // Effet pour aller à la page spécifiée une fois le livre chargé
   useEffect(() => {
@@ -193,32 +226,34 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
 
             <motion.div
               className="catalogue-flipbook relative"
+              data-single-view={singlePageView.toString()}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <HTMLFlipBook
+                key={`flipbook-${singlePageView ? "single" : "double"}`}
                 width={pageWidth}
                 height={pageHeight}
                 size="fixed"
-                minWidth={300}
+                minWidth={280}
                 maxWidth={1000}
-                minHeight={420}
+                minHeight={400}
                 maxHeight={1400}
                 maxShadowOpacity={0.7}
                 showCover={true}
                 mobileScrollSupport={true}
                 className="catalogue-book"
                 ref={bookRef}
-                startPage={0}
+                startPage={currentPage}
                 drawShadow={true}
                 flippingTime={800}
-                usePortrait={false}
+                usePortrait={singlePageView || isMobile}
                 startZIndex={20}
                 autoSize={false}
                 clickEventForward={true}
                 useMouseEvents={true}
-                swipeDistance={20}
+                swipeDistance={10}
                 showPageCorners={true}
                 disableFlipByClick={false}
                 style={{ background: "transparent" }}
@@ -252,31 +287,32 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
                     {/* Contenu de la couverture */}
                     <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
                       {/* Logo avec effet amélioré */}
-                      <div className="catalogue-logo-container mb-8">
+                      <div className="catalogue-logo-container mb-4 sm:mb-8">
                         <img
                           src="/images/assets/Logo BIG 2022.png"
                           alt="BIG Logo"
-                          className="catalogue-cover-logo relative drop-shadow-[0_0_20px_rgba(255,255,255,0.7)]"
+                          className="catalogue-cover-logo relative drop-shadow-[0_0_20px_rgba(255,255,255,0.7)] max-w-[70%] sm:max-w-[80%]"
+                          onLoad={handleImageLoad}
                         />
                         <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full catalogue-logo-glow"></div>
                       </div>
 
                       {/* Titre avec effet de texte amélioré */}
-                      <h1 className="relative z-10 text-5xl font-bold tracking-wider mb-6 catalogue-cover-title">
+                      <h1 className="relative z-10 text-3xl sm:text-4xl md:text-5xl font-bold tracking-wider mb-4 sm:mb-6 catalogue-cover-title">
                         <span className="catalogue-glowing-text">
                           CATALOGUE
                         </span>
                       </h1>
 
                       {/* Ligne décorative */}
-                      <div className="w-32 h-1 bg-gradient-to-r from-blue-300/80 via-white/90 to-blue-300/80 rounded-full mb-6 catalogue-divider"></div>
+                      <div className="w-24 sm:w-32 h-1 bg-gradient-to-r from-blue-300/80 via-white/90 to-blue-300/80 rounded-full mb-4 sm:mb-6 catalogue-divider"></div>
 
                       {/* Sous-titre */}
-                      <p className="relative z-10 text-2xl font-light tracking-widest mb-2 text-blue-100 drop-shadow-[0_0_8px_rgba(0,0,0,0.6)]">
+                      <p className="relative z-10 text-xl sm:text-2xl font-light tracking-widest mb-2 text-blue-100 drop-shadow-[0_0_8px_rgba(0,0,0,0.6)]">
                         BIG EXPANSION
                       </p>
 
-                      <p className="relative z-10 text-xl font-light tracking-wide text-blue-200/90 drop-shadow-[0_0_5px_rgba(0,0,0,0.5)]">
+                      <p className="relative z-10 text-lg sm:text-xl font-light tracking-wide text-blue-200/90 drop-shadow-[0_0_5px_rgba(0,0,0,0.5)]">
                         2025
                       </p>
                     </div>
@@ -292,6 +328,8 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
                           src={page.imageSrc}
                           alt={`Page ${page.id}`}
                           className="catalogue-page-image"
+                          loading="lazy"
+                          onLoad={handleImageLoad}
                         />
                         <div className="page-number bg-gray-800/70 text-white border border-blue-500/20 backdrop-blur-sm">
                           {page.id}
@@ -316,16 +354,18 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
                         }}
                       ></div>
                     </div>
-                    <h2 className="relative z-10 text-3xl font-bold mb-6 drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
+                    <h2 className="relative z-10 text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
                       BIG Expansion
                     </h2>
                     <div className="relative z-10 flex flex-col gap-2 text-white/90">
-                      <p className="text-lg font-light">www.bigexpansion.fr</p>
-                      <p className="text-lg font-light">
+                      <p className="text-base sm:text-lg font-light">
+                        www.bigexpansion.eu
+                      </p>
+                      <p className="text-base sm:text-lg font-light">
                         contact@bigexpansion.fr
                       </p>
-                      <div className="w-20 h-1 bg-white/30 mx-auto my-4 rounded-full"></div>
-                      <p className="text-lg font-medium">2025</p>
+                      <div className="w-16 sm:w-20 h-1 bg-white/30 mx-auto my-3 sm:my-4 rounded-full"></div>
+                      <p className="text-base sm:text-lg font-medium">2025</p>
                     </div>
                   </div>
                 </div>
@@ -336,7 +376,7 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
             </motion.div>
 
             <motion.div
-              className="catalogue-controls mt-8"
+              className="catalogue-controls mt-6 sm:mt-8"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
@@ -344,23 +384,25 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
               <button
                 className="control-button prev bg-gray-900/70 backdrop-blur-md border border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:text-white transition-all duration-300"
                 onClick={goToPrevPage}
+                aria-label="Page précédente"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
+                  width="20"
+                  height="20"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="sm:w-6 sm:h-6"
                 >
                   <path d="M15 18l-6-6 6-6" />
                 </svg>
               </button>
 
-              <div className="page-indicator bg-gray-900/70 backdrop-blur-md border border-blue-500/20 text-blue-300">
+              <div className="page-indicator bg-gray-900/70 backdrop-blur-md border border-blue-500/20 text-blue-300 text-sm sm:text-base">
                 <span id="page-current" className="font-medium">
                   {currentPage + 1}
                 </span>{" "}
@@ -370,19 +412,60 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
               <button
                 className="control-button next bg-gray-900/70 backdrop-blur-md border border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:text-white transition-all duration-300"
                 onClick={goToNextPage}
+                aria-label="Page suivante"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
+                  width="20"
+                  height="20"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="sm:w-6 sm:h-6"
                 >
                   <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+
+              <button
+                className={`view-toggle-button bg-gray-900/70 backdrop-blur-md border border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:text-white transition-all duration-300 ${
+                  singlePageView ? "active-view" : ""
+                } hidden md:flex`}
+                onClick={togglePageView}
+                aria-label={
+                  singlePageView ? "Mode deux pages" : "Mode une page"
+                }
+                title={
+                  singlePageView
+                    ? "Actuellement en mode une page - Cliquer pour voir deux pages"
+                    : "Actuellement en mode deux pages - Cliquer pour voir une page"
+                }
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="sm:w-6 sm:h-6"
+                >
+                  {singlePageView ? (
+                    // Icône pour vue deux pages
+                    <>
+                      <rect x="3" y="4" width="8" height="16" rx="1" />
+                      <rect x="13" y="4" width="8" height="16" rx="1" />
+                    </>
+                  ) : (
+                    // Icône pour vue une page
+                    <rect x="6" y="4" width="12" height="16" rx="1" />
+                  )}
                 </svg>
               </button>
             </motion.div>
@@ -391,25 +474,26 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
       </div>
 
       <motion.div
-        className="catalogue-footer mt-10 mb-8 flex justify-center"
+        className="catalogue-footer mt-8 sm:mt-10 mb-6 sm:mb-8 flex justify-center"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.6 }}
       >
         <button
-          className="download-button bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-700 hover:to-cyan-500 text-white px-6 py-3 rounded-full flex items-center gap-3 transform transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-blue-500/40"
+          className="download-button bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-700 hover:to-cyan-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full flex items-center gap-2 sm:gap-3 transform transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-blue-500/40 text-sm sm:text-base"
           onClick={downloadCatalogue}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="18"
+            height="18"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            className="sm:w-6 sm:h-6"
           >
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
             <polyline points="7 10 12 15 17 10" />
