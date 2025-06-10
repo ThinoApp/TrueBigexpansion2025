@@ -65,16 +65,46 @@ const Realisations = ({
 }: RealisationsProps) => {
   const [isEntering, setIsEntering] = useState(false);
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
-  // const containerRef = useRef(null);
-  // const { scrollYProgress } = useScroll({
-  //   target: containerRef,
-  //   offset: ["start start", "end start"],
-  // });
+  const [isMobile, setIsMobile] = useState(false);
+  const [touchStartY, setTouchStartY] = useState<number | null>(null);
+
+  // Détection de l'appareil mobile
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkIfMobile();
+    window.addEventListener("resize", checkIfMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkIfMobile);
+    };
+  }, []);
 
   const handleWheel = (e: React.WheelEvent) => {
     if (e.deltaY < -50 && window.scrollY === 0) {
       onNavigateToServices();
     }
+  };
+
+  // Gestion des événements tactiles
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartY(e.touches[0].clientY);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartY === null) return;
+
+    const touchEndY = e.changedTouches[0].clientY;
+    const deltaY = touchStartY - touchEndY;
+
+    // Swipe vers le bas pour naviguer vers Services
+    if (deltaY < -50 && window.scrollY === 0) {
+      onNavigateToServices();
+    }
+
+    setTouchStartY(null);
   };
 
   useEffect(() => {
@@ -86,6 +116,8 @@ const Realisations = ({
       <motion.div
         className="Realisations"
         onWheel={handleWheel}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -150,26 +182,55 @@ const Realisations = ({
           </motion.h1>
         </header>
 
-        {/* Navigation des projets */}
-        <nav className="project-nav">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              className="project-nav-item"
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: index * 0.1 }}
-              onClick={() =>
-                setSelectedProject(
-                  selectedProject === project.id ? null : project.id
-                )
-              }
-            >
-              <span className="project-number">0{index + 1}</span>
-              <span className="project-title">{project.title}</span>
-            </motion.div>
-          ))}
-        </nav>
+        {/* Navigation des projets - masquée sur mobile */}
+        {!isMobile && (
+          <nav className="project-nav">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                className="project-nav-item"
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: index * 0.1 }}
+                onClick={() =>
+                  setSelectedProject(
+                    selectedProject === project.id ? null : project.id
+                  )
+                }
+              >
+                <span className="project-number">0{index + 1}</span>
+                <span className="project-title">{project.title}</span>
+              </motion.div>
+            ))}
+          </nav>
+        )}
+
+        {/* Navigation des projets mobile - visible uniquement sur mobile */}
+        {isMobile && (
+          <nav className="project-nav-mobile">
+            <div className="mobile-nav-header">Projets</div>
+            <div className="mobile-nav-items">
+              {projects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  className={`mobile-nav-item ${
+                    selectedProject === project.id ? "active" : ""
+                  }`}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  onClick={() =>
+                    setSelectedProject(
+                      selectedProject === project.id ? null : project.id
+                    )
+                  }
+                >
+                  <span className="mobile-project-number">0{index + 1}</span>
+                </motion.div>
+              ))}
+            </div>
+          </nav>
+        )}
 
         {/* Visualisation du projet */}
         <div className="project-showcase">
@@ -287,33 +348,43 @@ const Realisations = ({
         </div>
 
         {/* Navigation */}
-        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex gap-4">
+        {/* <div
+          className={`fixed ${
+            isMobile ? "bottom-4" : "bottom-8"
+          } left-1/2 transform -translate-x-1/2 flex gap-4`}
+        >
           <button
             onClick={onNavigateToServices}
-            className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors"
+            className={`${
+              isMobile ? "px-4 py-2 text-sm" : "px-6 py-3"
+            } bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors`}
           >
             ← Services
           </button>
           <button
             onClick={onNavigateToReferences}
-            className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors"
+            className={`${
+              isMobile ? "px-4 py-2 text-sm" : "px-6 py-3"
+            } bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors`}
           >
             Références →
           </button>
-        </div>
+        </div> */}
 
-        {/* Bouton de navigation */}
-        <motion.button
-          className="nav-button"
-          onClick={onNavigateToServices}
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          whileHover={{ y: -2 }}
-        >
-          <span className="nav-icon">↑</span>
-          <span className="nav-text">Services</span>
-        </motion.button>
+        {/* Bouton de navigation - masqué sur mobile */}
+        {/* {!isMobile && (
+          <motion.button
+            className="nav-button"
+            onClick={onNavigateToServices}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            whileHover={{ y: -2 }}
+          >
+            <span className="nav-icon">↑</span>
+            <span className="nav-text">Services</span>
+          </motion.button>
+        )} */}
       </motion.div>
     </PageTransition>
   );

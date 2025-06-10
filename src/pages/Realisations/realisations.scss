@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap");
+
 .Realisations {
   min-height: 100vh;
   width: 100%;
@@ -5,6 +9,8 @@
   background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);
   color: white;
   overflow-x: hidden;
+  font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
 
   // Image de fond
   .background-image {
@@ -31,6 +37,10 @@
     z-index: 2;
     pointer-events: none;
 
+    @media (max-width: 768px) {
+      height: 30vh; // Hauteur réduite sur mobile
+    }
+
     .waves {
       position: absolute;
       bottom: 0;
@@ -38,6 +48,10 @@
       height: 100%;
       min-height: 100px;
       max-height: 150px;
+
+      @media (max-width: 768px) {
+        max-height: 100px; // Hauteur réduite sur mobile
+      }
 
       g.wave-parallax {
         animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
@@ -102,6 +116,11 @@
     transform: perspective(500px) rotateX(45deg);
     z-index: 2;
     opacity: 0.2;
+
+    @media (max-width: 768px) {
+      background-size: 30px 30px; // Grille plus petite sur mobile
+      opacity: 0.15; // Moins visible sur mobile
+    }
   }
 
   .floating-header {
@@ -109,6 +128,11 @@
     top: 2rem;
     left: 2rem;
     z-index: 10;
+
+    @media (max-width: 768px) {
+      top: 1rem;
+      left: 1rem;
+    }
 
     h1 {
       font-size: 2rem;
@@ -119,6 +143,11 @@
       position: relative;
       text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+        letter-spacing: 0.15em;
+      }
+
       &::after {
         content: "";
         position: absolute;
@@ -126,7 +155,16 @@
         bottom: -8px;
         width: 40px;
         height: 2px;
-        background: linear-gradient(to right, rgba(255, 255, 255, 0.8), transparent);
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.8),
+          transparent
+        );
+
+        @media (max-width: 768px) {
+          width: 30px;
+          height: 1px;
+        }
       }
     }
   }
@@ -177,6 +215,60 @@
     }
   }
 
+  // Navigation mobile
+  .project-nav-mobile {
+    position: fixed;
+    bottom: 16%;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .mobile-nav-header {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 0.75rem;
+    }
+
+    .mobile-nav-items {
+      display: flex;
+      gap: 1rem;
+
+      .mobile-nav-item {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+
+        &.active {
+          background: rgba(255, 255, 255, 0.2);
+          border-color: rgba(255, 255, 255, 0.4);
+          transform: scale(1.1);
+        }
+
+        .mobile-project-number {
+          font-size: 0.8rem;
+          color: rgba(255, 255, 255, 0.8);
+        }
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.15);
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+
   .project-showcase {
     position: relative;
     min-height: 100vh;
@@ -185,6 +277,11 @@
     justify-content: center;
     padding: 2rem;
     z-index: 5;
+
+    @media (max-width: 768px) {
+      padding: 1rem;
+      padding-top: 4rem; // Espace pour le header
+    }
 
     .welcome-screen {
       position: absolute;
@@ -207,6 +304,10 @@
         text-align: center;
         padding: 2rem;
 
+        @media (max-width: 768px) {
+          padding: 1rem;
+        }
+
         h2 {
           font-size: 3.5rem;
           font-weight: 200;
@@ -214,6 +315,11 @@
           background: linear-gradient(45deg, #fff, rgba(255, 255, 255, 0.7));
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
+
+          @media (max-width: 768px) {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+          }
         }
 
         p {
@@ -224,6 +330,12 @@
           max-width: 600px;
           margin-left: auto;
           margin-right: auto;
+
+          @media (max-width: 768px) {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+          }
         }
 
         .project-preview-grid {
@@ -232,16 +344,26 @@
           gap: 2rem;
           padding: 1rem;
 
+          @media (max-width: 768px) {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            padding: 0.5rem;
+          }
+
           .project-preview {
             position: relative;
             height: 300px;
             border-radius: 15px;
             overflow: hidden;
             cursor: pointer;
-            box-shadow: 
-              0 0 20px rgba(255, 255, 255, 0.1),
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1),
               0 0 40px rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.2);
+
+            @media (max-width: 768px) {
+              height: 200px;
+              border-radius: 10px;
+            }
 
             img {
               width: 100%;
@@ -267,17 +389,30 @@
               opacity: 0;
               transition: all 0.3s ease;
 
+              @media (max-width: 768px) {
+                padding: 1rem;
+              }
+
               h3 {
                 font-size: 1.5rem;
                 font-weight: 300;
                 color: white;
                 margin-bottom: 0.5rem;
+
+                @media (max-width: 768px) {
+                  font-size: 1.2rem;
+                  margin-bottom: 0.25rem;
+                }
               }
 
               p {
                 font-size: 1rem;
                 color: rgba(255, 255, 255, 0.8);
                 margin: 0;
+
+                @media (max-width: 768px) {
+                  font-size: 0.9rem;
+                }
               }
             }
 
@@ -292,8 +427,7 @@
               }
 
               border-color: rgba(255, 255, 255, 0.4);
-              box-shadow: 
-                0 0 30px rgba(255, 255, 255, 0.2),
+              box-shadow: 0 0 30px rgba(255, 255, 255, 0.2),
                 0 0 50px rgba(255, 255, 255, 0.1);
             }
           }
@@ -324,9 +458,13 @@
         height: 70vh;
         border-radius: 20px;
         overflow: hidden;
-        box-shadow: 
-          0 0 30px rgba(255, 255, 255, 0.1),
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.1),
           0 0 50px rgba(255, 255, 255, 0.05);
+
+        @media (max-width: 768px) {
+          height: 80vh;
+          border-radius: 12px;
+        }
 
         .project-image {
           width: 100%;
@@ -350,8 +488,22 @@
           flex-direction: column;
           justify-content: flex-end;
 
+          @media (max-width: 768px) {
+            padding: 1.5rem;
+            background: linear-gradient(
+              to top,
+              rgba(0, 0, 0, 0.8) 0%,
+              rgba(0, 0, 0, 0.5) 50%,
+              rgba(0, 0, 0, 0.2) 100%
+            );
+          }
+
           .project-info {
             max-width: 600px;
+
+            @media (max-width: 768px) {
+              max-width: 100%;
+            }
 
             h2 {
               font-size: 3rem;
@@ -359,6 +511,11 @@
               margin-bottom: 1.5rem;
               color: white;
               line-height: 1.2;
+
+              @media (max-width: 768px) {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+              }
             }
 
             .project-meta {
@@ -369,9 +526,20 @@
               color: rgba(255, 255, 255, 0.8);
               letter-spacing: 0.05em;
 
+              @media (max-width: 768px) {
+                flex-wrap: wrap;
+                gap: 1rem;
+                margin-bottom: 1rem;
+                font-size: 0.8rem;
+              }
+
               span {
                 position: relative;
                 padding-right: 2rem;
+
+                @media (max-width: 768px) {
+                  padding-right: 1rem;
+                }
 
                 &:not(:last-child)::after {
                   content: "";
@@ -383,6 +551,11 @@
                   background: rgba(255, 255, 255, 0.4);
                   border-radius: 50%;
                   transform: translate(-50%, -50%);
+
+                  @media (max-width: 768px) {
+                    width: 3px;
+                    height: 3px;
+                  }
                 }
               }
             }
@@ -394,6 +567,13 @@
               margin-bottom: 2.5rem;
               font-weight: 300;
               max-width: 500px;
+
+              @media (max-width: 768px) {
+                font-size: 0.95rem;
+                line-height: 1.5;
+                margin-bottom: 1.5rem;
+                max-width: 100%;
+              }
             }
 
             .project-stats {
@@ -401,6 +581,11 @@
               flex-wrap: wrap;
               gap: 1rem;
               margin-bottom: 2.5rem;
+
+              @media (max-width: 768px) {
+                gap: 0.5rem;
+                margin-bottom: 1.5rem;
+              }
 
               .stat-item {
                 padding: 0.75rem 1.5rem;
@@ -411,6 +596,15 @@
                 color: white;
                 font-size: 0.9rem;
                 transition: all 0.3s ease;
+
+                @media (max-width: 768px) {
+                  padding: 0.5rem 1rem;
+                  font-size: 0.8rem;
+                  border-radius: 6px;
+                  backdrop-filter: blur(
+                    5px
+                  ); // Moins intensif pour la performance
+                }
 
                 &:hover {
                   background: rgba(255, 255, 255, 0.15);
@@ -424,6 +618,10 @@
               flex-wrap: wrap;
               gap: 0.75rem;
 
+              @media (max-width: 768px) {
+                gap: 0.5rem;
+              }
+
               .tag {
                 padding: 0.5rem 1rem;
                 background: rgba(255, 255, 255, 0.05);
@@ -432,6 +630,12 @@
                 color: rgba(255, 255, 255, 0.8);
                 font-size: 0.8rem;
                 transition: all 0.3s ease;
+
+                @media (max-width: 768px) {
+                  padding: 0.4rem 0.8rem;
+                  font-size: 0.7rem;
+                  border-radius: 15px;
+                }
 
                 &:hover {
                   background: rgba(255, 255, 255, 0.1);
@@ -473,6 +677,49 @@
 
     .nav-icon {
       font-size: 1.2rem;
+    }
+  }
+}
+
+// Optimisations pour les appareils mobiles
+@media (max-width: 768px) {
+  .Realisations {
+    // Optimisations générales pour mobile
+    * {
+      backface-visibility: hidden; // Améliore les performances de rendu
+    }
+
+    // Réduire les animations sur mobile
+    .waves-container .waves g.wave-parallax use {
+      animation-duration: 10s; // Animation plus lente pour économiser les ressources
+    }
+
+    // Ajuster les boutons pour une meilleure accessibilité
+    button {
+      min-height: 44px; // Taille minimale recommandée pour les éléments tactiles
+      min-width: 44px;
+    }
+  }
+}
+
+// Ajustements pour les très petits écrans
+@media (max-width: 360px) {
+  .Realisations {
+    .floating-header h1 {
+      font-size: 1.2rem;
+    }
+
+    .welcome-screen .welcome-content h2 {
+      font-size: 2rem;
+    }
+
+    .project-content .project-media .project-overlay .project-info h2 {
+      font-size: 1.5rem;
+    }
+
+    .project-nav-mobile .mobile-nav-items .mobile-nav-item {
+      width: 30px;
+      height: 30px;
     }
   }
 }

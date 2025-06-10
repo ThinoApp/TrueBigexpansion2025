@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, TouchEvent } from "react";
 import projectsData from "../../data/BIG Project JSON.json";
 import { Reference, Filters } from "./types";
 import ReferenceFilters from "./components/ReferenceFilters/ReferenceFilters";
@@ -16,6 +16,9 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
   );
   const [references, setReferences] = useState<Reference[]>([]);
   const [showFilters, setShowFilters] = useState<boolean>(true);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [touchStartX, setTouchStartX] = useState<number>(0);
+  const [touchStartY, setTouchStartY] = useState<number>(0);
   const [filters, setFilters] = useState<Filters>({
     type: [],
     year: null,
@@ -25,6 +28,25 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
     projectType: "",
     category: "",
   });
+
+  // Détection de l'appareil mobile
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+
+      // Masquer automatiquement les filtres sur mobile
+      if (window.innerWidth < 768) {
+        setShowFilters(false);
+      }
+    };
+
+    checkIfMobile();
+    window.addEventListener("resize", checkIfMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkIfMobile);
+    };
+  }, []);
 
   // Process the JSON data when the component mounts
   useEffect(() => {
@@ -42,6 +64,34 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
 
     setReferences(allReferences);
   }, []);
+
+  // Gestion des événements tactiles
+  const handleTouchStart = (e: TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+    setTouchStartY(e.touches[0].clientY);
+  };
+
+  const handleTouchEnd = (e: TouchEvent) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+
+    // Vérifier si le mouvement est plus horizontal que vertical
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      // Vérifier si le mouvement est suffisamment important (plus de 50px)
+      if (Math.abs(deltaX) > 50) {
+        if (deltaX > 0) {
+          // Balayage vers la droite - montrer les filtres
+          setShowFilters(true);
+        } else {
+          // Balayage vers la gauche - cacher les filtres
+          setShowFilters(false);
+        }
+      }
+    }
+  };
 
   const getFilteredReferences = useCallback(() => {
     let filtered = references;
@@ -127,18 +177,26 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
     return filtered;
   }, [filters, references]);
 
-  const handleReferenceSelect = useCallback((ref: Reference) => {
-    setSelectedReference(ref);
-  }, []);
+  const handleReferenceSelect = useCallback(
+    (ref: Reference) => {
+      setSelectedReference(ref);
+
+      // Sur mobile, faire défiler vers le haut lorsqu'une référence est sélectionnée
+      if (isMobile) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    },
+    [isMobile]
+  );
 
   const filteredReferences = getFilteredReferences();
 
-  console.log("FILTERED REF: ", filteredReferences);
-  // Afficher un message de débogage
-  console.log("Show Filters State:", showFilters);
-
   return (
-    <div className="references-page">
+    <div
+      className={`references-page ${isMobile ? "mobile-view" : ""}`}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* Bouton de toggle des filtres avec style amélioré */}
       <div className="filters-container">
         <button
@@ -147,21 +205,9 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
           }`}
           onClick={() => setShowFilters(!showFilters)}
           title={showFilters ? "Masquer les filtres" : "Afficher les filtres"}
-          style={{
-            position: "sticky",
-            top: 0,
-            zIndex: 1000,
-            width: "100%",
-            padding: "1rem",
-            backgroundColor: "#333",
-            color: "white",
-            fontWeight: "bold",
-          }}
         >
           {showFilters ? "Masquer les filtres" : "Afficher les filtres"}
-          <span className="toggle-icon" style={{ marginLeft: "8px" }}>
-            {showFilters ? "▲" : "▼"}
-          </span>
+          <span className="toggle-icon">{showFilters ? "▲" : "▼"}</span>
         </button>
 
         <div className={`filters-panel ${showFilters ? "visible" : ""}`}>
@@ -173,7 +219,7 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
         </div>
       </div>
 
-      <div className="flex items-start">
+      <div className="references-content">
         {/* <GlobeVisualization
           references={filteredReferences}
           selectedReference={selectedReference}
@@ -186,6 +232,17 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
           onNavigateToCatalogue={onNavigateToCatalogue}
         />
       </div>
+
+      {/* Instructions de balayage pour mobile */}
+      {isMobile && (
+        <div className="swipe-instructions">
+          <div className="swipe-icon">←</div>
+          <span>
+            Balayez pour {showFilters ? "masquer" : "afficher"} les filtres
+          </span>
+          <div className="swipe-icon">→</div>
+        </div>
+      )}
     </div>
   );
 };
