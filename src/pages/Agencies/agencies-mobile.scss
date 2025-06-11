@@ -1,0 +1,258 @@
+// Styles pour la version mobile des agences
+.agencies-container.mobile-view {
+  .agencies-hero {
+    height: 20vh;
+    padding-top: 60px;
+
+    h1 {
+      font-size: 2.5rem;
+      letter-spacing: 0.1em;
+    }
+  }
+
+  .agencies-carousel {
+    height: 80vh;
+
+    .navigation {
+      bottom: 6rem;
+      gap: 1rem;
+
+      .nav-button {
+        width: 45px;
+        height: 45px;
+      }
+
+      .progress-bar {
+        width: 120px;
+      }
+    }
+
+    .carousel-item {
+      .agency-content {
+        flex-direction: column !important;
+        padding: 1rem;
+        gap: 1rem;
+        overflow-y: auto;
+
+        .agency-image {
+          flex: none !important;
+          height: 30vh !important;
+          width: 100% !important;
+          border-radius: 0.75rem;
+        }
+
+        .agency-info {
+          padding: 1rem;
+          max-height: none !important;
+          overflow-y: visible !important;
+          flex: 1 !important;
+
+          .info-content {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 0.5rem;
+            backdrop-filter: blur(5px);
+          }
+
+          .agency-title {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+          }
+
+          .location {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+          }
+
+          .contact-info {
+            margin-bottom: 1.5rem;
+            padding: 0.75rem;
+          }
+
+          .discover-button {
+            padding: 0.7rem 2rem;
+            font-size: 0.8rem;
+            align-self: center;
+            width: 100%;
+            text-align: center;
+          }
+
+          .team-section {
+            h3 {
+              font-size: 1.1rem;
+              text-align: center;
+            }
+
+            .team-grid {
+              grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+              gap: 0.75rem;
+
+              .team-member {
+                .member-photo {
+                  width: 65px;
+                  height: 65px;
+                }
+
+                .member-info {
+                  h4 {
+                    font-size: 0.8rem;
+                  }
+
+                  p {
+                    font-size: 0.7rem;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Indicateurs de navigation pour mobile
+    .mobile-indicators {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.5rem;
+      z-index: 10;
+
+      .indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &.active {
+          background: #4a90e2;
+          transform: scale(1.2);
+        }
+      }
+    }
+
+    // Instructions de balayage
+    .swipe-instructions {
+      position: absolute;
+      bottom: 4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.8);
+      animation: fadeInOut 5s forwards;
+      z-index: 10;
+
+      .swipe-icon {
+        font-size: 1.2rem;
+        animation: swipeHint 1.5s infinite;
+      }
+    }
+  }
+}
+
+// Media queries pour les petits écrans
+@media (max-width: 480px) {
+  .agencies-container.mobile-view {
+    .agencies-hero {
+      height: 15vh;
+      padding-top: 70px;
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
+
+    .agencies-carousel {
+      height: 85vh;
+
+      .carousel-item {
+        .agency-content {
+          padding: 0.75rem;
+          gap: 0.75rem;
+
+          .agency-image {
+            height: 25vh !important;
+          }
+
+          .agency-info {
+            padding: 0.75rem;
+
+            .info-content {
+              padding: 0.75rem;
+            }
+
+            .agency-title {
+              font-size: 1.75rem;
+            }
+
+            .team-section {
+              .team-grid {
+                grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+
+                .team-member {
+                  .member-photo {
+                    width: 55px;
+                    height: 55px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .navigation {
+        bottom: 5rem;
+
+        .nav-button {
+          width: 40px;
+          height: 40px;
+        }
+
+        .progress-bar {
+          width: 100px;
+        }
+      }
+    }
+  }
+}
+
+// Animations pour les instructions de balayage
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+    visibility: hidden;
+  }
+}
+
+@keyframes swipeHint {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}

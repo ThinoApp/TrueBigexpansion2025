@@ -3,11 +3,14 @@ import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
 import { agencies } from "../../data/agencies";
 import "./agencies.scss";
+import "./agencies-mobile.scss"; // Import des styles mobiles
 
 const Agencies = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isEntering, setIsEntering] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [touchStartX, setTouchStartX] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     container: containerRef,
@@ -18,6 +21,20 @@ const Agencies = () => {
     damping: 30,
     restDelta: 0.001,
   });
+
+  // Détection de l'appareil mobile
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkIfMobile();
+    window.addEventListener("resize", checkIfMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkIfMobile);
+    };
+  }, []);
 
   useEffect(() => {
     setIsEntering(true);
@@ -35,6 +52,27 @@ const Agencies = () => {
     setTimeout(() => setIsTransitioning(false), 800);
   };
 
+  // Gestion des événements tactiles pour le balayage
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const deltaX = touchEndX - touchStartX;
+
+    // Si le mouvement est suffisamment important (plus de 50px)
+    if (Math.abs(deltaX) > 50) {
+      if (deltaX > 0) {
+        // Balayage vers la droite - agence précédente
+        handleScroll("prev");
+      } else {
+        // Balayage vers la gauche - agence suivante
+        handleScroll("next");
+      }
+    }
+  };
+
   // On utilise directement l'image optimisée
   const backgroundStyle = {
     "--current-background": `url(${agencies[currentIndex].imageMin})`,
@@ -43,9 +81,11 @@ const Agencies = () => {
   return (
     <PageTransition isEntering={isEntering}>
       <div
-        className="agencies-container"
+        className={`agencies-container ${isMobile ? "mobile-view" : ""}`}
         ref={containerRef}
         style={backgroundStyle}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         <motion.div
           className="agencies-hero"
@@ -71,7 +111,7 @@ const Agencies = () => {
             <motion.button
               className={`nav-button ${currentIndex === 0 ? "disabled" : ""}`}
               onClick={() => handleScroll("prev")}
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: isMobile ? 1.05 : 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
               <span>←</span>
@@ -87,7 +127,7 @@ const Agencies = () => {
                 currentIndex === agencies.length - 1 ? "disabled" : ""
               }`}
               onClick={() => handleScroll("next")}
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: isMobile ? 1.05 : 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
               <span>→</span>
@@ -230,6 +270,32 @@ const Agencies = () => {
               )}
             </AnimatePresence>
           </div>
+
+          {/* Indicateurs de navigation pour mobile */}
+          {isMobile && (
+            <div className="mobile-indicators">
+              {agencies.map((_, idx) => (
+                <div
+                  key={idx}
+                  className={`indicator ${
+                    currentIndex === idx ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    setCurrentIndex(idx);
+                  }}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Instructions de balayage pour mobile */}
+          {isMobile && (
+            <div className="swipe-instructions">
+              <div className="swipe-icon">←</div>
+              <span>Balayez pour naviguer</span>
+              <div className="swipe-icon">→</div>
+            </div>
+          )}
         </div>
       </div>
     </PageTransition>
