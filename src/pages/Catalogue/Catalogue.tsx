@@ -50,6 +50,7 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
     // Ajuster la taille des pages en fonction de la taille de l'écran
     const handleResize = () => {
       const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
       const isSmallScreen = screenWidth < 768;
       setIsMobile(isSmallScreen);
 
@@ -60,17 +61,40 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
 
       // Ajustement plus réactif pour différentes tailles d'écran
       let width;
-      if (screenWidth < 480) {
-        width = screenWidth * 0.8; // 80% de la largeur sur mobile
-      } else if (screenWidth < 768) {
-        width = screenWidth * 0.6; // 60% sur tablette
-      } else if (screenWidth < 1024) {
-        width = screenWidth * 0.45; // 45% sur petit écran
+
+      if (singlePageView) {
+        // En mode single page, utiliser jusqu'à 80% de la largeur disponible
+        if (screenWidth < 480) {
+          width = screenWidth * 0.9; // 90% de la largeur sur mobile
+        } else if (screenWidth < 768) {
+          width = screenWidth * 0.8; // 80% sur tablette
+        } else if (screenWidth < 1024) {
+          width = screenWidth * 0.7; // 70% sur petit écran
+        } else {
+          width = Math.min(screenWidth * 0.6, 700); // Max 700px sur grand écran
+        }
       } else {
-        width = Math.min(screenWidth * 0.4, 500); // Max 500px sur grand écran
+        // En mode double page, garder les ratios originaux
+        if (screenWidth < 480) {
+          width = screenWidth * 0.8; // 80% de la largeur sur mobile
+        } else if (screenWidth < 768) {
+          width = screenWidth * 0.6; // 60% sur tablette
+        } else if (screenWidth < 1024) {
+          width = screenWidth * 0.45; // 45% sur petit écran
+        } else {
+          width = Math.min(screenWidth * 0.4, 500); // Max 500px sur grand écran
+        }
       }
 
-      const height = width * 1.4; // Ratio approximatif d'une page A4
+      // Ajuster la hauteur en fonction du mode et de l'écran
+      let height;
+      if (singlePageView) {
+        // En mode single page, utiliser une plus grande partie de la hauteur
+        height = Math.min(width * 1.4, screenHeight * 0.75); // Maximum 75% de la hauteur d'écran
+      } else {
+        height = width * 1.4; // Ratio approximatif d'une page A4
+      }
+
       setPageWidth(width);
       setPageHeight(height);
     };
@@ -225,7 +249,9 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
             </div>
 
             <motion.div
-              className="catalogue-flipbook relative"
+              className={`catalogue-flipbook relative ${
+                singlePageView ? "catalogue-single-view" : ""
+              }`}
               data-single-view={singlePageView.toString()}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
