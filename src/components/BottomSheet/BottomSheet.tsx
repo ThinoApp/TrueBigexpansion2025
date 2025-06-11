@@ -65,7 +65,7 @@ const BottomSheet = ({
     <>
       <motion.button
         onClick={() => !disabled && setIsOpen(!isOpen)}
-        className={`fixed bottom-8 md:bottom-8 sm:bottom-16 right-8 md:right-8 sm:right-4 z-50 bg-white/90 backdrop-blur-lg rounded-full p-4 
+        className={`fixed bottom-16 md:bottom-16 sm:bottom-16 right-8 md:right-8 sm:right-4 z-50 bg-white/90 backdrop-blur-lg rounded-full p-4 
         border border-white/50 shadow-[0_0_20px_rgba(255,255,255,0.3)] 
         hover:bg-white hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] 
         transition-all duration-300 ${
