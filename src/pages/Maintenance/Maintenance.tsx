@@ -15,12 +15,12 @@ const Maintenance = () => {
   const [_sphere, setSphere] = useState<THREE.Mesh | null>(null);
 
   // Function to exit maintenance mode (désactivée)
-  const exitMaintenanceMode = () => {
-    // Cette fonction est désactivée pour bloquer le site en mode maintenance
-    // sessionStorage.removeItem("maintenanceMode");
-    // window.location.href = window.location.pathname;
-    console.log("Le site est actuellement bloqué en mode maintenance");
-  };
+  // const exitMaintenanceMode = () => {
+  //   // Cette fonction est désactivée pour bloquer le site en mode maintenance
+  //   // sessionStorage.removeItem("maintenanceMode");
+  //   // window.location.href = window.location.pathname;
+  //   console.log("Le site est actuellement bloqué en mode maintenance");
+  // };
 
   // Initialize Three.js scene
   useEffect(() => {
