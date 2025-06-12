@@ -190,28 +190,12 @@ const Maintenance = () => {
         >
           {/* Gears icons */}
           <div className="maint-gears-container">
-            <motion.div
-              className="maint-gear maint-gear-left"
-              animate={{ rotate: 360 }}
-              transition={{
-                duration: 10,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            >
+            <div className="maint-gear maint-gear-left">
               <span className="maint-icon-cog"></span>
-            </motion.div>
-            <motion.div
-              className="maint-gear maint-gear-right"
-              animate={{ rotate: -360 }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            >
+            </div>
+            <div className="maint-gear maint-gear-right">
               <span className="maint-icon-cog-alt"></span>
-            </motion.div>
+            </div>
           </div>
 
           <motion.div
@@ -229,8 +213,7 @@ const Maintenance = () => {
           >
             <h1 className="maint-logo">
               B<span className="text-blue-500">.</span>I
-              <span className="text-blue-500">.</span>G
-              <span className="text-blue-500">.</span>Expansion
+              <span className="text-blue-500">.</span>G Expansion
             </h1>
           </motion.div>
 
