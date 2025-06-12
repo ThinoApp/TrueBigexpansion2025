@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import * as THREE from "three";
 import { gsap } from "gsap";
+import { Settings, Settings2 } from "lucide-react";
 import "./maintenance.scss";
 
 const Maintenance = () => {
@@ -191,10 +192,24 @@ const Maintenance = () => {
           {/* Gears icons */}
           <div className="maint-gears-container">
             <div className="maint-gear maint-gear-left">
-              <span className="maint-icon-cog"></span>
+              <Settings
+                className="text-blue-500"
+                size={42}
+                style={{
+                  animation: "spin 10s linear infinite",
+                  filter: "drop-shadow(0 0 8px rgba(59, 130, 246, 0.7))",
+                }}
+              />
             </div>
             <div className="maint-gear maint-gear-right">
-              <span className="maint-icon-cog-alt"></span>
+              <Settings2
+                className="text-blue-500"
+                size={38}
+                style={{
+                  animation: "spin 8s linear infinite reverse",
+                  filter: "drop-shadow(0 0 8px rgba(59, 130, 246, 0.7))",
+                }}
+              />
             </div>
           </div>
 
