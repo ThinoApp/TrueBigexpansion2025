@@ -7,6 +7,7 @@ import References from "./pages/References/References";
 import Agencies from "./pages/Agencies/Agencies";
 import Timelapses from "./pages/Timelapses/Timelapses";
 import Catalogue from "./pages/Catalogue/Catalogue";
+import Maintenance from "./pages/Maintenance/Maintenance";
 import "./App.css";
 import "./styles/pageTransition.scss";
 import BottomSheet from "./components/BottomSheet/BottomSheet";
@@ -22,7 +23,8 @@ type Section =
   | "references"
   | "agencies"
   | "timelapses"
-  | "catalogue";
+  | "catalogue"
+  | "maintenance";
 
 const variants = {
   enter: (direction: number) => ({
@@ -61,7 +63,12 @@ const variants = {
 };
 
 function App() {
-  const [currentSection, setCurrentSection] = useState<Section>("hero");
+  // Check if maintenance mode is enabled
+  const isMaintenanceMode =
+    sessionStorage.getItem("maintenanceMode") === "true";
+  const initialSection: Section = isMaintenanceMode ? "maintenance" : "hero";
+
+  const [currentSection, setCurrentSection] = useState<Section>(initialSection);
   const [[page, direction], setPage] = useState([0, 0]);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const { isLoading, withLoading } = useLoading();
@@ -81,6 +88,7 @@ function App() {
       "timelapses",
       "catalogue",
       "agencies",
+      "maintenance",
     ];
     const currentIndex = sections.indexOf(currentSection);
     const nextIndex = currentIndex + newDirection;
@@ -115,6 +123,7 @@ function App() {
       "realisations",
       "references",
       "timelapses",
+      "maintenance",
     ];
     const currentIndex = sections.indexOf(currentSection);
     const targetIndex = sections.indexOf("references");
@@ -155,15 +164,16 @@ function App() {
     });
   };
 
-
   return (
     <main className="min-h-screen relative overflow-hidden bg-gradient-to-b from-gray-900 to-black perspective-1000">
       <LoadingScreen isLoading={isLoading || isTransitioning} />
 
-      <Header
-        currentSection={currentSection}
-        onContactClick={() => setIsContactOpen(true)}
-      />
+      {currentSection !== "maintenance" && (
+        <Header
+          currentSection={currentSection}
+          onContactClick={() => setIsContactOpen(true)}
+        />
+      )}
 
       <AnimatePresence initial={false} mode="wait" custom={direction}>
         {currentSection === "hero" ? (
@@ -364,6 +374,18 @@ function App() {
           >
             <Catalogue initialPage={cataloguePage} />
           </motion.div>
+        ) : currentSection === "maintenance" ? (
+          <motion.div
+            key="maintenance"
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            className="absolute inset-0 w-full h-full preserve-3d"
+          >
+            <Maintenance />
+          </motion.div>
         ) : (
           <motion.div
             key="agencies"
@@ -388,11 +410,13 @@ function App() {
         )}
       </AnimatePresence>
 
-      <BottomSheet
-        currentSection={currentSection}
-        onNavigate={handleNavigateToSection}
-        disabled={isTransitioning}
-      />
+      {currentSection !== "maintenance" && (
+        <BottomSheet
+          currentSection={currentSection}
+          onNavigate={handleNavigateToSection}
+          disabled={isTransitioning}
+        />
+      )}
 
       <ContactForm
         isOpen={isContactOpen}
