@@ -1,7 +1,5 @@
-@import "tailwindcss/preflight";
-@tailwind utilities;
-
-.maintenance-container {
+/* Styles spécifiques à la page de maintenance uniquement */
+.maint-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -16,7 +14,7 @@
   font-family: "Inter", sans-serif;
 }
 
-.maintenance-canvas {
+.maint-canvas {
   position: absolute;
   top: 0;
   left: 0;
@@ -25,7 +23,7 @@
   z-index: 1;
 }
 
-.maintenance-content {
+.maint-content {
   position: relative;
   z-index: 2;
   width: 100%;
@@ -33,7 +31,7 @@
   padding: 0 20px;
 }
 
-.maintenance-card {
+.maint-card {
   background: rgba(15, 23, 42, 0.7);
   backdrop-filter: blur(16px);
   border-radius: 24px;
@@ -46,12 +44,12 @@
   perspective: 1000px;
 }
 
-.logo-container {
+.maint-logo-container {
   margin-bottom: 20px;
   transform-style: preserve-3d;
 }
 
-.logo {
+.maint-logo {
   font-size: 3rem;
   font-weight: 700;
   letter-spacing: -1px;
@@ -62,7 +60,7 @@
   filter: drop-shadow(0 0 10px rgba(79, 70, 229, 0.5));
 }
 
-.maintenance-title {
+.maint-title {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 16px;
@@ -72,7 +70,7 @@
   color: transparent;
 }
 
-.maintenance-message-container {
+.maint-message-container {
   height: 60px;
   display: flex;
   align-items: center;
@@ -80,18 +78,18 @@
   margin-bottom: 32px;
 }
 
-.maintenance-message {
+.maint-message {
   font-size: 1.1rem;
   line-height: 1.5;
   color: #e2e8f0;
   margin: 0;
 }
 
-.progress-container {
+.maint-progress-container {
   margin-bottom: 32px;
 }
 
-.progress-bar {
+.maint-progress-bar {
   height: 8px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
@@ -99,20 +97,20 @@
   margin-bottom: 8px;
 }
 
-.progress-fill {
+.maint-progress-fill {
   height: 100%;
   background: linear-gradient(90deg, #3b82f6, #8b5cf6);
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
 }
 
-.progress-text {
+.maint-progress-text {
   font-size: 0.9rem;
   color: #94a3b8;
   text-align: right;
 }
 
-.contact-info {
+.maint-contact-info {
   margin-bottom: 24px;
 
   p {
@@ -122,7 +120,7 @@
   }
 }
 
-.email-link {
+.maint-email-link {
   color: #3b82f6;
   text-decoration: none;
   font-weight: 500;
@@ -153,13 +151,13 @@
   }
 }
 
-.social-links {
+.maint-social-links {
   display: flex;
   justify-content: center;
   gap: 16px;
 }
 
-.social-icon {
+.maint-social-icon {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -183,7 +181,7 @@
 }
 
 // Floating elements
-.floating-elements {
+.maint-floating-elements {
   position: absolute;
   top: 0;
   left: 0;
@@ -193,7 +191,7 @@
   z-index: 1;
 }
 
-.floating-element {
+.maint-floating-element {
   position: absolute;
   width: 10px;
   height: 10px;
@@ -218,7 +216,7 @@
 }
 
 // Exit maintenance button (for testing)
-.exit-maintenance-button {
+.maint-exit-button {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -242,25 +240,25 @@
 
 // Responsive styles
 @media (max-width: 640px) {
-  .maintenance-card {
+  .maint-card {
     padding: 30px 20px;
   }
 
-  .logo {
+  .maint-logo {
     font-size: 2.5rem;
   }
 
-  .maintenance-title {
+  .maint-title {
     font-size: 1.5rem;
   }
 
-  .maintenance-message {
+  .maint-message {
     font-size: 1rem;
   }
 }
 
 // Animation keyframes
-@keyframes pulse {
+@keyframes maint-pulse {
   0% {
     opacity: 0.6;
     transform: scale(1);
@@ -275,7 +273,7 @@
   }
 }
 
-@keyframes float {
+@keyframes maint-float {
   0% {
     transform: translateY(0px);
   }
@@ -288,16 +286,16 @@
 }
 
 // Add social icons using font icons or SVG
-.icon-facebook::before {
+.maint-icon-facebook::before {
   content: "\f39e";
 }
-.icon-twitter::before {
+.maint-icon-twitter::before {
   content: "\f099";
 }
-.icon-instagram::before {
+.maint-icon-instagram::before {
   content: "\f16d";
 }
-.icon-linkedin::before {
+.maint-icon-linkedin::before {
   content: "\f0e1";
 }
 
@@ -305,19 +303,19 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css");
 
 // Update icon classes to use Font Awesome
-.icon-facebook::before {
+.maint-icon-facebook::before {
   content: "\f39e";
   font-family: "Font Awesome 6 Brands";
 }
-.icon-twitter::before {
+.maint-icon-twitter::before {
   content: "\f099";
   font-family: "Font Awesome 6 Brands";
 }
-.icon-instagram::before {
+.maint-icon-instagram::before {
   content: "\f16d";
   font-family: "Font Awesome 6 Brands";
 }
-.icon-linkedin::before {
+.maint-icon-linkedin::before {
   content: "\f0e1";
   font-family: "Font Awesome 6 Brands";
 }

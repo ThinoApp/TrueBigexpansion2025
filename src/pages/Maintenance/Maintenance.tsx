@@ -155,13 +155,13 @@ const Maintenance = () => {
     const interval = setInterval(() => {
       currentIndex = (currentIndex + 1) % messages.length;
 
-      gsap.to(".maintenance-message", {
+      gsap.to(".maint-message", {
         opacity: 0,
         y: -20,
         duration: 0.5,
         onComplete: () => {
           setMessage(messages[currentIndex]);
-          gsap.to(".maintenance-message", {
+          gsap.to(".maint-message", {
             opacity: 1,
             y: 0,
             duration: 0.5,
@@ -174,20 +174,20 @@ const Maintenance = () => {
   }, []);
 
   return (
-    <div className="maintenance-container" ref={containerRef}>
+    <div className="maint-container" ref={containerRef}>
       {/* 3D Background */}
-      <canvas ref={canvasRef} className="maintenance-canvas" />
+      <canvas ref={canvasRef} className="maint-canvas" />
 
       {/* Content */}
-      <div className="maintenance-content">
+      <div className="maint-content">
         <motion.div
-          className="maintenance-card"
+          className="maint-card"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <motion.div
-            className="logo-container"
+            className="maint-logo-container"
             animate={{
               rotateY: [0, 360],
               scale: [1, 1.1, 1],
@@ -199,57 +199,60 @@ const Maintenance = () => {
               times: [0, 0.5, 1],
             }}
           >
-            <h1 className="logo">
+            <h1 className="maint-logo">
               B<span className="text-blue-500">.</span>I
             </h1>
           </motion.div>
 
-          <h2 className="maintenance-title">Site en maintenance</h2>
+          <h2 className="maint-title">Site en maintenance</h2>
 
-          <div className="maintenance-message-container">
-            <p className="maintenance-message">{message}</p>
+          <div className="maint-message-container">
+            <p className="maint-message">{message}</p>
           </div>
 
-          <div className="progress-container">
-            <div className="progress-bar">
+          <div className="maint-progress-container">
+            <div className="maint-progress-bar">
               <motion.div
-                className="progress-fill"
+                className="maint-progress-fill"
                 initial={{ width: "0%" }}
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 0.5 }}
               />
             </div>
-            <p className="progress-text">{progress}%</p>
+            <p className="maint-progress-text">{progress}%</p>
           </div>
 
-          <div className="contact-info">
+          <div className="maint-contact-info">
             <p>Pour toute question, contactez-nous à :</p>
-            <a href="mailto:contact@bigexpansion.com" className="email-link">
+            <a
+              href="mailto:contact@bigexpansion.com"
+              className="maint-email-link"
+            >
               contact@bigexpansion.com
             </a>
           </div>
 
-          <div className="social-links">
+          <div className="maint-social-links">
             {["facebook", "twitter", "instagram", "linkedin"].map((social) => (
               <motion.a
                 key={social}
                 href={`https://${social}.com/bigexpansion`}
-                className="social-icon"
+                className="maint-social-icon"
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <span className={`icon-${social}`}></span>
+                <span className={`maint-icon-${social}`}></span>
               </motion.a>
             ))}
           </div>
         </motion.div>
 
         {/* Floating elements */}
-        <div className="floating-elements">
+        <div className="maint-floating-elements">
           {[...Array(10)].map((_, i) => (
             <motion.div
               key={i}
-              className="floating-element"
+              className="maint-floating-element"
               initial={{
                 x: Math.random() * window.innerWidth,
                 y: Math.random() * window.innerHeight,
@@ -275,7 +278,7 @@ const Maintenance = () => {
       {/* Hidden button to exit maintenance mode (for testing) */}
       <button
         onClick={exitMaintenanceMode}
-        className="exit-maintenance-button"
+        className="maint-exit-button"
         title="Exit Maintenance Mode (Admin only)"
       >
         Exit
