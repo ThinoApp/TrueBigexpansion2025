@@ -9,10 +9,10 @@ const Maintenance = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [progress, setProgress] = useState(0);
   const [message, setMessage] = useState("Nous revenons très bientôt");
-  const [scene, setScene] = useState<THREE.Scene | null>(null);
-  const [camera, setCamera] = useState<THREE.PerspectiveCamera | null>(null);
-  const [renderer, setRenderer] = useState<THREE.WebGLRenderer | null>(null);
-  const [sphere, setSphere] = useState<THREE.Mesh | null>(null);
+  const [_scene, setScene] = useState<THREE.Scene | null>(null);
+  const [_camera, setCamera] = useState<THREE.PerspectiveCamera | null>(null);
+  const [_renderer, setRenderer] = useState<THREE.WebGLRenderer | null>(null);
+  const [_sphere, setSphere] = useState<THREE.Mesh | null>(null);
 
   // Function to exit maintenance mode (for testing)
   const exitMaintenanceMode = () => {
