@@ -5,6 +5,7 @@
   left: 0;
   width: 100%;
   height: 100vh;
+  height: 100dvh; /* Utilisation de dvh pour une meilleure prise en charge mobile */
   background: linear-gradient(to bottom, #0f172a, #1e293b);
   overflow: hidden;
   display: flex;
@@ -29,20 +30,26 @@
   width: 100%;
   max-width: 500px;
   padding: 0 20px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .maint-card {
   background: rgba(15, 23, 42, 0.7);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px); /* Pour Safari */
   border-radius: 24px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 1px 8px rgba(0, 0, 0, 0.2),
     0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-  padding: 40px;
+  padding: 40px 30px;
   text-align: center;
   transform-style: preserve-3d;
   perspective: 1000px;
   position: relative;
+  width: 100%;
 }
 
 /* Styles pour les engrenages */
@@ -100,7 +107,7 @@
 }
 
 .maint-logo {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
   letter-spacing: -1px;
   background: linear-gradient(to right, #ffffff, #a5b4fc);
@@ -137,6 +144,7 @@
 
 .maint-progress-container {
   margin-bottom: 32px;
+  width: 100%;
 }
 
 .maint-progress-bar {
@@ -162,6 +170,7 @@
 
 .maint-contact-info {
   margin-bottom: 24px;
+  width: 100%;
 
   p {
     font-size: 0.9rem;
@@ -176,6 +185,7 @@
   font-weight: 500;
   transition: all 0.3s ease;
   position: relative;
+  word-break: break-all; /* Pour que les emails longs ne débordent pas */
 
   &:hover {
     color: #60a5fa;
@@ -205,6 +215,7 @@
   display: flex;
   justify-content: center;
   gap: 16px;
+  flex-wrap: wrap; /* Pour que les icônes puissent passer à la ligne si nécessaire */
 }
 
 .maint-social-icon {
@@ -288,22 +299,66 @@
   }
 }
 
-// Responsive styles
-@media (max-width: 640px) {
+// Responsive styles - Mobile first approach
+// Extra small devices (phones, 375px and down)
+@media (max-width: 375px) {
   .maint-card {
-    padding: 30px 20px;
+    padding: 25px 15px;
+    border-radius: 16px;
   }
 
   .maint-logo {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .maint-title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .maint-message {
-    font-size: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .maint-message-container {
+    height: 50px;
+    margin-bottom: 20px;
+  }
+
+  .maint-gear-left {
+    left: 10%;
+  }
+
+  .maint-gear-right {
+    right: 10%;
+  }
+
+  .maint-social-links {
+    gap: 12px;
+  }
+
+  .maint-social-icon {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+// Small devices (phones, 576px and up)
+@media (min-width: 376px) and (max-width: 576px) {
+  .maint-card {
+    padding: 30px 20px;
+    border-radius: 20px;
+  }
+
+  .maint-logo {
+    font-size: 2.2rem;
+  }
+
+  .maint-title {
+    font-size: 1.4rem;
+  }
+
+  .maint-message {
+    font-size: 0.95rem;
   }
 
   .maint-gear-left {
@@ -313,10 +368,105 @@
   .maint-gear-right {
     right: 15%;
   }
+}
 
-  .maint-icon-cog,
-  .maint-icon-cog-alt {
+// Medium devices (tablets, 768px and up)
+@media (min-width: 577px) and (max-width: 768px) {
+  .maint-content {
+    max-width: 550px;
+  }
+
+  .maint-card {
+    padding: 35px 25px;
+  }
+
+  .maint-logo {
     font-size: 2.5rem;
+  }
+
+  .maint-title {
+    font-size: 1.6rem;
+  }
+
+  .maint-message {
+    font-size: 1rem;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 769px) and (max-width: 992px) {
+  .maint-content {
+    max-width: 600px;
+  }
+
+  .maint-card {
+    padding: 40px 30px;
+  }
+
+  .maint-logo {
+    font-size: 2.8rem;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 993px) {
+  .maint-content {
+    max-width: 650px;
+  }
+
+  .maint-card {
+    padding: 45px 35px;
+  }
+
+  .maint-logo {
+    font-size: 3rem;
+  }
+
+  .maint-title {
+    font-size: 1.8rem;
+  }
+
+  .maint-message {
+    font-size: 1.1rem;
+  }
+}
+
+// Orientation landscape pour les appareils mobiles
+@media (max-height: 500px) and (orientation: landscape) {
+  .maint-card {
+    padding: 20px 15px;
+  }
+
+  .maint-logo {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+  }
+
+  .maint-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .maint-message-container {
+    height: 40px;
+    margin-bottom: 15px;
+  }
+
+  .maint-message {
+    font-size: 0.9rem;
+  }
+
+  .maint-progress-container {
+    margin-bottom: 15px;
+  }
+
+  .maint-contact-info {
+    margin-bottom: 10px;
+  }
+
+  .maint-gear-left,
+  .maint-gear-right {
+    top: -30px;
   }
 }
 
@@ -346,20 +496,6 @@
   100% {
     transform: translateY(0px);
   }
-}
-
-// Add social icons using font icons or SVG
-.maint-icon-facebook::before {
-  content: "\f39e";
-}
-.maint-icon-twitter::before {
-  content: "\f099";
-}
-.maint-icon-instagram::before {
-  content: "\f16d";
-}
-.maint-icon-linkedin::before {
-  content: "\f0e1";
 }
 
 // Import font icons

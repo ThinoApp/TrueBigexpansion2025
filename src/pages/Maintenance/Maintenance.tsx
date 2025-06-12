@@ -14,6 +14,10 @@ const Maintenance = () => {
   const [_camera, setCamera] = useState<THREE.PerspectiveCamera | null>(null);
   const [_renderer, setRenderer] = useState<THREE.WebGLRenderer | null>(null);
   const [_sphere, setSphere] = useState<THREE.Mesh | null>(null);
+  const [windowSize, setWindowSize] = useState({
+    width: typeof window !== "undefined" ? window.innerWidth : 0,
+    height: typeof window !== "undefined" ? window.innerHeight : 0,
+  });
 
   // Function to exit maintenance mode (désactivée)
   // const exitMaintenanceMode = () => {
@@ -88,6 +92,12 @@ const Maintenance = () => {
     // Handle window resize
     const handleResize = () => {
       if (!newCamera || !newRenderer) return;
+
+      // Update window size state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
 
       newCamera.aspect = window.innerWidth / window.innerHeight;
       newCamera.updateProjectionMatrix();
@@ -176,6 +186,22 @@ const Maintenance = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Ajustement du nombre d'éléments flottants en fonction de la taille de l'écran
+  const getFloatingElementsCount = () => {
+    if (windowSize.width <= 375) return 5;
+    if (windowSize.width <= 768) return 8;
+    return 10;
+  };
+
+  // Ajustement de la taille des engrenages en fonction de la taille de l'écran
+  const getGearSize = () => {
+    if (windowSize.width <= 375) return { left: 36, right: 32 };
+    if (windowSize.width <= 576) return { left: 38, right: 34 };
+    return { left: 42, right: 38 };
+  };
+
+  const gearSizes = getGearSize();
+
   return (
     <div className="maint-container" ref={containerRef}>
       {/* 3D Background */}
@@ -194,7 +220,7 @@ const Maintenance = () => {
             <div className="maint-gear maint-gear-left">
               <Settings
                 className="text-blue-500"
-                size={42}
+                size={gearSizes.left}
                 style={{
                   animation: "spin 10s linear infinite",
                   filter: "drop-shadow(0 0 8px rgba(59, 130, 246, 0.7))",
@@ -204,7 +230,7 @@ const Maintenance = () => {
             <div className="maint-gear maint-gear-right">
               <Settings2
                 className="text-blue-500"
-                size={38}
+                size={gearSizes.right}
                 style={{
                   animation: "spin 8s linear infinite reverse",
                   filter: "drop-shadow(0 0 8px rgba(59, 130, 246, 0.7))",
@@ -275,21 +301,21 @@ const Maintenance = () => {
           </div>
         </motion.div>
 
-        {/* Floating elements */}
+        {/* Floating elements - nombre adaptatif */}
         <div className="maint-floating-elements">
-          {[...Array(10)].map((_, i) => (
+          {[...Array(getFloatingElementsCount())].map((_, i) => (
             <motion.div
               key={i}
               className="maint-floating-element"
               initial={{
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
+                x: Math.random() * windowSize.width,
+                y: Math.random() * windowSize.height,
                 scale: Math.random() * 0.5 + 0.5,
                 opacity: Math.random() * 0.5 + 0.3,
               }}
               animate={{
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
+                x: Math.random() * windowSize.width,
+                y: Math.random() * windowSize.height,
                 rotate: Math.random() * 360,
               }}
               transition={{
