@@ -3,16 +3,17 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 
-// Check for maintenance mode in URL
-const urlParams = new URLSearchParams(window.location.search);
-const isMaintenanceMode = urlParams.get("maintenance") === "true";
+// Force maintenance mode
+sessionStorage.setItem("maintenanceMode", "true");
 
-// Store maintenance mode in session storage for App.tsx to access
-if (isMaintenanceMode) {
-  sessionStorage.setItem("maintenanceMode", "true");
-} else {
-  sessionStorage.removeItem("maintenanceMode");
-}
+// Ancien code avec query param (désactivé)
+// const urlParams = new URLSearchParams(window.location.search);
+// const isMaintenanceMode = urlParams.get("maintenance") === "true";
+// if (isMaintenanceMode) {
+//   sessionStorage.setItem("maintenanceMode", "true");
+// } else {
+//   sessionStorage.removeItem("maintenanceMode");
+// }
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

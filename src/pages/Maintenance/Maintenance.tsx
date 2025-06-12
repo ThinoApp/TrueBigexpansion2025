@@ -14,10 +14,12 @@ const Maintenance = () => {
   const [_renderer, setRenderer] = useState<THREE.WebGLRenderer | null>(null);
   const [_sphere, setSphere] = useState<THREE.Mesh | null>(null);
 
-  // Function to exit maintenance mode (for testing)
+  // Function to exit maintenance mode (désactivée)
   const exitMaintenanceMode = () => {
-    sessionStorage.removeItem("maintenanceMode");
-    window.location.href = window.location.pathname; // Reload without query params
+    // Cette fonction est désactivée pour bloquer le site en mode maintenance
+    // sessionStorage.removeItem("maintenanceMode");
+    // window.location.href = window.location.pathname;
+    console.log("Le site est actuellement bloqué en mode maintenance");
   };
 
   // Initialize Three.js scene
@@ -127,17 +129,17 @@ const Maintenance = () => {
     };
   }, []);
 
-  // Progress animation
+  // Progress animation - maintenant juste un indicateur visuel, pas de progression réelle
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
+        // Alternons entre 35% et 65% pour donner l'impression d'une activité en cours
+        if (prev >= 65) {
+          return 35;
         }
-        return prev + 1;
+        return prev + 0.5;
       });
-    }, 150);
+    }, 300);
 
     return () => clearInterval(interval);
   }, []);
@@ -186,6 +188,32 @@ const Maintenance = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
+          {/* Gears icons */}
+          <div className="maint-gears-container">
+            <motion.div
+              className="maint-gear maint-gear-left"
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            >
+              <span className="maint-icon-cog"></span>
+            </motion.div>
+            <motion.div
+              className="maint-gear maint-gear-right"
+              animate={{ rotate: -360 }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            >
+              <span className="maint-icon-cog-alt"></span>
+            </motion.div>
+          </div>
+
           <motion.div
             className="maint-logo-container"
             animate={{
@@ -201,6 +229,8 @@ const Maintenance = () => {
           >
             <h1 className="maint-logo">
               B<span className="text-blue-500">.</span>I
+              <span className="text-blue-500">.</span>G
+              <span className="text-blue-500">.</span>Expansion
             </h1>
           </motion.div>
 
@@ -219,16 +249,16 @@ const Maintenance = () => {
                 transition={{ duration: 0.5 }}
               />
             </div>
-            <p className="maint-progress-text">{progress}%</p>
+            <p className="maint-progress-text">{Math.round(progress)}%</p>
           </div>
 
           <div className="maint-contact-info">
             <p>Pour toute question, contactez-nous à :</p>
             <a
-              href="mailto:contact@bigexpansion.com"
+              href="mailto:contact@bigexpansion.eu"
               className="maint-email-link"
             >
-              contact@bigexpansion.com
+              contact@bigexpansion.eu
             </a>
           </div>
 
@@ -275,7 +305,8 @@ const Maintenance = () => {
         </div>
       </div>
 
-      {/* Hidden button to exit maintenance mode (for testing) */}
+      {/* Le bouton de sortie est maintenant caché */}
+      {/* 
       <button
         onClick={exitMaintenanceMode}
         className="maint-exit-button"
@@ -283,6 +314,7 @@ const Maintenance = () => {
       >
         Exit
       </button>
+      */}
     </div>
   );
 };

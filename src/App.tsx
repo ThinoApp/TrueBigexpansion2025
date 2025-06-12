@@ -78,6 +78,12 @@ function App() {
   );
 
   const handlePageTransition = async (newDirection: number) => {
+    // Si nous sommes en mode maintenance, bloquer toute navigation
+    if (currentSection === "maintenance") {
+      console.log("Navigation bloquée - Le site est en maintenance");
+      return;
+    }
+
     setIsTransitioning(true);
 
     const sections: Section[] = [
@@ -107,6 +113,12 @@ function App() {
   };
 
   const paginate = (newDirection: number) => {
+    // Si nous sommes en mode maintenance, bloquer toute navigation
+    if (currentSection === "maintenance") {
+      console.log("Navigation bloquée - Le site est en maintenance");
+      return;
+    }
+
     if (!isTransitioning) {
       handlePageTransition(newDirection);
     }
@@ -117,6 +129,12 @@ function App() {
   const handleNavigateToRealisations = () => paginate(1);
   const handleNavigateToHero = () => paginate(-1);
   const handleNavigateToReferences = () => {
+    // Si nous sommes en mode maintenance, bloquer toute navigation
+    if (currentSection === "maintenance") {
+      console.log("Navigation bloquée - Le site est en maintenance");
+      return;
+    }
+
     const sections: Section[] = [
       "hero",
       "services",
@@ -134,11 +152,23 @@ function App() {
 
   // Fonction pour naviguer vers le catalogue avec une page spécifique
   const navigateToCatalogueWithPage = (pageNumber?: number) => {
+    // Si nous sommes en mode maintenance, bloquer toute navigation
+    if (currentSection === "maintenance") {
+      console.log("Navigation bloquée - Le site est en maintenance");
+      return;
+    }
+
     setCataloguePage(pageNumber);
     handleNavigateToSection("catalogue");
   };
 
   const handleNavigateToSection = async (section: string) => {
+    // Si nous sommes en mode maintenance, ne permettre aucune navigation
+    if (currentSection === "maintenance") {
+      console.log("Navigation bloquée - Le site est en maintenance");
+      return;
+    }
+
     if (isTransitioning) return;
 
     await withLoading(async () => {

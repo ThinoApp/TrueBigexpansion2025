@@ -42,6 +42,54 @@
   text-align: center;
   transform-style: preserve-3d;
   perspective: 1000px;
+  position: relative;
+}
+
+/* Styles pour les engrenages */
+.maint-gears-container {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.maint-gear {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+}
+
+.maint-gear-left {
+  left: 25%;
+  transform: translateX(-50%);
+}
+
+.maint-gear-right {
+  right: 25%;
+  transform: translateX(50%);
+}
+
+.maint-icon-cog,
+.maint-icon-cog-alt {
+  font-size: 3rem;
+  color: #3b82f6;
+}
+
+.maint-icon-cog::before {
+  content: "\f013"; /* Font Awesome cog icon */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+
+.maint-icon-cog-alt::before {
+  content: "\f085"; /* Font Awesome cogs icon */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
 }
 
 .maint-logo-container {
@@ -254,6 +302,19 @@
 
   .maint-message {
     font-size: 1rem;
+  }
+
+  .maint-gear-left {
+    left: 15%;
+  }
+
+  .maint-gear-right {
+    right: 15%;
+  }
+
+  .maint-icon-cog,
+  .maint-icon-cog-alt {
+    font-size: 2.5rem;
   }
 }
 
