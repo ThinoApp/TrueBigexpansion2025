@@ -1,0 +1,14 @@
+.header-contact-info {
+  @media screen and (min-width: 600px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
+
+.header-contact-info-mobile {
+  @media screen and (min-width: 600px) {
+    display: none;
+  }
+}

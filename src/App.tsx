@@ -65,7 +65,7 @@ const variants = {
 function App() {
   // Check if maintenance mode is enabled
   const isMaintenanceMode =
-    sessionStorage.getItem("maintenanceMode") === "true";
+    sessionStorage.getItem("maintenanceMode") === "false";
   const initialSection: Section = isMaintenanceMode ? "maintenance" : "hero";
 
   const [currentSection, setCurrentSection] = useState<Section>(initialSection);

@@ -33,6 +33,17 @@ const projects = [
     stats: ["Terrain de football", "Bâtiment vestiaires", "Éclairage LED"],
     tags: ["#Football", "#Rénovation", "#ÉquipementSportif"],
   },
+  {
+    id: 3,
+    title: "Commune de Trangé",
+    location: "Trangé, France",
+    year: "2025",
+    category: "Équipements Sportifs",
+    description: "Construction d’un terrain de football en gazon synthétique",
+    image: "/images/Realisations/Commune de Trange.JPG",
+    stats: ["Terrain de football", "Gazon synthétique", "Éclairage LED"],
+    tags: ["#Football", "#GazonSynthétique", "#ÉquipementSportif"],
+  },
   // {
   //   id: 2,
   //   title: "Zone CrossTraining Pro",

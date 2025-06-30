@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import "./header.scss";
 
 interface HeaderProps {
   currentSection: string;
@@ -51,7 +52,7 @@ const Header = ({ onContactClick }: HeaderProps) => {
         </motion.div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden  items-center gap-8 header-contact-info">
           {/* <a 
             href="tel:+33XXXXXXXX" 
             className={`transition-colors ${
@@ -75,7 +76,7 @@ const Header = ({ onContactClick }: HeaderProps) => {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden">
+        <div className="md:hidden header-contact-info-mobile">
           <motion.button
             onClick={toggleMobileMenu}
             className={`p-2 rounded-md ${
