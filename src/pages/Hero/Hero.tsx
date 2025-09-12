@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import PageTransition from "../../components/PageTransition";
-import { Briefcase, Building2, Users, Clock } from "lucide-react";
+import { Briefcase, Building2, Users, Clock, MapPin } from "lucide-react";
 import "./hero.scss";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -347,6 +347,14 @@ const Hero = ({ onNavigateToServices, onNavigate }: HeroProps) => {
               >
                 <Clock size={24} className="text-white mb-2 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
                 <span className="text-white text-sm font-light">Vidéos</span>
+              </button>
+              
+              <button
+                onClick={() => onNavigate('agencies')}
+                className="group flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/20 transition-all duration-300"
+              >
+                <MapPin size={24} className="text-white mb-2 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
+                <span className="text-white text-sm font-light">Agences</span>
               </button>
             </div>
           </div>
