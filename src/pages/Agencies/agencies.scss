@@ -45,15 +45,15 @@
 
   .map-wrapper {
     position: relative;
-    height: 60vh;
+    height: 70vh;
     margin: 2rem;
     border-radius: 20px;
-    overflow: visible; // Allow popups to overflow the container
+    overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 
     @media (max-width: 768px) {
       margin: 1rem;
-      height: 50vh;
+      height: 60vh;
       border-radius: 15px;
     }
 
@@ -61,7 +61,141 @@
       width: 100%;
       height: 100%;
       border-radius: inherit;
-      overflow: visible; // Allow popups to be visible outside map bounds
+    }
+
+    // Modern vertical agencies overlay
+    .agencies-overlay {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      width: 320px;
+      max-height: calc(100% - 4rem);
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      z-index: 100;
+      overflow: hidden;
+      
+      @media (max-width: 768px) {
+        width: calc(100% - 2rem);
+        left: 1rem;
+        top: 1rem;
+        max-height: calc(100% - 2rem);
+      }
+      
+      .overlay-header {
+        padding: 1.5rem 1.5rem 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        
+        h3 {
+          font-size: 1.3rem;
+          font-weight: 300;
+          margin: 0 0 0.5rem;
+          color: white;
+          background: linear-gradient(45deg, #fff, rgba(255, 255, 255, 0.7));
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        
+        p {
+          font-size: 0.9rem;
+          color: rgba(255, 255, 255, 0.7);
+          margin: 0;
+        }
+      }
+      
+      .agencies-vertical-list {
+        max-height: 400px;
+        overflow-y: auto;
+        padding: 0.5rem;
+        
+        &::-webkit-scrollbar {
+          width: 4px;
+        }
+        
+        &::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.1);
+        }
+        
+        &::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.3);
+          border-radius: 2px;
+          
+          &:hover {
+            background: rgba(255, 255, 255, 0.5);
+          }
+        }
+      }
+      
+      .agency-overlay-card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.2);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        .overlay-card-image {
+          width: 50px;
+          height: 50px;
+          border-radius: 12px;
+          background-size: cover;
+          background-position: center;
+          border: 2px solid rgba(255, 255, 255, 0.2);
+          flex-shrink: 0;
+        }
+        
+        .overlay-card-content {
+          flex: 1;
+          min-width: 0;
+          
+          h4 {
+            font-size: 1rem;
+            font-weight: 400;
+            color: white;
+            margin: 0 0 0.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          
+          p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+        
+        .overlay-card-arrow {
+          color: rgba(255, 255, 255, 0.5);
+          transition: all 0.3s ease;
+          flex-shrink: 0;
+        }
+        
+        &:hover .overlay-card-arrow {
+          color: white;
+          transform: translateX(2px);
+        }
+      }
     }
   }
 
@@ -98,7 +232,7 @@
     
     &.agency-detailed-popup {
       .maplibregl-popup-content {
-        max-width: 400px !important;
+        max-width: 380px !important;
         padding: 0;
         border-radius: 20px;
         overflow: hidden;
@@ -106,6 +240,9 @@
         backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.15);
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6) !important;
+        
+        // Ensure popup stays within screen bounds
+        transform: translate(0, 0) !important;
         
         @media (max-width: 480px) {
           max-width: 320px !important;
@@ -1120,264 +1257,7 @@
     z-index: 1;
   }
 
-  // Agency sidebar
-  .agency-sidebar {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 400px;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(20px);
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 1000;
-    overflow-y: auto;
-    
-    // Ensure scrollbar is styled
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-    
-    &::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.1);
-    }
-    
-    &::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 3px;
-      
-      &:hover {
-        background: rgba(255, 255, 255, 0.5);
-      }
-    }
 
-    @media (max-width: 768px) {
-      width: 100%;
-    }
-
-    .sidebar-header {
-      position: sticky;
-      top: 0;
-      background: rgba(0, 0, 0, 0.9);
-      padding: 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 10;
-
-      .close-btn {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.5rem;
-        cursor: pointer;
-        padding: 0.5rem;
-        border-radius: 50%;
-        transition: all 0.3s ease;
-        margin-left: auto;
-        display: block;
-
-        &:hover {
-          background: rgba(255, 255, 255, 0.1);
-          transform: rotate(90deg);
-        }
-      }
-    }
-
-    .sidebar-content {
-      .agency-hero-image {
-        height: 200px;
-        background-size: cover;
-        background-position: center;
-        position: relative;
-
-        .hero-overlay {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-          padding: 2rem 1.5rem 1.5rem;
-
-          h2 {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin-bottom: 0.5rem;
-            color: white;
-          }
-
-          p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1rem;
-          }
-        }
-      }
-
-      .agency-details {
-        padding: 2rem 1.5rem;
-
-        .contact-section {
-          margin-bottom: 2rem;
-
-          h3 {
-            font-size: 1.2rem;
-            font-weight: 300;
-            margin-bottom: 1rem;
-            color: white;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 0.5rem;
-          }
-
-          .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9rem;
-
-            svg {
-              opacity: 0.7;
-            }
-          }
-        }
-
-        .team-section {
-          h3 {
-            font-size: 1.2rem;
-            font-weight: 300;
-            margin-bottom: 1rem;
-            color: white;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 0.5rem;
-          }
-
-          .team-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-
-            .team-member {
-              background: rgba(255, 255, 255, 0.05);
-              border: 1px solid rgba(255, 255, 255, 0.1);
-              border-radius: 10px;
-              padding: 1rem;
-              transition: all 0.3s ease;
-
-              &:hover {
-                background: rgba(255, 255, 255, 0.1);
-                transform: translateY(-2px);
-              }
-
-              .member-photo {
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                background-size: cover;
-                background-position: center;
-                margin-bottom: 0.75rem;
-                border: 2px solid rgba(255, 255, 255, 0.2);
-              }
-
-              .member-info {
-                h4 {
-                  font-size: 0.9rem;
-                  font-weight: 400;
-                  color: white;
-                  margin-bottom: 0.25rem;
-                }
-
-                p {
-                  font-size: 0.8rem;
-                  color: rgba(255, 255, 255, 0.7);
-                  line-height: 1.3;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  // Agencies list
-  .agencies-list {
-    padding: 4rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-
-    @media (max-width: 768px) {
-      padding: 2rem 1rem;
-    }
-
-    h3 {
-      font-size: 2rem;
-      font-weight: 200;
-      text-align: center;
-      margin-bottom: 3rem;
-      color: white;
-
-      @media (max-width: 768px) {
-        font-size: 1.5rem;
-        margin-bottom: 2rem;
-      }
-    }
-
-    .agencies-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-
-      @media (max-width: 768px) {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-
-      .agency-card {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
-        overflow: hidden;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-
-        &:hover {
-          background: rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.2);
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .card-image {
-          height: 150px;
-          background-size: cover;
-          background-position: center;
-          position: relative;
-
-          &::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
-          }
-        }
-
-        .card-content {
-          padding: 1.5rem;
-
-          h4 {
-            font-size: 1.1rem;
-            font-weight: 300;
-            color: white;
-            margin-bottom: 0.5rem;
-          }
-
-          p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-          }
-        }
-      }
-    }
-  }
 }
 
 // Animation pour les instructions de balayage

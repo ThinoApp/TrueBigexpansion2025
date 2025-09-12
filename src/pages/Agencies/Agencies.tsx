@@ -60,8 +60,9 @@ const Agencies = () => {
           offset: 25, 
           closeButton: true,
           closeOnClick: false,
-          maxWidth: '400px',
-          className: 'agency-detailed-popup'
+          maxWidth: '380px',
+          className: 'agency-detailed-popup',
+          anchor: 'bottom'
         })
           .setHTML(`
           <div class="agency-popup-detailed">
@@ -157,7 +158,7 @@ const Agencies = () => {
           <p>Découvrez nos implantations dans l'océan Indien et en métropole</p>
         </motion.div>
 
-        {/* Map Container */}
+        {/* Map Container with Overlay */}
         <motion.div
           className="map-wrapper"
           initial={{ opacity: 0, scale: 0.9 }}
@@ -165,58 +166,66 @@ const Agencies = () => {
           transition={{ duration: 1, delay: 0.3 }}
         >
           <div ref={mapContainer} className="map-container" />
-        </motion.div>
-
-
-        {/* Agencies List */}
-        <motion.div
-          className="agencies-list"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        >
-          <h3>Toutes nos agences</h3>
-          <div className="agencies-grid">
-            {agencies.map((agency, index) => (
-              <motion.div
-                key={agency.id}
-                className="agency-card"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 + index * 0.1 }}
-                onClick={() => {
-                  if (map.current) {
-                    map.current.flyTo({
-                      center: [agency.coordinates.lng, agency.coordinates.lat],
-                      zoom: 8,
-                      duration: 2000
-                    });
-                    // Find the marker and trigger its popup
-                    setTimeout(() => {
-                      const markers = document.querySelectorAll('.custom-marker');
-                      markers.forEach(marker => {
-                        const markerText = marker.querySelector('.marker-icon');
-                        if (markerText) {
-                          (marker as HTMLElement).click();
-                        }
+          
+          {/* Agencies List Overlay */}
+          <motion.div
+            className="agencies-overlay"
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            <div className="overlay-header">
+              <h3>Nos Agences</h3>
+              <p>Cliquez pour explorer</p>
+            </div>
+            
+            <div className="agencies-vertical-list">
+              {agencies.map((agency, index) => (
+                <motion.div
+                  key={agency.id}
+                  className="agency-overlay-card"
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.6 + index * 0.1 }}
+                  onClick={() => {
+                    if (map.current) {
+                      map.current.flyTo({
+                        center: [agency.coordinates.lng, agency.coordinates.lat],
+                        zoom: 8,
+                        duration: 2000
                       });
-                    }, 2100);
-                  }
-                }}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <div 
-                  className="card-image"
-                  style={{ backgroundImage: `url(${agency.imageMin})` }}
-                />
-                <div className="card-content">
-                  <h4>{agency.name}</h4>
-                  <p>{agency.location}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                      // Find the marker and trigger its popup
+                      setTimeout(() => {
+                        const markers = document.querySelectorAll('.custom-marker');
+                        markers.forEach(marker => {
+                          const markerText = marker.querySelector('.marker-icon');
+                          if (markerText) {
+                            (marker as HTMLElement).click();
+                          }
+                        });
+                      }, 2100);
+                    }
+                  }}
+                  whileHover={{ scale: 1.02, x: 5 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div 
+                    className="overlay-card-image"
+                    style={{ backgroundImage: `url(${agency.imageMin})` }}
+                  />
+                  <div className="overlay-card-content">
+                    <h4>{agency.name}</h4>
+                    <p>{agency.location}</p>
+                  </div>
+                  <div className="overlay-card-arrow">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </PageTransition>
