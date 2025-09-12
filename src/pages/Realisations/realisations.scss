@@ -284,15 +284,19 @@
     }
 
     .welcome-screen {
-      position: relative;
+      position: absolute;
+      top: 8rem; // Espace pour le header sur desktop
       width: 100%;
       max-width: 1400px;
-      margin: 0 auto;
       opacity: 0;
       pointer-events: none;
       transition: all 0.5s ease;
       transform: scale(0.95);
       visibility: hidden;
+
+      @media (max-width: 768px) {
+        top: 5rem; // Espace pour le header sur mobile
+      }
 
       &.active {
         opacity: 1;
@@ -304,11 +308,9 @@
       .welcome-content {
         text-align: center;
         padding: 2rem;
-        padding-top: 10rem; // Espace pour le header sur desktop (h-24 + py-4)
 
         @media (max-width: 768px) {
           padding: 1rem;
-          padding-top: 7rem; // Espace pour le header sur mobile (h-8 + py-4)
         }
 
         h2 {
@@ -447,10 +449,9 @@
     }
 
     .project-content {
-      position: relative;
+      position: absolute;
       width: 100%;
       max-width: 1200px;
-      margin: 0 auto;
       opacity: 0;
       pointer-events: none;
       transition: all 0.5s ease;
