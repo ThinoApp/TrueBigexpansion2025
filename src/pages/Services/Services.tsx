@@ -37,7 +37,7 @@ const services = [
     title: "Pilotage d'Opérations",
     description:
       "Nous pilotons vos opérations de A à Z, assurant une gestion rigoureuse des délais, des coûts et de la qualité. Notre expertise en gestion de projet garantit une exécution fluide et maîtrisée.",
-    image: "/images/hero_services/20250523_101909.jpg", // Vue du site en construction
+    image: "/images/Realisations/Lieusaint.jpg", // Vue du site en construction
   },
 ];
 

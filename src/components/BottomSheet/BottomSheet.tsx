@@ -31,17 +31,17 @@ const BottomSheet = ({
     },
     {
       id: "services",
-      label: "Services",
+      label: "Nos Services",
       icon: <Briefcase size={24} strokeWidth={1.5} />,
     },
     {
       id: "realisations",
-      label: "Travaux en cours",
+      label: "Nos Travaux en cours",
       icon: <Building2 size={24} strokeWidth={1.5} />,
     },
     {
       id: "references",
-      label: "Références",
+      label: "Nos Références",
       icon: <Users size={24} strokeWidth={1.5} />,
     },
     {
@@ -56,7 +56,7 @@ const BottomSheet = ({
     // },
     {
       id: "agencies",
-      label: "Agences",
+      label: "Nos Agences",
       icon: <MapPin size={24} strokeWidth={1.5} />,
     },
   ];
