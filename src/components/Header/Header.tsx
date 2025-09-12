@@ -40,15 +40,15 @@ const Header = ({ onContactClick }: HeaderProps) => {
           <img
             src="/images/assets/Logo BIG 2022.png"
             alt="BIG Logo"
-            className="h-8 sm:h-12 object-contain"
+            className="h-8 sm:h-24 object-contain"
           />
-          <span
+          {/* <span
             className={`font-light text-lg sm:text-xl ${
               isScrolled ? "text-black" : "text-white"
             }`}
           >
             Expansion
-          </span>
+          </span> */}
         </motion.div>
 
         {/* Desktop Navigation */}

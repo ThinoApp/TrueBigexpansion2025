@@ -298,13 +298,13 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
                 className="hero-title text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-light text-white leading-tight"
               >
                 <div className="word overflow-hidden">
-                  <span className="block">Penser.</span>
+                  <span className="block">Penser</span>
                 </div>
                 <div className="word overflow-hidden">
-                  <span className="block">Concevoir.</span>
+                  <span className="block">Concevoir</span>
                 </div>
                 <div className="word overflow-hidden">
-                  <span className="block">Réaliser.</span>
+                  <span className="block">Réaliser</span>
                 </div>
               </h1>
             </div>
