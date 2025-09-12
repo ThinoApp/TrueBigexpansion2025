@@ -263,17 +263,6 @@ function App() {
             animate="center"
             exit="exit"
             className="absolute inset-0 w-full h-full preserve-3d"
-            drag="y"
-            dragConstraints={{ top: 0, bottom: 0 }}
-            dragElastic={0.7}
-            onDragEnd={(_, { offset, velocity }) => {
-              const swipe = swipePower(offset.y, velocity.y);
-              if (swipe < -swipeConfidenceThreshold) {
-                paginate(1);
-              } else if (swipe > swipeConfidenceThreshold) {
-                paginate(-1);
-              }
-            }}
           >
             <Realisations
               onNavigateToServices={handleNavigateToServices}
