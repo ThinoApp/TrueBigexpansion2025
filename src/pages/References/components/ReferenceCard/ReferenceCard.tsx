@@ -40,22 +40,22 @@ const ReferenceCard = ({
     return "Maîtrise d'œuvre";
   };
 
-  const getBackgroundImage = (ref: Reference) => {
-    // Check if it's in Meudon
-    if (ref.location.includes("Meudon")) {
-      return "/images/MEUDON/IMG_4224.jpeg";
-    }
-    // Check if it's in Bourges
-    if (ref.location.includes("Bourges")) {
-      return "/images/BOURGES RIMBAULT/DJI_0676.JPG";
-    }
-    // For references in Mayotte
-    if (ref.location.includes("97")) {
-      return "/images/SADA/Capture d'écran 2023-07-21 à 13.08.28.png";
-    }
-    // Default image for other locations
-    return "/images/BOURGES RIMBAULT/DJI_0879.JPG";
-  };
+  // const getBackgroundImage = (ref: Reference) => {
+  //   // Check if it's in Meudon
+  //   if (ref.location.includes("Meudon")) {
+  //     return "/images/MEUDON/IMG_4224.jpeg";
+  //   }
+  //   // Check if it's in Bourges
+  //   if (ref.location.includes("Bourges")) {
+  //     return "/images/BOURGES RIMBAULT/DJI_0676.JPG";
+  //   }
+  //   // For references in Mayotte
+  //   if (ref.location.includes("97")) {
+  //     return "/images/SADA/Capture d'écran 2023-07-21 à 13.08.28.png";
+  //   }
+  //   // Default image for other locations
+  //   return "/images/BOURGES RIMBAULT/DJI_0879.JPG";
+  // };
 
   // Fonction pour naviguer vers le catalogue à la page correspondante
   const navigateToCatalogue = (event: React.MouseEvent) => {

@@ -118,7 +118,7 @@ const Agencies = () => {
         markerElement.setAttribute("data-agency-id", agency.id.toString());
 
         // Create marker
-        const _ = new maptilersdk.Marker({ element: markerElement })
+        new maptilersdk.Marker({ element: markerElement })
           .setLngLat([agency.coordinates.lng, agency.coordinates.lat])
           .setPopup(popup)
           .addTo(map.current!);
