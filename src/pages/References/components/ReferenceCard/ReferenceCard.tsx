@@ -76,9 +76,9 @@ const ReferenceCard = ({
       className={`reference-card ${isSelected ? "selected" : ""}`}
       onClick={onClick}
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), url('${getBackgroundImage(
-          reference
-        )}')`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), url('/images/catalogue/${
+          (reference.page || 0) + 1
+        }.jpg')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
