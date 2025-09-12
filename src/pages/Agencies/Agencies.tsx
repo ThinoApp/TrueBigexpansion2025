@@ -11,7 +11,7 @@ maptilersdk.config.apiKey = "0JAZk9LeZ3nUAECY04aT";
 
 const Agencies = () => {
   const [isEntering, setIsEntering] = useState(false);
-  const [selectedAgency, setSelectedAgency] = useState<any>(null);
+  const [_, setSelectedAgency] = useState<any>(null);
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<maptilersdk.Map | null>(null);
 
@@ -22,11 +22,11 @@ const Agencies = () => {
   // Initialize map
   useEffect(() => {
     if (map.current) return; // Initialize map only once
-    
+
     if (mapContainer.current) {
       map.current = new maptilersdk.Map({
         container: mapContainer.current,
-        style: maptilersdk.MapStyle.DARK,
+        style: maptilersdk.MapStyle.BASIC,
         center: [20, -10], // Center on Indian Ocean to show all agencies
         zoom: 3,
       });
@@ -34,8 +34,8 @@ const Agencies = () => {
       // Add markers for each agency
       agencies.forEach((agency) => {
         // Create a custom marker element
-        const markerElement = document.createElement('div');
-        markerElement.className = 'custom-marker';
+        const markerElement = document.createElement("div");
+        markerElement.className = "custom-marker";
         markerElement.innerHTML = `
           <div class="marker-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,9 +44,12 @@ const Agencies = () => {
             </svg>
           </div>
         `;
-        
+
         // Create comprehensive popup with all agency details
-        const teamMembersHTML = agency.team.slice(0, 6).map(member => `
+        const teamMembersHTML = agency.team
+          .slice(0, 6)
+          .map(
+            (member) => `
           <div class="popup-team-member">
             <div class="popup-member-photo" style="background-image: url('${member.photo}')"></div>
             <div class="popup-member-info">
@@ -54,18 +57,19 @@ const Agencies = () => {
               <p>${member.role}</p>
             </div>
           </div>
-        `).join('');
+        `
+          )
+          .join("");
 
-        const popup = new maptilersdk.Popup({ 
-          offset: 15, 
+        const popup = new maptilersdk.Popup({
+          offset: 15,
           closeButton: true,
           closeOnClick: false,
-          maxWidth: '320px',
-          className: 'agency-detailed-popup',
-          anchor: 'top',
-          focusAfterOpen: false
-        })
-          .setHTML(`
+          maxWidth: "320px",
+          className: "agency-detailed-popup",
+          anchor: "top",
+          focusAfterOpen: false,
+        }).setHTML(`
           <div class="agency-popup-detailed">
             <div class="popup-hero" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('${agency.image}')">
               <div class="popup-hero-content">
@@ -111,27 +115,29 @@ const Agencies = () => {
         `);
 
         // Add agency ID as data attribute for identification
-        markerElement.setAttribute('data-agency-id', agency.id.toString());
-        
+        markerElement.setAttribute("data-agency-id", agency.id.toString());
+
         // Create marker
-        const marker = new maptilersdk.Marker({ element: markerElement })
+        const _ = new maptilersdk.Marker({ element: markerElement })
           .setLngLat([agency.coordinates.lng, agency.coordinates.lat])
           .setPopup(popup)
           .addTo(map.current!);
 
         // Add click event to marker (popup will open automatically)
-        markerElement.addEventListener('click', () => {
+        markerElement.addEventListener("click", () => {
           // Popup opens automatically, no need for sidebar
         });
       });
 
       // Add click event listener for popup buttons
-      map.current.on('click', (e) => {
+      map.current.on("click", (e) => {
         const features = map.current!.queryRenderedFeatures(e.point);
         if (features.length > 0) {
-          const agencyId = (e.originalEvent.target as HTMLElement)?.getAttribute('data-agency-id');
+          const agencyId = (
+            e.originalEvent.target as HTMLElement
+          )?.getAttribute("data-agency-id");
           if (agencyId) {
-            const agency = agencies.find(a => a.id === agencyId);
+            const agency = agencies.find((a) => a.id === agencyId);
             if (agency) {
               setSelectedAgency(agency);
             }
@@ -170,7 +176,7 @@ const Agencies = () => {
           transition={{ duration: 1, delay: 0.3 }}
         >
           <div ref={mapContainer} className="map-container" />
-          
+
           {/* Agencies List Overlay */}
           <motion.div
             className="agencies-overlay"
@@ -182,7 +188,7 @@ const Agencies = () => {
               <h3>Nos Agences</h3>
               <p>Cliquez pour explorer</p>
             </div>
-            
+
             <div className="agencies-vertical-list">
               {agencies.map((agency, index) => (
                 <motion.div
@@ -194,17 +200,24 @@ const Agencies = () => {
                   onClick={() => {
                     if (map.current) {
                       map.current.flyTo({
-                        center: [agency.coordinates.lng, agency.coordinates.lat],
+                        center: [
+                          agency.coordinates.lng,
+                          agency.coordinates.lat,
+                        ],
                         zoom: 8,
-                        duration: 2000
+                        duration: 2000,
                       });
                       // Find the specific marker for this agency and trigger its popup
                       setTimeout(() => {
-                        const markers = document.querySelectorAll('.custom-marker');
-                        markers.forEach(marker => {
+                        const markers =
+                          document.querySelectorAll(".custom-marker");
+                        markers.forEach((marker) => {
                           const markerElement = marker as HTMLElement;
                           // Check if this marker corresponds to the clicked agency
-                          if (markerElement.dataset.agencyId === agency.id.toString()) {
+                          if (
+                            markerElement.dataset.agencyId ===
+                            agency.id.toString()
+                          ) {
                             markerElement.click();
                           }
                         });
@@ -214,7 +227,7 @@ const Agencies = () => {
                   whileHover={{ scale: 1.02, x: 5 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <div 
+                  <div
                     className="overlay-card-image"
                     style={{ backgroundImage: `url(${agency.imageMin})` }}
                   />
@@ -224,7 +237,13 @@ const Agencies = () => {
                   </div>
                   <div className="overlay-card-arrow">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                      <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path
+                        d="M9 18L15 12L9 6"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   </div>
                 </motion.div>
