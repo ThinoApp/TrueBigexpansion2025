@@ -202,6 +202,7 @@ function App() {
         <Header
           currentSection={currentSection}
           onContactClick={() => setIsContactOpen(true)}
+          onNavigateHome={() => handleNavigateToSection("hero")}
         />
       )}
 

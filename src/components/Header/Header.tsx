@@ -5,9 +5,10 @@ import "./header.scss";
 interface HeaderProps {
   currentSection: string;
   onContactClick: () => void;
+  onNavigateHome?: () => void;
 }
 
-const Header = ({ onContactClick }: HeaderProps) => {
+const Header = ({ onContactClick, onNavigateHome }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -33,9 +34,11 @@ const Header = ({ onContactClick }: HeaderProps) => {
       transition={{ duration: 0.8, ease: [0.645, 0.045, 0.355, 1.0] }}
     >
       <nav className="flex items-center justify-between max-w-7xl mx-auto">
-        <motion.div
-          className="flex items-center gap-2"
+        <motion.button
+          className="flex items-center gap-2 cursor-pointer"
           whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => onNavigateHome && onNavigateHome()}
         >
           <img
             src="/images/assets/Logo BIG 2022.png"
@@ -49,7 +52,7 @@ const Header = ({ onContactClick }: HeaderProps) => {
           >
             Expansion
           </span> */}
-        </motion.div>
+        </motion.button>
 
         {/* Desktop Navigation */}
         <div className="hidden  items-center gap-8 header-contact-info">
