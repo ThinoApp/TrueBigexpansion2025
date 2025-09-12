@@ -45,24 +45,66 @@ const Agencies = () => {
           </div>
         `;
         
-        // Create popup with proper positioning options
+        // Create comprehensive popup with all agency details
+        const teamMembersHTML = agency.team.slice(0, 6).map(member => `
+          <div class="popup-team-member">
+            <div class="popup-member-photo" style="background-image: url('${member.photo}')"></div>
+            <div class="popup-member-info">
+              <h5>${member.name}</h5>
+              <p>${member.role}</p>
+            </div>
+          </div>
+        `).join('');
+
         const popup = new maptilersdk.Popup({ 
           offset: 25, 
-          closeButton: false,
+          closeButton: true,
           closeOnClick: false,
-          maxWidth: '280px',
-          className: 'agency-map-popup'
+          maxWidth: '400px',
+          className: 'agency-detailed-popup'
         })
           .setHTML(`
-          <div class="agency-popup">
-            <h3>${agency.name}</h3>
-            <p class="location">${agency.location}</p>
-            <p class="address">${agency.address}</p>
-            <p class="phone">${agency.phone}</p>
-            <p class="email">${agency.email}</p>
-            <button class="popup-details-btn" data-agency-id="${agency.id}">
-              Voir les détails
-            </button>
+          <div class="agency-popup-detailed">
+            <div class="popup-hero" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('${agency.image}')">
+              <div class="popup-hero-content">
+                <h3>${agency.name}</h3>
+                <p class="popup-location">${agency.location}</p>
+              </div>
+            </div>
+            
+            <div class="popup-content">
+              <div class="popup-contact-section">
+                <h4>Contact</h4>
+                <div class="popup-contact-grid">
+                  <div class="popup-contact-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="currentColor"/>
+                    </svg>
+                    <span>${agency.address}</span>
+                  </div>
+                  <div class="popup-contact-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" fill="currentColor"/>
+                    </svg>
+                    <span>${agency.phone}</span>
+                  </div>
+                  <div class="popup-contact-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" strokeWidth="2"/>
+                      <polyline points="22,6 12,13 2,6" stroke="currentColor" strokeWidth="2"/>
+                    </svg>
+                    <span>${agency.email}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="popup-team-section">
+                <h4>Notre équipe</h4>
+                <div class="popup-team-grid">
+                  ${teamMembersHTML}
+                </div>
+              </div>
+            </div>
           </div>
         `);
 
@@ -72,9 +114,9 @@ const Agencies = () => {
           .setPopup(popup)
           .addTo(map.current!);
 
-        // Add click event to marker
+        // Add click event to marker (popup will open automatically)
         markerElement.addEventListener('click', () => {
-          setSelectedAgency(agency);
+          // Popup opens automatically, no need for sidebar
         });
       });
 
@@ -125,88 +167,6 @@ const Agencies = () => {
           <div ref={mapContainer} className="map-container" />
         </motion.div>
 
-        {/* Agency Details Sidebar */}
-        {selectedAgency && (
-          <motion.div
-            className="agency-sidebar"
-            initial={{ x: "100%", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: "100%", opacity: 0 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          >
-            <div className="sidebar-header">
-              <button
-                className="close-btn"
-                onClick={() => setSelectedAgency(null)}
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
-              </button>
-            </div>
-            
-            <div className="sidebar-content">
-              <div 
-                className="agency-hero-image"
-                style={{ backgroundImage: `url(${selectedAgency.image})` }}
-              >
-                <div className="hero-overlay">
-                  <h2>{selectedAgency.name}</h2>
-                  <p>{selectedAgency.location}</p>
-                </div>
-              </div>
-
-              <div className="agency-details">
-                <div className="contact-section">
-                  <h3>Contact</h3>
-                  <div className="contact-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="currentColor"/>
-                    </svg>
-                    <span>{selectedAgency.address}</span>
-                  </div>
-                  <div className="contact-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" fill="currentColor"/>
-                    </svg>
-                    <span>{selectedAgency.phone}</span>
-                  </div>
-                  <div className="contact-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" strokeWidth="2"/>
-                      <polyline points="22,6 12,13 2,6" stroke="currentColor" strokeWidth="2"/>
-                    </svg>
-                    <span>{selectedAgency.email}</span>
-                  </div>
-                </div>
-
-                <div className="team-section">
-                  <h3>Notre équipe</h3>
-                  <div className="team-grid">
-                    {selectedAgency.team.slice(0, 6).map((member: any, idx: number) => (
-                      <motion.div
-                        key={member.name}
-                        className="team-member"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.1 }}
-                      >
-                        <div 
-                          className="member-photo"
-                          style={{ backgroundImage: `url(${member.photo})` }}
-                        />
-                        <div className="member-info">
-                          <h4>{member.name}</h4>
-                          <p>{member.role}</p>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
 
         {/* Agencies List */}
         <motion.div
@@ -225,13 +185,22 @@ const Agencies = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 + index * 0.1 }}
                 onClick={() => {
-                  setSelectedAgency(agency);
                   if (map.current) {
                     map.current.flyTo({
                       center: [agency.coordinates.lng, agency.coordinates.lat],
                       zoom: 8,
                       duration: 2000
                     });
+                    // Find the marker and trigger its popup
+                    setTimeout(() => {
+                      const markers = document.querySelectorAll('.custom-marker');
+                      markers.forEach(marker => {
+                        const markerText = marker.querySelector('.marker-icon');
+                        if (markerText) {
+                          (marker as HTMLElement).click();
+                        }
+                      });
+                    }, 2100);
                   }
                 }}
                 whileHover={{ scale: 1.02 }}
