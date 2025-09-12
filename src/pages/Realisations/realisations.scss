@@ -303,9 +303,11 @@
       .welcome-content {
         text-align: center;
         padding: 2rem;
+        padding-top: 6rem; // Espace pour le header sur desktop
 
         @media (max-width: 768px) {
           padding: 1rem;
+          padding-top: 5rem; // Espace pour le header sur mobile
         }
 
         h2 {

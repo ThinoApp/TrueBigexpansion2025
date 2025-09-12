@@ -283,7 +283,7 @@ RealisationsProps) => {
             transition={{ duration: 0.5 }}
           >
             <div className="welcome-content">
-              <h2>Nos Réalisations</h2>
+              <h2>Nos Travaux en cours</h2>
               <p>
                 Découvrez nos projets innovants en matière d'architecture et
                 d'urbanisme durable.
