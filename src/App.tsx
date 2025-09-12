@@ -225,7 +225,7 @@ function App() {
               }
             }}
           >
-            <Hero onNavigateToServices={handleNavigateToServicesFromHero} />
+            <Hero onNavigateToServices={handleNavigateToServicesFromHero} onNavigate={handleNavigateToSection} />
           </motion.div>
         ) : currentSection === "services" ? (
           <motion.div
