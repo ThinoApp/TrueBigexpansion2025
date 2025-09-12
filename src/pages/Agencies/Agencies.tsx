@@ -57,12 +57,13 @@ const Agencies = () => {
         `).join('');
 
         const popup = new maptilersdk.Popup({ 
-          offset: 25, 
+          offset: 15, 
           closeButton: true,
           closeOnClick: false,
-          maxWidth: '380px',
+          maxWidth: '320px',
           className: 'agency-detailed-popup',
-          anchor: 'bottom'
+          anchor: 'top',
+          focusAfterOpen: false
         })
           .setHTML(`
           <div class="agency-popup-detailed">
