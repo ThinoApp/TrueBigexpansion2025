@@ -425,14 +425,34 @@ function App() {
             initial="enter"
             animate="center"
             exit="exit"
-            className="absolute inset-0 w-full h-full preserve-3d"
+            className="absolute inset-0 w-full h-full preserve-3d overflow-y-auto"
             drag="y"
             dragConstraints={{ top: 0, bottom: 0 }}
-            dragElastic={0.7}
+            dragElastic={0.2}
+            onDrag={(e, _) => {
+              // Empêcher le comportement de drag si l'utilisateur interagit avec la carte
+              const mapElement = document.querySelector('.map-container');
+              const agenciesOverlay = document.querySelector('.agencies-overlay');
+              const target = e.target as HTMLElement;
+              
+              // Si l'interaction est sur la carte ou l'overlay des agences, bloquer le drag
+              if (mapElement?.contains(target) || agenciesOverlay?.contains(target)) {
+                e.stopPropagation();
+              }
+            }}
             onDragEnd={(_, { offset, velocity }) => {
-              const swipe = swipePower(offset.y, velocity.y);
-              if (swipe > swipeConfidenceThreshold) {
-                paginate(-1);
+              // Vérifier si l'utilisateur peut défiler la page
+              const scrollableElement = document.querySelector('.agencies-map-container');
+              if (scrollableElement) {
+                const { scrollTop, scrollHeight, clientHeight } = scrollableElement;
+                const isAtTop = scrollTop <= 0;
+                const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
+
+                const swipe = swipePower(offset.y, velocity.y);
+                // Seulement permettre la navigation si on est en haut et qu'on swipe vers le haut
+                if (swipe > swipeConfidenceThreshold && isAtTop) {
+                  paginate(-1);
+                }
               }
             }}
           >
