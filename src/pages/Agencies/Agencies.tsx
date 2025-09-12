@@ -45,8 +45,15 @@ const Agencies = () => {
           </div>
         `;
         
-        // Create popup content
-        const popup = new maptilersdk.Popup({ offset: 25 }).setHTML(`
+        // Create popup with proper positioning options
+        const popup = new maptilersdk.Popup({ 
+          offset: 25, 
+          closeButton: false,
+          closeOnClick: false,
+          maxWidth: '280px',
+          className: 'agency-map-popup'
+        })
+          .setHTML(`
           <div class="agency-popup">
             <h3>${agency.name}</h3>
             <p class="location">${agency.location}</p>

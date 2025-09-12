@@ -6,6 +6,7 @@
   color: white;
   font-family: "Inter", sans-serif;
   overflow-x: hidden;
+  overflow-y: auto;
 
   .agencies-header {
     position: relative;
@@ -47,7 +48,7 @@
     height: 60vh;
     margin: 2rem;
     border-radius: 20px;
-    overflow: hidden;
+    overflow: visible; // Allow popups to overflow the container
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 
     @media (max-width: 768px) {
@@ -60,6 +61,7 @@
       width: 100%;
       height: 100%;
       border-radius: inherit;
+      overflow: visible; // Allow popups to be visible outside map bounds
     }
   }
 
@@ -90,7 +92,17 @@
     }
   }
 
-  // Popup styles
+  // Popup styles - ensure they stay within map bounds
+  .maplibregl-popup {
+    max-width: none !important;
+    
+    &.agency-map-popup {
+      .maplibregl-popup-content {
+        max-width: 280px !important;
+      }
+    }
+  }
+
   .maplibregl-popup-content {
     background: rgba(0, 0, 0, 0.9) !important;
     backdrop-filter: blur(10px);
@@ -98,7 +110,8 @@
     border-radius: 15px;
     color: white;
     padding: 0;
-    max-width: 300px;
+    max-width: 280px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
 
     .agency-popup {
       padding: 1.5rem;
@@ -946,6 +959,24 @@
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 1000;
     overflow-y: auto;
+    
+    // Ensure scrollbar is styled
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+    }
 
     @media (max-width: 768px) {
       width: 100%;
