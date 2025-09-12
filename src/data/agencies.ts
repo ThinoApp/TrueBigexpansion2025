@@ -24,6 +24,21 @@ const generateTeam = () => {
 
 export const agencies = [
   {
+    id: "metropole",
+    name: "BIG Expansion Métropole",
+    location: "France Métropolitaine",
+    coordinates: {
+      lat: 48.8566,
+      lng: 2.3522,
+    },
+    address: "75000 Paris, France",
+    phone: "+33 1 XX XX XX XX",
+    email: "contact.paris@big-expansion.com",
+    image: "/images/agences/metropole.jpg",
+    imageMin: "/images/agences-min/metropole.jpg",
+    team: generateTeam(),
+  },
+  {
     id: "mayotte",
     name: "BIG Expansion Mayotte",
     location: "Mayotte",
@@ -82,20 +97,5 @@ export const agencies = [
     image: "/images/agences/maurice.jpg",
     imageMin: "/images/agences-min/maurice.jpg",
     team: generateTeam(),
-  },
-  {
-    id: "metropole",
-    name: "BIG Expansion Métropole",
-    location: "France Métropolitaine",
-    coordinates: {
-      lat: 48.8566,
-      lng: 2.3522,
-    },
-    address: "75000 Paris, France",
-    phone: "+33 1 XX XX XX XX",
-    email: "contact.paris@big-expansion.com",
-    image: "/images/agences/metropole.jpg",
-    imageMin: "/images/agences-min/metropole.jpg",
-    team: generateTeam(),
-  },
+  }
 ]; 
