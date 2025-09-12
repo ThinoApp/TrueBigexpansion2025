@@ -3,15 +3,17 @@ import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import PageTransition from "../../components/PageTransition";
+import { Briefcase, Building2, Users, Clock } from "lucide-react";
 import "./hero.scss";
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface HeroProps {
   onNavigateToServices: () => void;
+  onNavigate: (section: string) => void;
 }
 
-const Hero = ({ onNavigateToServices }: HeroProps) => {
+const Hero = ({ onNavigateToServices, onNavigate }: HeroProps) => {
   const [isEntering, setIsEntering] = useState(false);
   const [touchStartY, setTouchStartY] = useState<number | null>(null);
   const [imagesLoaded, setImagesLoaded] = useState(false);
@@ -206,9 +208,6 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
     }
   });
 
-  const handleServicesClick = () => {
-    onNavigateToServices();
-  };
 
   // Gestion améliorée des événements tactiles
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -316,16 +315,38 @@ const Hero = ({ onNavigateToServices }: HeroProps) => {
               donner vie à vos ambitions.
             </p>
 
-            {/* Call to action */}
-            <div className="flex flex-row space-x-6">
-              <button className="px-8 py-4 bg-white text-black hover:bg-opacity-90 transition-colors duration-300">
-                Découvrir
-              </button>
+            {/* Navigation rapide */}
+            <div className="flex flex-wrap gap-4 max-w-2xl">
               <button
-                onClick={handleServicesClick}
-                className="px-8 py-4 border border-white text-white hover:bg-white hover:text-black transition-colors duration-300"
+                onClick={() => onNavigate('services')}
+                className="group flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/20 transition-all duration-300"
               >
-                Nos services
+                <Briefcase size={24} className="text-white mb-2 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
+                <span className="text-white text-sm font-light">Services</span>
+              </button>
+              
+              <button
+                onClick={() => onNavigate('realisations')}
+                className="group flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/20 transition-all duration-300"
+              >
+                <Building2 size={24} className="text-white mb-2 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
+                <span className="text-white text-sm font-light">Travaux</span>
+              </button>
+              
+              <button
+                onClick={() => onNavigate('references')}
+                className="group flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/20 transition-all duration-300"
+              >
+                <Users size={24} className="text-white mb-2 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
+                <span className="text-white text-sm font-light">Références</span>
+              </button>
+              
+              <button
+                onClick={() => onNavigate('timelapses')}
+                className="group flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/20 transition-all duration-300"
+              >
+                <Clock size={24} className="text-white mb-2 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
+                <span className="text-white text-sm font-light">Vidéos</span>
               </button>
             </div>
           </div>
