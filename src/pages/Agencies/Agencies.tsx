@@ -110,6 +110,9 @@ const Agencies = () => {
           </div>
         `);
 
+        // Add agency ID as data attribute for identification
+        markerElement.setAttribute('data-agency-id', agency.id.toString());
+        
         // Create marker
         const marker = new maptilersdk.Marker({ element: markerElement })
           .setLngLat([agency.coordinates.lng, agency.coordinates.lat])
@@ -195,13 +198,14 @@ const Agencies = () => {
                         zoom: 8,
                         duration: 2000
                       });
-                      // Find the marker and trigger its popup
+                      // Find the specific marker for this agency and trigger its popup
                       setTimeout(() => {
                         const markers = document.querySelectorAll('.custom-marker');
                         markers.forEach(marker => {
-                          const markerText = marker.querySelector('.marker-icon');
-                          if (markerText) {
-                            (marker as HTMLElement).click();
+                          const markerElement = marker as HTMLElement;
+                          // Check if this marker corresponds to the clicked agency
+                          if (markerElement.dataset.agencyId === agency.id.toString()) {
+                            markerElement.click();
                           }
                         });
                       }, 2100);
