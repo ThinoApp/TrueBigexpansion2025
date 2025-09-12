@@ -174,7 +174,7 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
       filtered = filtered.filter((ref) => ref.category === filters.category);
     }
 
-    return filtered;
+    return filtered.sort((a, b) => (a.page || 0) - (b.page || 0));
   }, [filters, references]);
 
   const handleReferenceSelect = useCallback(

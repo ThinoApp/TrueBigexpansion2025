@@ -77,7 +77,7 @@ const ReferenceCard = ({
       onClick={onClick}
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)), url('/images/catalogue/${
-          (reference.page || 0) + 1
+          reference.page || 0
         }.jpg')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -122,7 +122,7 @@ const ReferenceCard = ({
             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
             <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
           </svg>
-          <span>Page {reference.page + 1}</span>
+          <span>Page {reference.page}</span>
         </button>
       )}
     </div>
