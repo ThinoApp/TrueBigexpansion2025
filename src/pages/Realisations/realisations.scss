@@ -284,9 +284,10 @@
     }
 
     .welcome-screen {
-      position: absolute;
+      position: relative;
       width: 100%;
       max-width: 1400px;
+      margin: 0 auto;
       opacity: 0;
       pointer-events: none;
       transition: all 0.5s ease;
@@ -446,9 +447,10 @@
     }
 
     .project-content {
-      position: absolute;
+      position: relative;
       width: 100%;
       max-width: 1200px;
+      margin: 0 auto;
       opacity: 0;
       pointer-events: none;
       transition: all 0.5s ease;
