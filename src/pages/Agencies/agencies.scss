@@ -1,8 +1,162 @@
-.agencies-page {
+.agencies-map-container {
   min-height: 100vh;
-  background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
-  overflow: hidden;
+  width: 100%;
   position: relative;
+  background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
+  color: white;
+  font-family: "Inter", sans-serif;
+  overflow-x: hidden;
+
+  .agencies-header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 6rem 2rem 2rem;
+    background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 100%);
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 200;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, #fff, rgba(255, 255, 255, 0.7));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+
+      @media (max-width: 768px) {
+        font-size: 2.5rem;
+      }
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
+      max-width: 600px;
+      margin: 0 auto;
+
+      @media (max-width: 768px) {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .map-wrapper {
+    position: relative;
+    height: 60vh;
+    margin: 2rem;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+    @media (max-width: 768px) {
+      margin: 1rem;
+      height: 50vh;
+      border-radius: 15px;
+    }
+
+    .map-container {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+    }
+  }
+
+  // Custom marker styles
+  .custom-marker {
+    cursor: pointer;
+    
+    .marker-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: scale(1.1);
+        background: white;
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      svg {
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      }
+    }
+  }
+
+  // Popup styles
+  .maplibregl-popup-content {
+    background: rgba(0, 0, 0, 0.9) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    color: white;
+    padding: 0;
+    max-width: 300px;
+
+    .agency-popup {
+      padding: 1.5rem;
+
+      h3 {
+        font-size: 1.2rem;
+        font-weight: 300;
+        margin-bottom: 0.5rem;
+        color: white;
+      }
+
+      .location {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 1rem;
+      }
+
+      .address, .phone, .email {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 0.5rem;
+      }
+
+      .popup-details-btn {
+        background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+        width: 100%;
+
+        &:hover {
+          background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.3));
+          transform: translateY(-1px);
+        }
+      }
+    }
+  }
+
+  .maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+    border-top-color: rgba(0, 0, 0, 0.9) !important;
+  }
+
+  .maplibregl-popup-anchor-top .maplibregl-popup-tip {
+    border-bottom-color: rgba(0, 0, 0, 0.9) !important;
+  }
+
+  .maplibregl-popup-anchor-left .maplibregl-popup-tip {
+    border-right-color: rgba(0, 0, 0, 0.9) !important;
+  }
+
+  .maplibregl-popup-anchor-right .maplibregl-popup-tip {
+    border-left-color: rgba(0, 0, 0, 0.9) !important;
+  }
 }
 
 .parallax-container {
@@ -134,6 +288,7 @@
       margin: 0;
       background: linear-gradient(to right, rgba(255, 255, 255, 0.9), #4a90e2);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
       line-height: 1.2;
     }
@@ -779,9 +934,245 @@
     z-index: 1;
   }
 
-  // Les styles mobiles sont maintenant dans le fichier agencies-mobile.scss
-  &.mobile-view {
-    // Voir agencies-mobile.scss pour les styles mobiles
+  // Agency sidebar
+  .agency-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    overflow-y: auto;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+
+    .sidebar-header {
+      position: sticky;
+      top: 0;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 10;
+
+      .close-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        margin-left: auto;
+        display: block;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    .sidebar-content {
+      .agency-hero-image {
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+
+        .hero-overlay {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+          padding: 2rem 1.5rem 1.5rem;
+
+          h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            color: white;
+          }
+
+          p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+          }
+        }
+      }
+
+      .agency-details {
+        padding: 2rem 1.5rem;
+
+        .contact-section {
+          margin-bottom: 2rem;
+
+          h3 {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+          }
+
+          .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+
+            svg {
+              opacity: 0.7;
+            }
+          }
+        }
+
+        .team-section {
+          h3 {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+          }
+
+          .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+
+            .team-member {
+              background: rgba(255, 255, 255, 0.05);
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              border-radius: 10px;
+              padding: 1rem;
+              transition: all 0.3s ease;
+
+              &:hover {
+                background: rgba(255, 255, 255, 0.1);
+                transform: translateY(-2px);
+              }
+
+              .member-photo {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-size: cover;
+                background-position: center;
+                margin-bottom: 0.75rem;
+                border: 2px solid rgba(255, 255, 255, 0.2);
+              }
+
+              .member-info {
+                h4 {
+                  font-size: 0.9rem;
+                  font-weight: 400;
+                  color: white;
+                  margin-bottom: 0.25rem;
+                }
+
+                p {
+                  font-size: 0.8rem;
+                  color: rgba(255, 255, 255, 0.7);
+                  line-height: 1.3;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Agencies list
+  .agencies-list {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+      padding: 2rem 1rem;
+    }
+
+    h3 {
+      font-size: 2rem;
+      font-weight: 200;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: white;
+
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+      }
+    }
+
+    .agencies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .agency-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.2);
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-image {
+          height: 150px;
+          background-size: cover;
+          background-position: center;
+          position: relative;
+
+          &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
+          }
+        }
+
+        .card-content {
+          padding: 1.5rem;
+
+          h4 {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: white;
+            margin-bottom: 0.5rem;
+          }
+
+          p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
   }
 }
 

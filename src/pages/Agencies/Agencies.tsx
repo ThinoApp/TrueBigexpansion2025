@@ -1,302 +1,247 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
+import * as maptilersdk from "@maptiler/sdk";
+import "@maptiler/sdk/dist/maptiler-sdk.css";
 import PageTransition from "../../components/PageTransition";
 import { agencies } from "../../data/agencies";
 import "./agencies.scss";
-import "./agencies-mobile.scss"; // Import des styles mobiles
+
+// MapTiler API Key
+maptilersdk.config.apiKey = "0JAZk9LeZ3nUAECY04aT";
 
 const Agencies = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [isEntering, setIsEntering] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [touchStartX, setTouchStartX] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    container: containerRef,
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
-  // Détection de l'appareil mobile
-  useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkIfMobile();
-    window.addEventListener("resize", checkIfMobile);
-
-    return () => {
-      window.removeEventListener("resize", checkIfMobile);
-    };
-  }, []);
+  const [selectedAgency, setSelectedAgency] = useState<any>(null);
+  const mapContainer = useRef<HTMLDivElement>(null);
+  const map = useRef<maptilersdk.Map | null>(null);
 
   useEffect(() => {
     setIsEntering(true);
   }, []);
 
-  const handleScroll = async (direction: "prev" | "next") => {
-    if (isTransitioning) return;
+  // Initialize map
+  useEffect(() => {
+    if (map.current) return; // Initialize map only once
+    
+    if (mapContainer.current) {
+      map.current = new maptilersdk.Map({
+        container: mapContainer.current,
+        style: maptilersdk.MapStyle.DARK,
+        center: [20, -10], // Center on Indian Ocean to show all agencies
+        zoom: 3,
+      });
 
-    setIsTransitioning(true);
-    if (direction === "prev" && currentIndex > 0) {
-      setCurrentIndex((prev) => prev - 1);
-    } else if (direction === "next" && currentIndex < agencies.length - 1) {
-      setCurrentIndex((prev) => prev + 1);
+      // Add markers for each agency
+      agencies.forEach((agency) => {
+        // Create a custom marker element
+        const markerElement = document.createElement('div');
+        markerElement.className = 'custom-marker';
+        markerElement.innerHTML = `
+          <div class="marker-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#fff"/>
+              <circle cx="12" cy="9" r="2.5" fill="#000"/>
+            </svg>
+          </div>
+        `;
+        
+        // Create popup content
+        const popup = new maptilersdk.Popup({ offset: 25 }).setHTML(`
+          <div class="agency-popup">
+            <h3>${agency.name}</h3>
+            <p class="location">${agency.location}</p>
+            <p class="address">${agency.address}</p>
+            <p class="phone">${agency.phone}</p>
+            <p class="email">${agency.email}</p>
+            <button class="popup-details-btn" data-agency-id="${agency.id}">
+              Voir les détails
+            </button>
+          </div>
+        `);
+
+        // Create marker
+        const marker = new maptilersdk.Marker({ element: markerElement })
+          .setLngLat([agency.coordinates.lng, agency.coordinates.lat])
+          .setPopup(popup)
+          .addTo(map.current!);
+
+        // Add click event to marker
+        markerElement.addEventListener('click', () => {
+          setSelectedAgency(agency);
+        });
+      });
+
+      // Add click event listener for popup buttons
+      map.current.on('click', (e) => {
+        const features = map.current!.queryRenderedFeatures(e.point);
+        if (features.length > 0) {
+          const agencyId = (e.originalEvent.target as HTMLElement)?.getAttribute('data-agency-id');
+          if (agencyId) {
+            const agency = agencies.find(a => a.id === agencyId);
+            if (agency) {
+              setSelectedAgency(agency);
+            }
+          }
+        }
+      });
     }
-    setTimeout(() => setIsTransitioning(false), 800);
-  };
 
-  // Gestion des événements tactiles pour le balayage
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartX(e.touches[0].clientX);
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const touchEndX = e.changedTouches[0].clientX;
-    const deltaX = touchEndX - touchStartX;
-
-    // Si le mouvement est suffisamment important (plus de 50px)
-    if (Math.abs(deltaX) > 50) {
-      if (deltaX > 0) {
-        // Balayage vers la droite - agence précédente
-        handleScroll("prev");
-      } else {
-        // Balayage vers la gauche - agence suivante
-        handleScroll("next");
+    return () => {
+      if (map.current) {
+        map.current.remove();
+        map.current = null;
       }
-    }
-  };
-
-  // On utilise directement l'image optimisée
-  const backgroundStyle = {
-    "--current-background": `url(${agencies[currentIndex].imageMin})`,
-  } as React.CSSProperties;
+    };
+  }, []);
 
   return (
     <PageTransition isEntering={isEntering}>
-      <div
-        className={`agencies-container ${isMobile ? "mobile-view" : ""}`}
-        ref={containerRef}
-        style={backgroundStyle}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
+      <div className="agencies-map-container">
+        {/* Header */}
         <motion.div
-          className="agencies-hero"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
+          className="agencies-header"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
         >
-          <motion.h1
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{
-              duration: 1,
-              type: "spring",
-              stiffness: 200,
-            }}
-          >
-            Nos Agences
-          </motion.h1>
+          <h1>Nos Agences</h1>
+          <p>Découvrez nos implantations dans l'océan Indien et en métropole</p>
         </motion.div>
 
-        <div className="agencies-carousel">
-          <div className="navigation">
-            <motion.button
-              className={`nav-button ${currentIndex === 0 ? "disabled" : ""}`}
-              onClick={() => handleScroll("prev")}
-              whileHover={{ scale: isMobile ? 1.05 : 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <span>←</span>
-            </motion.button>
-            <div className="progress-bar">
-              <motion.div
-                className="progress"
-                style={{ scaleX: smoothProgress }}
-              />
+        {/* Map Container */}
+        <motion.div
+          className="map-wrapper"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.3 }}
+        >
+          <div ref={mapContainer} className="map-container" />
+        </motion.div>
+
+        {/* Agency Details Sidebar */}
+        {selectedAgency && (
+          <motion.div
+            className="agency-sidebar"
+            initial={{ x: "100%", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: "100%", opacity: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          >
+            <div className="sidebar-header">
+              <button
+                className="close-btn"
+                onClick={() => setSelectedAgency(null)}
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </button>
             </div>
-            <motion.button
-              className={`nav-button ${
-                currentIndex === agencies.length - 1 ? "disabled" : ""
-              }`}
-              onClick={() => handleScroll("next")}
-              whileHover={{ scale: isMobile ? 1.05 : 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <span>→</span>
-            </motion.button>
-          </div>
+            
+            <div className="sidebar-content">
+              <div 
+                className="agency-hero-image"
+                style={{ backgroundImage: `url(${selectedAgency.image})` }}
+              >
+                <div className="hero-overlay">
+                  <h2>{selectedAgency.name}</h2>
+                  <p>{selectedAgency.location}</p>
+                </div>
+              </div>
 
-          <div className="carousel-container">
-            <AnimatePresence mode="wait" initial={false}>
-              {agencies.map(
-                (agency, index) =>
-                  index === currentIndex && (
-                    <motion.div
-                      key={agency.id}
-                      className="carousel-item"
-                      initial={{
-                        opacity: 0,
-                        x: index > currentIndex ? "100%" : "-100%",
-                      }}
-                      animate={{
-                        opacity: 1,
-                        x: "0%",
-                      }}
-                      exit={{
-                        opacity: 0,
-                        x: index < currentIndex ? "-100%" : "100%",
-                        position: "absolute",
-                      }}
-                      transition={{
-                        x: { type: "spring", stiffness: 300, damping: 30 },
-                        opacity: { duration: 0.2 },
-                      }}
-                    >
+              <div className="agency-details">
+                <div className="contact-section">
+                  <h3>Contact</h3>
+                  <div className="contact-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="currentColor"/>
+                    </svg>
+                    <span>{selectedAgency.address}</span>
+                  </div>
+                  <div className="contact-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" fill="currentColor"/>
+                    </svg>
+                    <span>{selectedAgency.phone}</span>
+                  </div>
+                  <div className="contact-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" strokeWidth="2"/>
+                      <polyline points="22,6 12,13 2,6" stroke="currentColor" strokeWidth="2"/>
+                    </svg>
+                    <span>{selectedAgency.email}</span>
+                  </div>
+                </div>
+
+                <div className="team-section">
+                  <h3>Notre équipe</h3>
+                  <div className="team-grid">
+                    {selectedAgency.team.slice(0, 6).map((member: any, idx: number) => (
                       <motion.div
-                        className="agency-content"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
+                        key={member.name}
+                        className="team-member"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: idx * 0.1 }}
                       >
-                        <motion.div
-                          className="agency-image my-4 !h-full"
-                          initial={{ scale: 1.2 }}
-                          animate={{ scale: 1 }}
-                          style={{ backgroundImage: `url(${agency.image})` }}
-                        >
-                          <div className="image-overlay" />
-                          <div className="glitch-effect" />
-                        </motion.div>
-
-                        <div className="agency-info">
-                          <motion.div
-                            className="info-content"
-                            initial={{ opacity: 0, y: 50 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                          >
-                            <motion.h2
-                              className="agency-title"
-                              initial={{ clipPath: "inset(0 100% 0 0)" }}
-                              animate={{ clipPath: "inset(0 0% 0 0)" }}
-                              transition={{ duration: 1, delay: 0.5 }}
-                            >
-                              {agency.name}
-                            </motion.h2>
-
-                            <motion.p
-                              className="location"
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.7 }}
-                            >
-                              {agency.location}
-                            </motion.p>
-
-                            <motion.div
-                              className="contact-info"
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.8 }}
-                            >
-                              <p className="address">{agency.address}</p>
-                              <p className="phone">{agency.phone}</p>
-                              <p className="email">{agency.email}</p>
-                            </motion.div>
-
-                            <motion.button
-                              className="discover-button"
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.9 }}
-                              whileHover={{
-                                scale: 1.05,
-                                textShadow: "0 0 8px rgb(255, 255, 255)",
-                                boxShadow: "0 0 8px rgb(255, 255, 255)",
-                              }}
-                            >
-                              Découvrir
-                            </motion.button>
-                            <motion.div
-                              className="team-section"
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              transition={{ delay: 1.5 }}
-                            >
-                              <h3>Notre équipe</h3>
-                              <div className="team-grid">
-                                {agency.team.map((member, idx) => (
-                                  <motion.div
-                                    key={member.name}
-                                    className="team-member"
-                                    initial={{ scale: 0, y: 20 }}
-                                    animate={{ scale: 1, y: 0 }}
-                                    transition={{
-                                      delay: 1 + idx * 0.1,
-                                      type: "spring",
-                                      stiffness: 200,
-                                    }}
-                                  >
-                                    <div
-                                      className="member-photo"
-                                      style={{
-                                        backgroundImage: `url(${member.photo})`,
-                                      }}
-                                    >
-                                      <div className="member-overlay" />
-                                    </div>
-                                    <div className="member-info">
-                                      <h4>{member.name}</h4>
-                                      <p>{member.role}</p>
-                                    </div>
-                                  </motion.div>
-                                ))}
-                              </div>
-                            </motion.div>
-                          </motion.div>
+                        <div 
+                          className="member-photo"
+                          style={{ backgroundImage: `url(${member.photo})` }}
+                        />
+                        <div className="member-info">
+                          <h4>{member.name}</h4>
+                          <p>{member.role}</p>
                         </div>
                       </motion.div>
-                    </motion.div>
-                  )
-              )}
-            </AnimatePresence>
-          </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
 
-          {/* Indicateurs de navigation pour mobile */}
-          {isMobile && (
-            <div className="mobile-indicators">
-              {agencies.map((_, idx) => (
-                <div
-                  key={idx}
-                  className={`indicator ${
-                    currentIndex === idx ? "active" : ""
-                  }`}
-                  onClick={() => {
-                    setCurrentIndex(idx);
-                  }}
+        {/* Agencies List */}
+        <motion.div
+          className="agencies-list"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          <h3>Toutes nos agences</h3>
+          <div className="agencies-grid">
+            {agencies.map((agency, index) => (
+              <motion.div
+                key={agency.id}
+                className="agency-card"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 + index * 0.1 }}
+                onClick={() => {
+                  setSelectedAgency(agency);
+                  if (map.current) {
+                    map.current.flyTo({
+                      center: [agency.coordinates.lng, agency.coordinates.lat],
+                      zoom: 8,
+                      duration: 2000
+                    });
+                  }
+                }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div 
+                  className="card-image"
+                  style={{ backgroundImage: `url(${agency.imageMin})` }}
                 />
-              ))}
-            </div>
-          )}
-
-          {/* Instructions de balayage pour mobile */}
-          {isMobile && (
-            <div className="swipe-instructions">
-              <div className="swipe-icon">←</div>
-              <span>Balayez pour naviguer</span>
-              <div className="swipe-icon">→</div>
-            </div>
-          )}
-        </div>
+                <div className="card-content">
+                  <h4>{agency.name}</h4>
+                  <p>{agency.location}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </PageTransition>
   );
