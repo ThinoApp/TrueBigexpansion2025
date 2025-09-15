@@ -40,11 +40,27 @@ const Header = ({ onContactClick, onNavigateHome }: HeaderProps) => {
           whileTap={{ scale: 0.95 }}
           onClick={() => onNavigateHome && onNavigateHome()}
         >
-          <img
-            src="/images/assets/Logo BIG 2022.png"
-            alt="BIG Logo"
-            className="h-8 sm:h-24 object-contain"
-          />
+          <div 
+            className={`relative p-2 sm:p-3 rounded-xl transition-all duration-300 ${
+              isScrolled 
+                ? "bg-gradient-to-br from-gray-50 to-white shadow-lg border border-gray-200/50" 
+                : "bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md border border-white/20 shadow-2xl"
+            }`}
+          >
+            <img
+              src="/images/assets/Logo BIG 2022.png"
+              alt="BIG Logo"
+              className="h-6 sm:h-16 object-contain relative z-10"
+            />
+            {/* Effet de lueur subtile */}
+            <div 
+              className={`absolute inset-0 rounded-xl transition-opacity duration-300 ${
+                isScrolled 
+                  ? "bg-gradient-to-br from-blue-50/30 to-transparent opacity-0"
+                  : "bg-gradient-to-br from-white/5 to-transparent opacity-100"
+              }`}
+            />
+          </div>
           {/* <span
             className={`font-light text-lg sm:text-xl ${
               isScrolled ? "text-black" : "text-white"
