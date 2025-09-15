@@ -29,10 +29,10 @@ const Hero = ({ onNavigateToServices, onNavigate }: HeroProps) => {
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   const images = [
-    "/images/hero_services/9-erieta-attali-scaled.jpeg",
     "/images/hero_services/551-Bannière pointe de Trivaux.webp",
     "/images/hero_services/20250523_101225.jpg",
     "/images/hero_services/20250523_101909.jpg",
+    "/images/hero_services/9-erieta-attali-scaled.jpeg",
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
