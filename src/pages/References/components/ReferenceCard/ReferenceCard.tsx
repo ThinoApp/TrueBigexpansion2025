@@ -1,5 +1,6 @@
 import { Reference } from "../../types";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import "./ReferenceCard.scss";
 
 interface ReferenceCardProps {
@@ -15,13 +16,20 @@ const ReferenceCard = ({
   onClick,
   onNavigateToCatalogue,
 }: ReferenceCardProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   const getTypeConfig = (ref: Reference) => {
     if (ref.mission.includes("Faisabilité")) {
       return {
-        color: "#00d4ff",
-        gradient: "from-cyan-400 to-blue-500",
-        label: "Études de faisabilité",
-        icon: "🔍"
+        color: "#3B82F6",
+        bgColor: "rgba(59, 130, 246, 0.1)",
+        borderColor: "rgba(59, 130, 246, 0.2)",
+        label: "Faisabilité",
+        icon: (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          </svg>
+        )
       };
     }
     if (
@@ -29,17 +37,27 @@ const ReferenceCard = ({
       ref.mission.includes("Programmiste")
     ) {
       return {
-        color: "#ffd700",
-        gradient: "from-yellow-400 to-orange-500", 
-        label: "Assistance à maîtrise d'ouvrage",
-        icon: "🤝"
+        color: "#F59E0B",
+        bgColor: "rgba(245, 158, 11, 0.1)",
+        borderColor: "rgba(245, 158, 11, 0.2)",
+        label: "AMO",
+        icon: (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zM4 18v-4h3v4h2v-7.5c0-1.1-.9-2-2-2h-3c-1.1 0-2 .9-2 2V18h2zm14.5-13c-.83 0-1.5.67-1.5 1.5v6c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-6c0-.83-.67-1.5-1.5-1.5z"/>
+          </svg>
+        )
       };
     }
     return {
-      color: "#ff6b9d",
-      gradient: "from-pink-400 to-rose-500",
+      color: "#EF4444",
+      bgColor: "rgba(239, 68, 68, 0.1)",
+      borderColor: "rgba(239, 68, 68, 0.2)",
       label: "Maîtrise d'œuvre",
-      icon: "🏗️"
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+      )
     };
   };
 
@@ -70,152 +88,118 @@ const ReferenceCard = ({
   };
 
   return (
-    <motion.div
-      className={`reference-card-modern ${isSelected ? "selected" : ""}`}
+    <motion.article
+      className={`reference-card-clean ${isSelected ? "selected" : ""}`}
       onClick={onClick}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -8, scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      transition={{ 
-        duration: 0.3, 
-        ease: [0.25, 0.46, 0.45, 0.94],
-        layout: { duration: 0.3 }
-      }}
-      layout
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      role="button"
+      tabIndex={0}
+      aria-label={`Référence ${reference.name} à ${reference.location}`}
     >
-      {/* Image de fond avec overlay dynamique */}
-      <div className="card-background">
+      {/* En-tête avec badge et titre */}
+      <header className="card-header">
         <div 
-          className="card-image"
-          style={{
-            backgroundImage: `url('/images/catalogue/${reference.page || 0}.jpg')`,
+          className="type-badge" 
+          style={{ 
+            color: typeConfig.color,
+            backgroundColor: typeConfig.bgColor,
+            borderColor: typeConfig.borderColor
           }}
-        />
-        <div className="card-overlay" />
-        <div className="card-gradient" />
-      </div>
-
-      {/* Badge de type flottant */}
-      <motion.div 
-        className={`type-badge bg-gradient-to-r ${typeConfig.gradient}`}
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-        whileHover={{ scale: 1.1 }}
-      >
-        <span className="type-icon">{typeConfig.icon}</span>
-        <span className="type-label">{typeConfig.label}</span>
-      </motion.div>
-
-      {/* Contenu principal */}
-      <div className="card-content">
-        {/* Header avec titre et localisation */}
-        <div className="card-header">
-          <motion.h3 
-            className="card-title"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
-          >
-            {reference.name}
-          </motion.h3>
-          <motion.div 
-            className="location-badge"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.15 }}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-            </svg>
-            <span>{reference.location}</span>
-          </motion.div>
+        >
+          {typeConfig.icon}
+          <span>{typeConfig.label}</span>
         </div>
 
-        {/* Statistiques avec icônes */}
-        <motion.div 
-          className="card-stats"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          <div className="stat-item">
-            <div className="stat-icon">📅</div>
-            <div className="stat-content">
-              <span className="stat-label">Année</span>
+        <h3 className="card-title">{reference.name}</h3>
+        
+        <div className="location-info">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" opacity="0.7">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+          <span>{reference.location}</span>
+        </div>
+      </header>
+
+      {/* Zone d'informations principales */}
+      <main className="card-main">
+        {/* Statistiques en ligne claire */}
+        <div className="stats-row">
+          <div className="stat-compact">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 3v5h5V6h-5z"/>
+            </svg>
+            <div>
               <span className="stat-value">{reference.year}</span>
+              <span className="stat-label">Année</span>
             </div>
           </div>
-          
-          <div className="stat-item">
-            <div className="stat-icon">💰</div>
-            <div className="stat-content">
+
+          <div className="stat-compact">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+            </svg>
+            <div>
+              <span className="stat-value">{(reference.cost_eur_ht / 1000).toFixed(0)}k€</span>
               <span className="stat-label">Budget</span>
-              <span className="stat-value">{reference.cost_eur_ht.toLocaleString()}€</span>
             </div>
           </div>
-          
-          <div className="stat-item">
-            <div className="stat-icon">📐</div>
-            <div className="stat-content">
+
+          <div className="stat-compact">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 21h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V7H3v2zm0-6v2h18V3H3z"/>
+            </svg>
+            <div>
+              <span className="stat-value">{reference.total_area_m2.toLocaleString()}m²</span>
               <span className="stat-label">Surface</span>
-              <span className="stat-value">{reference.total_area_m2}m²</span>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Description avec effet de fade */}
-        <motion.p 
-          className="card-description"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
-          {reference.description}
-        </motion.p>
-      </div>
+        {/* Description courte */}
+        {reference.description && (
+          <p className="card-description">{reference.description}</p>
+        )}
+      </main>
 
-      {/* Bouton catalogue flottant */}
-      {reference.page && (
-        <motion.button
-          className="catalogue-btn"
-          onClick={navigateToCatalogue}
-          initial={{ opacity: 0, rotate: -10 }}
-          animate={{ opacity: 1, rotate: 0 }}
-          whileHover={{ 
-            scale: 1.1, 
-            rotate: 5,
-            boxShadow: "0 10px 30px rgba(0,0,0,0.3)"
-          }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-          </svg>
-          <span>P.{reference.page}</span>
-        </motion.button>
-      )}
+      {/* Actions en bas */}
+      <footer className="card-footer">
+        <AnimatePresence>
+          {isHovered && reference.page && (
+            <motion.button
+              className="view-catalogue-btn"
+              onClick={navigateToCatalogue}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label={`Voir la page ${reference.page} du catalogue`}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+              <span>Page {reference.page}</span>
+            </motion.button>
+          )}
+        </AnimatePresence>
 
-      {/* Effet de brillance au hover */}
-      <div className="card-shine" />
-      
-      {/* Indicateur de sélection */}
-      {isSelected && (
-        <motion.div 
-          className="selection-indicator"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: "spring", stiffness: 400 }}
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-          </svg>
-        </motion.div>
-      )}
-    </motion.div>
+        <div className="card-actions">
+          {isSelected && (
+            <div className="selection-indicator" aria-label="Élément sélectionné">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+            </div>
+          )}
+        </div>
+      </footer>
+    </motion.article>
   );
 };
 
