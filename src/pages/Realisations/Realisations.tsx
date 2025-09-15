@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
 import "./realisations.scss";
@@ -95,13 +95,13 @@ const projects = [
 ];
 
 const Realisations = ({
-  onNavigateToServices,
+  // onNavigateToServices,
 }: // onNavigateToReferences,
 RealisationsProps) => {
   const [isEntering, setIsEntering] = useState(false);
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [touchStartY, setTouchStartY] = useState<number | null>(null);
+  // const [touchStartY, setTouchStartY] = useState<number | null>(null);
 
   // Détection de l'appareil mobile
   useEffect(() => {
