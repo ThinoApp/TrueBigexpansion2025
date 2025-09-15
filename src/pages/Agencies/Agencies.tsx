@@ -103,16 +103,62 @@ const Agencies = () => {
                   </div>
                 </div>
               </div>
-              
-              <div class="popup-team-section">
-                <h4>Notre équipe</h4>
-                <div class="popup-team-grid">
-                  ${teamMembersHTML}
-                </div>
-              </div>
+            
             </div>
           </div>
         `);
+        // const popup = new maptilersdk.Popup({
+        //   offset: 15,
+        //   closeButton: true,
+        //   closeOnClick: false,
+        //   maxWidth: "320px",
+        //   className: "agency-detailed-popup",
+        //   anchor: "top",
+        //   focusAfterOpen: false,
+        // }).setHTML(`
+        //   <div class="agency-popup-detailed">
+        //     <div class="popup-hero" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('${agency.image}')">
+        //       <div class="popup-hero-content">
+        //         <h3>${agency.name}</h3>
+        //         <p class="popup-location">${agency.location}</p>
+        //       </div>
+        //     </div>
+            
+        //     <div class="popup-content">
+        //       <div class="popup-contact-section">
+        //         <h4>Contact</h4>
+        //         <div class="popup-contact-grid">
+        //           <div class="popup-contact-item">
+        //             <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+        //               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="currentColor"/>
+        //             </svg>
+        //             <span>${agency.address}</span>
+        //           </div>
+        //           <div class="popup-contact-item">
+        //             <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+        //               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" fill="currentColor"/>
+        //             </svg>
+        //             <span>${agency.phone}</span>
+        //           </div>
+        //           <div class="popup-contact-item">
+        //             <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+        //               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" strokeWidth="2"/>
+        //               <polyline points="22,6 12,13 2,6" stroke="currentColor" strokeWidth="2"/>
+        //             </svg>
+        //             <span>${agency.email}</span>
+        //           </div>
+        //         </div>
+        //       </div>
+              
+        //       <div class="popup-team-section">
+        //         <h4>Notre équipe</h4>
+        //         <div class="popup-team-grid">
+        //           ${teamMembersHTML}
+        //         </div>
+        //       </div>
+        //     </div>
+        //   </div>
+        // `);
 
         // Add agency ID as data attribute for identification
         markerElement.setAttribute("data-agency-id", agency.id.toString());
