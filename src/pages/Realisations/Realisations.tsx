@@ -117,30 +117,7 @@ RealisationsProps) => {
     };
   }, []);
 
-  const handleWheel = (e: React.WheelEvent) => {
-    if (e.deltaY < -50 && window.scrollY === 0) {
-      onNavigateToServices();
-    }
-  };
 
-  // Gestion des événements tactiles
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartY(e.touches[0].clientY);
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartY === null) return;
-
-    const touchEndY = e.changedTouches[0].clientY;
-    const deltaY = touchStartY - touchEndY;
-
-    // Swipe vers le bas pour naviguer vers Services
-    if (deltaY < -50 && window.scrollY === 0) {
-      onNavigateToServices();
-    }
-
-    setTouchStartY(null);
-  };
 
   useEffect(() => {
     setIsEntering(true);
@@ -150,9 +127,6 @@ RealisationsProps) => {
     <PageTransition isEntering={isEntering}>
       <motion.div
         className="Realisations"
-        onWheel={handleWheel}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}

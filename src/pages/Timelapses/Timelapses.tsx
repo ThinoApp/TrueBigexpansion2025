@@ -180,7 +180,7 @@ const Timelapses = () => {
       }}
     >
       <div className="w-full px-2 sm:px-4 md:px-6 lg:px-8">
-        <h1 className="timelapses-title text-4xl md:text-5xl lg:text-6xl font-light mb-8 md:mb-12 text-center pt-10">
+        <h1 className="timelapses-title text-4xl md:text-5xl lg:text-6xl font-light mb-8 md:mb-12 text-center pt-20 md:pt-32">
           Nos <span className="text-blue-400">Timelapses</span>
         </h1>
 
