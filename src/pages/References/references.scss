@@ -18,7 +18,7 @@
 
     .filter-toggle-button {
       position: sticky;
-      top: 0;
+      top: 6rem;
       z-index: 100;
       width: 100%;
       padding: 1rem;
@@ -295,6 +295,7 @@
       .filter-toggle-button {
         padding: 0.75rem;
         font-size: 0.9rem;
+        top: 4rem;
       }
 
       .filters-panel.visible {
