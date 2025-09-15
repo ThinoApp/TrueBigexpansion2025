@@ -382,6 +382,22 @@
     .glitch-text .dot {
       animation-duration: 3s; // Animation plus lente sur mobile
     }
+
+    // Ajustements pour les différents positionnements sur mobile
+    .perspective {
+      &.flex {
+        // Sur mobile, forcer le centrage pour tous les layouts
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 1rem !important;
+        
+        .service-description {
+          max-width: 100% !important;
+          margin: 0 auto !important;
+        }
+      }
+    }
   }
 }
 

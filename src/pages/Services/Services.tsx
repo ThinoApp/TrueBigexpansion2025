@@ -240,61 +240,102 @@ const Services = ({
             {/* Contenu central */}
             <div
               className={`flex-1 ${
-                isMobile ? "w-full" : "max-w-4xl"
+                isMobile ? "w-full" : "max-w-6xl"
               } mx-auto relative min-h-[400px]`}
             >
-              {services.map((service, index) => (
-                <motion.div
-                  key={service.id}
-                  initial={{ opacity: 0, x: 100, rotateY: -30 }}
-                  animate={{
-                    opacity: activeIndex === index ? 1 : 0,
-                    x:
+              {services.map((service, index) => {
+                // Définir les positionnements différents pour chaque service
+                const getLayoutVariant = (serviceIndex: number) => {
+                  const variants = [
+                    // Service 1 - Centré classique
+                    { 
+                      containerClass: "flex flex-col items-center justify-center text-center",
+                      titleClass: "mb-6 sm:mb-12",
+                      descriptionClass: "max-w-3xl mx-auto"
+                    },
+                    // Service 2 - Aligné à gauche
+                    { 
+                      containerClass: "flex flex-col items-start justify-center text-left pl-8",
+                      titleClass: "mb-6 sm:mb-12",
+                      descriptionClass: "max-w-2xl"
+                    },
+                    // Service 3 - Aligné à droite
+                    { 
+                      containerClass: "flex flex-col items-end justify-center text-right pr-8",
+                      titleClass: "mb-6 sm:mb-12",
+                      descriptionClass: "max-w-2xl"
+                    },
+                    // Service 4 - Centré vers le haut
+                    { 
+                      containerClass: "flex flex-col items-center justify-start pt-12 text-center",
+                      titleClass: "mb-8 sm:mb-16",
+                      descriptionClass: "max-w-3xl mx-auto"
+                    },
+                    // Service 5 - Centré vers le bas
+                    { 
+                      containerClass: "flex flex-col items-center justify-end pb-12 text-center",
+                      titleClass: "mb-4 sm:mb-8",
+                      descriptionClass: "max-w-3xl mx-auto"
+                    }
+                  ];
+                  return variants[serviceIndex] || variants[0];
+                };
+
+                const layout = getLayoutVariant(index);
+
+                return (
+                  <motion.div
+                    key={service.id}
+                    initial={{ opacity: 0, x: 100, rotateY: -30 }}
+                    animate={{
+                      opacity: activeIndex === index ? 1 : 0,
+                      x:
+                        activeIndex === index
+                          ? 0
+                          : activeIndex > index
+                          ? -100
+                          : 100,
+                      rotateY:
+                        activeIndex === index
+                          ? 0
+                          : activeIndex > index
+                          ? 30
+                          : -30,
+                    }}
+                    transition={{
+                      duration: 0.8,
+                      ease: [0.645, 0.045, 0.355, 1.0],
+                      opacity: { duration: 0.4 },
+                    }}
+                    className={`absolute inset-0 perspective ${
                       activeIndex === index
-                        ? 0
-                        : activeIndex > index
-                        ? -100
-                        : 100,
-                    rotateY:
-                      activeIndex === index
-                        ? 0
-                        : activeIndex > index
-                        ? 30
-                        : -30,
-                  }}
-                  transition={{
-                    duration: 0.8,
-                    ease: [0.645, 0.045, 0.355, 1.0],
-                    opacity: { duration: 0.4 },
-                  }}
-                  className={`absolute w-full perspective ${
-                    activeIndex === index
-                      ? "pointer-events-auto"
-                      : "pointer-events-none"
-                  }`}
-                  style={{
-                    display: activeIndex === index ? "block" : "none",
-                  }}
-                >
-                  <motion.h2
-                    className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-white mb-6 sm:mb-12 glitch-text"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2, duration: 0.6 }}
+                        ? "pointer-events-auto"
+                        : "pointer-events-none"
+                    } ${layout.containerClass}`}
+                    style={{
+                      display: activeIndex === index ? "flex" : "none",
+                    }}
                   >
-                    {service.title}
-                    <span className="text-white/50 dot">.</span>
-                  </motion.h2>
-                  <motion.p
-                    className="text-base sm:text-lg md:text-xl text-white/80 font-light leading-relaxed mx-auto px-2 sm:px-4 service-description"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.4, duration: 0.6 }}
-                  >
-                    {service.description}
-                  </motion.p>
-                </motion.div>
-              ))}
+                    <motion.h2
+                      className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-white glitch-text ${layout.titleClass}`}
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.2, duration: 0.6 }}
+                    >
+                      {service.title}
+                      <span className="text-white/50 dot">.</span>
+                    </motion.h2>
+                    <motion.p
+                      className={`text-base sm:text-lg md:text-xl text-white/80 font-light leading-relaxed px-2 sm:px-4 service-description ${layout.descriptionClass}`}
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.4, duration: 0.6 }}
+                    >
+                      {service.description}
+                    </motion.p>
+                  </motion.div>
+                );
+              })}
             </div>
 
             {/* Navigation droite - caché sur mobile */}
