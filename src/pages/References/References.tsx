@@ -210,7 +210,7 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
           <span className="toggle-icon">{showFilters ? "▲" : "▼"}</span>
         </button>
 
-        <div className={`filters-panel ${showFilters ? "visible" : ""}`}>
+        <div className={`filters-panel ${showFilters ? "visible pointer-events-auto" : "pointer-events-none"}`}>
           <ReferenceFilters
             references={references}
             filters={filters}

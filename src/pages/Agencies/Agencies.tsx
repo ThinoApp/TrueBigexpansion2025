@@ -46,20 +46,20 @@ const Agencies = () => {
         `;
 
         // Create comprehensive popup with all agency details
-        const teamMembersHTML = agency.team
-          .slice(0, 6)
-          .map(
-            (member) => `
-          <div class="popup-team-member">
-            <div class="popup-member-photo" style="background-image: url('${member.photo}')"></div>
-            <div class="popup-member-info">
-              <h5>${member.name}</h5>
-              <p>${member.role}</p>
-            </div>
-          </div>
-        `
-          )
-          .join("");
+        // const teamMembersHTML = agency.team
+        //   .slice(0, 6)
+        //   .map(
+        //     (member) => `
+        //   <div class="popup-team-member">
+        //     <div class="popup-member-photo" style="background-image: url('${member.photo}')"></div>
+        //     <div class="popup-member-info">
+        //       <h5>${member.name}</h5>
+        //       <p>${member.role}</p>
+        //     </div>
+        //   </div>
+        // `
+        //   )
+        //   .join("");
 
         const popup = new maptilersdk.Popup({
           offset: 15,
