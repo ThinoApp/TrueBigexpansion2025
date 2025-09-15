@@ -123,7 +123,7 @@ const Agencies = () => {
         //         <p class="popup-location">${agency.location}</p>
         //       </div>
         //     </div>
-            
+
         //     <div class="popup-content">
         //       <div class="popup-contact-section">
         //         <h4>Contact</h4>
@@ -149,7 +149,7 @@ const Agencies = () => {
         //           </div>
         //         </div>
         //       </div>
-              
+
         //       <div class="popup-team-section">
         //         <h4>Notre équipe</h4>
         //         <div class="popup-team-grid">
