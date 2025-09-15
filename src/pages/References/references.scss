@@ -11,18 +11,19 @@
   font-family: "Inter", sans-serif;
 
   .filters-container {
-    position: relative;
+    position: sticky;
+    top: 5rem;
+    z-index: 100;
     margin-bottom: 1rem;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.95);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
 
     .filter-toggle-button {
-      position: sticky;
-      top: 6rem;
-      z-index: 100;
+      position: relative;
       width: 100%;
       padding: 1rem;
-      background-color: rgba(0, 0, 0, 0.95);
+      background-color: transparent;
       color: white;
       border: none;
       border-bottom: 1px solid rgba(255, 255, 255, 0.3);
@@ -35,7 +36,6 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 
       &:hover {
         background-color: rgba(255, 255, 255, 0.1);
@@ -63,15 +63,13 @@
       transition: max-height 0.5s ease, opacity 0.3s ease, padding 0.3s ease;
       padding: 0;
       background-color: rgba(0, 0, 0, 0.95);
-      margin-top: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
       &.visible {
-        max-height: 500px; /* Ajustez selon la hauteur maximale de votre panneau de filtres */
+        max-height: 500px;
         opacity: 1;
         padding: 1rem;
-        margin-top: 0;
-        z-index: 99;
-        position: relative;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
       }
     }
   }
@@ -297,10 +295,11 @@
     }
 
     .filters-container {
+      top: 3rem;
+
       .filter-toggle-button {
         padding: 0.75rem;
         font-size: 0.9rem;
-        top: 4rem;
       }
 
       .filters-panel.visible {
