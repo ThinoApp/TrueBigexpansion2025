@@ -15,7 +15,7 @@ const References = ({ onNavigateToCatalogue }: ReferencesProps) => {
     null
   );
   const [references, setReferences] = useState<Reference[]>([]);
-  const [showFilters, setShowFilters] = useState<boolean>(true);
+  const [showFilters, setShowFilters] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [touchStartX, setTouchStartX] = useState<number>(0);
   const [touchStartY, setTouchStartY] = useState<number>(0);
