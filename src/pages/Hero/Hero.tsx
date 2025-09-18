@@ -208,7 +208,6 @@ const Hero = ({ onNavigateToServices, onNavigate }: HeroProps) => {
     }
   });
 
-
   // Gestion améliorée des événements tactiles
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStartY(e.touches[0].clientY);
@@ -294,7 +293,7 @@ const Hero = ({ onNavigateToServices, onNavigate }: HeroProps) => {
             <div className="space-y-4 sm:space-y-5">
               <h1
                 ref={titleRef}
-                className="hero-title text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-light text-white leading-tight"
+                className="hero-title text-4xl sm:text-4xl md:text-7xl lg:text-7xl font-light text-white leading-tight"
               >
                 <div className="word overflow-hidden">
                   <span className="block">Penser</span>
@@ -318,42 +317,64 @@ const Hero = ({ onNavigateToServices, onNavigate }: HeroProps) => {
             {/* Navigation rapide */}
             <div className="flex flex-wrap gap-4 max-w-2xl">
               <button
-                onClick={() => onNavigate('services')}
+                onClick={() => onNavigate("services")}
                 className="group flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/20 transition-all duration-300"
               >
-                <Briefcase size={24} className="text-white mb-2 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
+                <Briefcase
+                  size={24}
+                  className="text-white mb-2 group-hover:scale-110 transition-transform duration-300"
+                  strokeWidth={1.5}
+                />
                 <span className="text-white text-sm font-light">Services</span>
               </button>
-              
+
               <button
-                onClick={() => onNavigate('realisations')}
+                onClick={() => onNavigate("realisations")}
                 className="group flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/20 transition-all duration-300"
               >
-                <Building2 size={24} className="text-white mb-2 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
+                <Building2
+                  size={24}
+                  className="text-white mb-2 group-hover:scale-110 transition-transform duration-300"
+                  strokeWidth={1.5}
+                />
                 <span className="text-white text-sm font-light">Travaux</span>
               </button>
-              
+
               <button
-                onClick={() => onNavigate('references')}
+                onClick={() => onNavigate("references")}
                 className="group flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/20 transition-all duration-300"
               >
-                <Users size={24} className="text-white mb-2 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
-                <span className="text-white text-sm font-light">Références</span>
+                <Users
+                  size={24}
+                  className="text-white mb-2 group-hover:scale-110 transition-transform duration-300"
+                  strokeWidth={1.5}
+                />
+                <span className="text-white text-sm font-light">
+                  Références
+                </span>
               </button>
-              
+
               <button
-                onClick={() => onNavigate('timelapses')}
+                onClick={() => onNavigate("timelapses")}
                 className="group flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/20 transition-all duration-300"
               >
-                <Clock size={24} className="text-white mb-2 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
+                <Clock
+                  size={24}
+                  className="text-white mb-2 group-hover:scale-110 transition-transform duration-300"
+                  strokeWidth={1.5}
+                />
                 <span className="text-white text-sm font-light">Vidéos</span>
               </button>
-              
+
               <button
-                onClick={() => onNavigate('agencies')}
+                onClick={() => onNavigate("agencies")}
                 className="group flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/20 transition-all duration-300"
               >
-                <MapPin size={24} className="text-white mb-2 group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
+                <MapPin
+                  size={24}
+                  className="text-white mb-2 group-hover:scale-110 transition-transform duration-300"
+                  strokeWidth={1.5}
+                />
                 <span className="text-white text-sm font-light">Agences</span>
               </button>
             </div>
