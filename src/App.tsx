@@ -186,7 +186,7 @@ function App() {
       const targetIndex = sections.indexOf(section as Section);
       const direction = targetIndex > currentIndex ? 1 : -1;
 
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
       setPage([targetIndex, direction]);
       setCurrentSection(section as Section);
