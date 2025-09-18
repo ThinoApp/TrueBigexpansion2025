@@ -198,9 +198,9 @@ const LoadingScreen = ({ isLoading }: LoadingScreenProps) => {
                     key={i}
                     className="absolute w-2 h-2 bg-blue-400 rounded-full"
                     style={{
-                      top: "50%",
-                      left: "50%",
-                      transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
+                      left: `calc(50% + ${x}px)`,
+                      top: `calc(50% + ${y}px)`,
+                      transform: "translate(-50%, -50%)",
                     }}
                     animate={{
                       opacity: [0.3, 1, 0.3],
