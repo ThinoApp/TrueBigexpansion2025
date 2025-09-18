@@ -69,7 +69,7 @@ const timelapseVideos: TimelapseVideo[] = [
   {
     id: 8,
     title: "Charléty",
-    path: "http://doc.bigexpansion.eu/TIMELAPSE/Vidéo finale Timelapse Charléty BIG.mp4",
+    path: "http://doc.bigexpansion.eu/TIMELAPSE/Video finale Timelapse Charlety BIG.mp4",
     description: "Projet complet de rénovation du stade Charléty",
     thumbnail: "/images/thumbnails/Vidéo finale Timelapse Charléty BIG.png",
   },
