@@ -1,95 +1,28 @@
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 interface LoadingScreenProps {
   isLoading: boolean;
 }
 
-// const BIGLogo = () => (
-//   <svg
-//     viewBox="0 0 600 200"
-//     fill="none"
-//     xmlns="http://www.w3.org/2000/svg"
-//     className="w-full h-full"
-//   >
-//     {/* B */}
-//     <path
-//       d="M50 20
-//          h100
-//          a40 40 0 0 1 0 80
-//          h-100
-//          v-80
-//          M50 100
-//          h100
-//          a40 40 0 0 1 0 80
-//          h-100
-//          v-80
-//          M50 20
-//          v160"
-//       stroke="white"
-//       strokeWidth="12"
-//       fill="none"
-//     />
-
-//     {/* Point */}
-//     <circle
-//       cx="220"
-//       cy="20"
-//       r="10"
-//       fill="white"
-//     />
-
-//     {/* I */}
-//     <path
-//       d="M220 50v130"
-//       stroke="white"
-//       strokeWidth="12"
-//       fill="none"
-//     />
-
-//     {/* Point */}
-//     <circle
-//       cx="300"
-//       cy="20"
-//       r="10"
-//       fill="white"
-//     />
-
-//     {/* G */}
-//     <path
-//       d="M390 50
-//          a70 70 0 0 1 0 140
-//          a70 70 0 0 1 0-140
-//          M390 80
-//          a40 40 0 0 0-40 40
-//          v30
-//          a40 40 0 0 0 40 40
-//          a40 40 0 0 0 40-40
-//          v-15
-//          h-40"
-//       stroke="white"
-//       strokeWidth="12"
-//       fill="none"
-//     />
-
-//     {/* EXPANSION text */}
-//     <text
-//       x="300"
-//       y="220"
-//       textAnchor="middle"
-//       fill="white"
-//       style={{
-//         fontFamily: 'Inter, sans-serif',
-//         fontSize: '24px',
-//         fontWeight: '200',
-//         letterSpacing: '0.2em'
-//       }}
-//     >
-//       EXPANSION
-//     </text>
-//   </svg>
-// );
-
 const LoadingScreen = ({ isLoading }: LoadingScreenProps) => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (isLoading) {
+      const interval = setInterval(() => {
+        setProgress((prev) => {
+          if (prev >= 100) {
+            return 0; // Reset for continuous animation
+          }
+          return prev + 1;
+        });
+      }, 30);
+
+      return () => clearInterval(interval);
+    }
+  }, [isLoading]);
+
   return (
     <motion.div
       initial={false}
@@ -97,111 +30,121 @@ const LoadingScreen = ({ isLoading }: LoadingScreenProps) => {
         opacity: isLoading ? 1 : 0,
         pointerEvents: isLoading ? "auto" : "none",
       }}
-      className="fixed inset-0 z-[100] bg-gradient-to-b from-gray-900 to-black"
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      className="fixed inset-0 z-[100] bg-gradient-to-br from-slate-900 via-gray-900 to-black"
     >
+      {/* Particules de fond */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-white/10 rounded-full"
+            initial={{
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+            }}
+            animate={{
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: Math.random() * 3 + 2,
+              repeat: Infinity,
+              ease: "linear",
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
+      </div>
+
       <div className="absolute inset-0 flex items-center justify-center">
         <motion.div
           className="relative"
           initial={false}
-          animate={{ scale: isLoading ? 1 : 0.8 }}
+          animate={{ 
+            scale: isLoading ? 1 : 0.8,
+            filter: isLoading ? "blur(0px)" : "blur(4px)"
+          }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
         >
-          {/* Cercle de chargement */}
-          <motion.div
-            className="w-48 h-48 relative"
-            animate={{ rotate: isLoading ? 360 : 0 }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-          >
-            <div className="absolute inset-0 rounded-full border-2 border-white/10" />
+          {/* Cercles de progression concentriques */}
+          <div className="relative w-72 h-72">
+            {/* Cercle extérieur - Glow effect */}
             <motion.div
-              className="absolute inset-0 rounded-full border-t-2 border-r-2 border-white"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-            />
-          </motion.div>
-
-          {/* Texte B.I.G animé */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center gap-3">
-            {/* B */}
-            <motion.span
-              className="text-5xl font-bold text-white"
+              className="absolute inset-0 rounded-full"
               animate={{
-                scale: [1, 1.2, 1],
-                textShadow: [
-                  "0 0 0px rgba(255,255,255,0)",
-                  "0 0 20px rgba(255,255,255,0.8)",
-                  "0 0 0px rgba(255,255,255,0)",
+                boxShadow: [
+                  "0 0 0px rgba(59, 130, 246, 0.3)",
+                  "0 0 40px rgba(59, 130, 246, 0.6)",
+                  "0 0 0px rgba(59, 130, 246, 0.3)",
                 ],
               }}
               transition={{
                 duration: 2,
                 repeat: Infinity,
                 ease: "easeInOut",
-                times: [0, 0.5, 1],
               }}
-            >
-              B
-            </motion.span>
+            />
+            
+            {/* Cercle de progression principal */}
+            <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+              {/* Fond du cercle */}
+              <circle
+                cx="50"
+                cy="50"
+                r="45"
+                stroke="rgba(255,255,255,0.1)"
+                strokeWidth="2"
+                fill="none"
+              />
+              
+              {/* Progression */}
+              <motion.circle
+                cx="50"
+                cy="50"
+                r="45"
+                stroke="url(#progressGradient)"
+                strokeWidth="3"
+                fill="none"
+                strokeLinecap="round"
+                strokeDasharray="283"
+                animate={{
+                  strokeDashoffset: [283, 0, 283],
+                  rotate: [0, 360],
+                }}
+                transition={{
+                  strokeDashoffset: {
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
+                  rotate: {
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }
+                }}
+              />
+              
+              <defs>
+                <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#3b82f6" />
+                  <stop offset="50%" stopColor="#8b5cf6" />
+                  <stop offset="100%" stopColor="#06b6d4" />
+                </linearGradient>
+              </defs>
+            </svg>
 
-            {/* Point */}
-            <motion.span
-              className="text-5xl font-bold text-white -translate-y-5"
+            {/* Cercle de fond blanc pour le logo */}
+            <motion.div
+              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-white rounded-full shadow-2xl flex items-center justify-center"
               animate={{
-                opacity: [0, 1, 0],
-                y: ["-1.5rem", "-1.25rem", "-1.5rem"],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              .
-            </motion.span>
-
-            {/* I */}
-            <motion.span
-              className="text-5xl font-bold text-white"
-              animate={{
-                rotateX: [0, 360],
-                filter: ["brightness(1)", "brightness(1.5)", "brightness(1)"],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-                times: [0, 0.5, 1],
-              }}
-            >
-              I
-            </motion.span>
-
-            {/* Point */}
-            <motion.span
-              className="text-5xl font-bold text-white -translate-y-5"
-              animate={{
-                opacity: [0, 1, 0],
-                y: ["-1.5rem", "-1.25rem", "-1.5rem"],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 0.2,
-              }}
-            >
-              .
-            </motion.span>
-
-            {/* G */}
-            <motion.span
-              className="text-5xl font-bold text-white"
-              animate={{
-                scale: [1, 1.1, 1],
-                rotate: [0, 5, 0, -5, 0],
-                textShadow: [
-                  "0 0 0px rgba(255,255,255,0)",
-                  "0 0 30px rgba(255,255,255,0.8)",
-                  "0 0 0px rgba(255,255,255,0)",
+                scale: [1, 1.05, 1],
+                boxShadow: [
+                  "0 20px 40px rgba(0,0,0,0.3)",
+                  "0 25px 50px rgba(0,0,0,0.4)",
+                  "0 20px 40px rgba(0,0,0,0.3)",
                 ],
               }}
               transition={{
@@ -210,45 +153,128 @@ const LoadingScreen = ({ isLoading }: LoadingScreenProps) => {
                 ease: "easeInOut",
               }}
             >
-              G
-            </motion.span>
+              {/* Logo BIG */}
+              <motion.img
+                src="/images/assets/Logo BIG 2022.png"
+                alt="BIG Logo"
+                className="w-28 h-28 object-contain"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  filter: [
+                    "brightness(1)",
+                    "brightness(1.1)",
+                    "brightness(1)",
+                  ],
+                }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            </motion.div>
+
+            {/* Points lumineux autour du cercle */}
+            {[...Array(8)].map((_, i) => {
+              const angle = (i * 360) / 8;
+              return (
+                <motion.div
+                  key={i}
+                  className="absolute w-2 h-2 bg-blue-400 rounded-full"
+                  style={{
+                    top: "50%",
+                    left: "50%",
+                    transformOrigin: "0 0",
+                  }}
+                  animate={{
+                    rotate: angle + (isLoading ? 360 : 0),
+                    x: 140,
+                    y: -4,
+                    opacity: [0.3, 1, 0.3],
+                    scale: [1, 1.5, 1],
+                  }}
+                  transition={{
+                    rotate: {
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "linear",
+                    },
+                    opacity: {
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.2,
+                    },
+                    scale: {
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.2,
+                    }
+                  }}
+                />
+              );
+            })}
           </div>
         </motion.div>
 
         {/* Texte de chargement */}
         <motion.div
-          className="absolute bottom-[20%] left-0 right-0 text-center space-y-4"
+          className="absolute bottom-[15%] left-0 right-0 text-center space-y-6"
           initial={false}
-          animate={{ opacity: isLoading ? 1 : 0 }}
+          animate={{ 
+            opacity: isLoading ? 1 : 0,
+            y: isLoading ? 0 : 20,
+          }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
         >
-          <motion.p
-            className="text-white/60 text-sm uppercase tracking-[0.2em]"
+          <motion.div
+            className="text-white/80 text-lg font-light tracking-[0.3em] uppercase"
             animate={{
-              opacity: [0.4, 1, 0.4],
-              letterSpacing: ["0.2em", "0.3em", "0.2em"],
+              opacity: [0.6, 1, 0.6],
+              letterSpacing: ["0.3em", "0.4em", "0.3em"],
             }}
             transition={{
-              duration: 2,
+              duration: 2.5,
               repeat: Infinity,
               ease: "easeInOut",
             }}
           >
-            Chargement
-          </motion.p>
-          <motion.div className="w-32 h-0.5 mx-auto bg-white/20 relative overflow-hidden">
+            Chargement en cours
+          </motion.div>
+          
+          {/* Barre de progression */}
+          <div className="w-64 mx-auto">
+            <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 rounded-full"
+                animate={{
+                  x: ["-100%", "100%"],
+                  scaleX: [0.3, 1, 0.3],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            </div>
+            
+            {/* Pourcentage */}
             <motion.div
-              className="absolute inset-y-0 w-1/2 bg-white"
+              className="text-center mt-3 text-white/60 text-sm font-mono"
               animate={{
-                x: ["-100%", "200%"],
-                width: ["50%", "30%", "50%"],
+                opacity: [0.5, 1, 0.5],
               }}
               transition={{
                 duration: 1.5,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-            />
-          </motion.div>
+            >
+              {progress}%
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </motion.div>
