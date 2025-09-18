@@ -175,46 +175,55 @@ const LoadingScreen = ({ isLoading }: LoadingScreenProps) => {
             </motion.div>
 
             {/* Points lumineux autour du cercle */}
-            {[...Array(8)].map((_, i) => {
-              const angle = (i * 360) / 8;
-              return (
-                <motion.div
-                  key={i}
-                  className="absolute w-2 h-2 bg-blue-400 rounded-full"
-                  style={{
-                    top: "50%",
-                    left: "50%",
-                    transformOrigin: "0 0",
-                  }}
-                  animate={{
-                    rotate: angle + (isLoading ? 360 : 0),
-                    x: 140,
-                    y: -4,
-                    opacity: [0.3, 1, 0.3],
-                    scale: [1, 1.5, 1],
-                  }}
-                  transition={{
-                    rotate: {
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "linear",
-                    },
-                    opacity: {
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: i * 0.2,
-                    },
-                    scale: {
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: i * 0.2,
-                    }
-                  }}
-                />
-              );
-            })}
+            <motion.div
+              className="absolute inset-0"
+              animate={{
+                rotate: isLoading ? 360 : 0,
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            >
+              {[...Array(8)].map((_, i) => {
+                const angle = (i * 360) / 8;
+                const radian = (angle * Math.PI) / 180;
+                const radius = 140; // Distance du centre
+                const x = Math.cos(radian) * radius;
+                const y = Math.sin(radian) * radius;
+                
+                return (
+                  <motion.div
+                    key={i}
+                    className="absolute w-2 h-2 bg-blue-400 rounded-full"
+                    style={{
+                      top: "50%",
+                      left: "50%",
+                      transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
+                    }}
+                    animate={{
+                      opacity: [0.3, 1, 0.3],
+                      scale: [1, 1.5, 1],
+                    }}
+                    transition={{
+                      opacity: {
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: i * 0.2,
+                      },
+                      scale: {
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: i * 0.2,
+                      }
+                    }}
+                  />
+                );
+              })}
+            </motion.div>
           </div>
         </motion.div>
 
