@@ -41,7 +41,7 @@ const Header = ({ onContactClick, onNavigateHome }: HeaderProps) => {
           onClick={() => onNavigateHome && onNavigateHome()}
         >
           <div
-            className={`relative w-24 sm:w-40 h-full transition-all duration-500 hover:scale-[1.02] -my-4 ${
+            className={`relative w-28 sm:w-44 h-full transition-all duration-500 hover:scale-[1.02] py-1 ${
               isScrolled
                 ? "bg-gradient-to-r from-gray-50/90 to-white/95 shadow-xl backdrop-blur-sm"
                 : "bg-gradient-to-r from-white/50 to-white/80 backdrop-blur-lg shadow-2xl"
@@ -53,10 +53,7 @@ const Header = ({ onContactClick, onNavigateHome }: HeaderProps) => {
             <img
               src="/images/assets/Logo BIG 2022.png"
               alt="BIG Logo"
-              className="absolute inset-0 w-full h-full object-contain p-1 sm:p-2 z-10"
-              style={{
-                clipPath: 'polygon(0 0, calc(100% - 24px) 0, 100% 50%, calc(100% - 24px) 100%, 0 100%)'
-              }}
+              className="h-6 sm:h-16 object-contain relative z-10 ml-2 sm:ml-4"
             />
             {/* Effet de lueur subtile avec forme de flèche */}
             <div
