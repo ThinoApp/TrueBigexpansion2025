@@ -35,25 +35,28 @@ const Header = ({ onContactClick, onNavigateHome }: HeaderProps) => {
     >
       <nav className="flex items-center justify-between max-w-7xl mx-auto">
         <motion.button
-          className="flex items-center gap-2 cursor-pointer h-full"
+          className="flex items-center gap-2 cursor-pointer h-full -ml-4 sm:-ml-8"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => onNavigateHome && onNavigateHome()}
         >
           <div
-            className={`relative px-4 sm:px-6 py-2 sm:py-3 transition-all duration-500 hover:scale-[1.02] h-full flex items-center ${
+            className={`relative w-24 sm:w-40 h-full transition-all duration-500 hover:scale-[1.02] -my-4 ${
               isScrolled
                 ? "bg-gradient-to-r from-gray-50/90 to-white/95 shadow-xl backdrop-blur-sm"
                 : "bg-gradient-to-r from-white/50 to-white/80 backdrop-blur-lg shadow-2xl"
             }`}
             style={{
-              clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%)'
+              clipPath: 'polygon(0 0, calc(100% - 24px) 0, 100% 50%, calc(100% - 24px) 100%, 0 100%)'
             }}
           >
             <img
               src="/images/assets/Logo BIG 2022.png"
               alt="BIG Logo"
-              className="h-6 sm:h-16 object-contain relative z-10"
+              className="absolute inset-0 w-full h-full object-contain p-1 sm:p-2 z-10"
+              style={{
+                clipPath: 'polygon(0 0, calc(100% - 24px) 0, 100% 50%, calc(100% - 24px) 100%, 0 100%)'
+              }}
             />
             {/* Effet de lueur subtile avec forme de flèche */}
             <div
@@ -63,7 +66,7 @@ const Header = ({ onContactClick, onNavigateHome }: HeaderProps) => {
                   : "bg-gradient-to-r from-white/8 to-blue-50/5 opacity-100"
               }`}
               style={{
-                clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%)'
+                clipPath: 'polygon(0 0, calc(100% - 24px) 0, 100% 50%, calc(100% - 24px) 100%, 0 100%)'
               }}
             />
             {/* Bordure de la flèche */}
@@ -74,7 +77,7 @@ const Header = ({ onContactClick, onNavigateHome }: HeaderProps) => {
                   : "border border-white/40"
               }`}
               style={{
-                clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%)'
+                clipPath: 'polygon(0 0, calc(100% - 24px) 0, 100% 50%, calc(100% - 24px) 100%, 0 100%)'
               }}
             />
             {/* Effet de halo externe */}
@@ -85,7 +88,7 @@ const Header = ({ onContactClick, onNavigateHome }: HeaderProps) => {
                   : "bg-gradient-to-r from-white/15 via-transparent to-blue-100/20 opacity-100"
               }`}
               style={{
-                clipPath: 'polygon(0 0, calc(100% - 22px) 0, 100% 50%, calc(100% - 22px) 100%, 0 100%)'
+                clipPath: 'polygon(0 0, calc(100% - 26px) 0, 100% 50%, calc(100% - 26px) 100%, 0 100%)'
               }}
             />
           </div>
