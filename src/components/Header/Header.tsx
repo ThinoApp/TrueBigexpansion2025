@@ -36,35 +36,35 @@ const Header = ({ onContactClick, onNavigateHome }: HeaderProps) => {
       <nav className="flex items-center justify-between max-w-7xl mx-auto">
         {/* Forme parallélogramme sur la moitié gauche */}
         <div className="absolute top-0 left-0 h-full w-1/2 overflow-hidden">
-          <div 
+          <div
             className={`absolute inset-0 transition-all duration-300 ${
-              isScrolled 
-                ? "bg-gradient-to-r from-white/90 to-white/60" 
+              isScrolled
+                ? "bg-gradient-to-r from-white/90 to-white/60"
                 : "bg-gradient-to-r from-white/25 to-white/10"
             } backdrop-blur-md`}
             style={{
-              clipPath: 'polygon(0% 0%, 85% 0%, 75% 100%, 0% 100%)',
-              width: '100%',
-              height: '100%'
+              clipPath: "polygon(0% 0%, 85% 0%, 75% 100%, 0% 100%)",
+              width: "100%",
+              height: "100%",
             }}
           />
           {/* Effet de lueur supplémentaire */}
-          <div 
+          <div
             className={`absolute inset-0 transition-all duration-300 ${
-              isScrolled 
-                ? "bg-gradient-to-r from-blue-50/20 to-transparent" 
+              isScrolled
+                ? "bg-gradient-to-r from-blue-50/20 to-transparent"
                 : "bg-gradient-to-r from-white/15 to-transparent"
             }`}
             style={{
-              clipPath: 'polygon(0% 0%, 80% 0%, 70% 100%, 0% 100%)',
-              width: '95%',
-              height: '100%'
+              clipPath: "polygon(0% 0%, 80% 0%, 70% 100%, 0% 100%)",
+              width: "95%",
+              height: "100%",
             }}
           />
         </div>
 
         <motion.button
-          className="flex items-center gap-2 cursor-pointer relative z-20"
+          className="flex items-center gap-2 cursor-pointer scale-125 relative z-20"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => onNavigateHome && onNavigateHome()}
@@ -76,11 +76,9 @@ const Header = ({ onContactClick, onNavigateHome }: HeaderProps) => {
               className="h-6 sm:h-20 object-contain relative z-30 drop-shadow-lg"
             />
             {/* Halo autour du logo */}
-            <div 
+            <div
               className={`absolute inset-0 transition-opacity duration-300 ${
-                isScrolled
-                  ? "bg-white/40 opacity-50"
-                  : "bg-white/20 opacity-80"
+                isScrolled ? "bg-white/40 opacity-50" : "bg-white/20 opacity-80"
               } rounded-full blur-xl scale-150`}
             />
           </div>
