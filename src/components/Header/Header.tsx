@@ -35,38 +35,58 @@ const Header = ({ onContactClick, onNavigateHome }: HeaderProps) => {
     >
       <nav className="flex items-center justify-between max-w-7xl mx-auto">
         <motion.button
-          className="flex items-center gap-2 cursor-pointer"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          className="flex items-center gap-2 cursor-pointer h-full"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           onClick={() => onNavigateHome && onNavigateHome()}
         >
           <div
-            className={`relative p-2 sm:p-3 rounded-full transition-all duration-500 hover:scale-105 ${
+            className={`relative px-4 sm:px-6 py-2 sm:py-3 transition-all duration-500 hover:scale-[1.02] h-full flex items-center ${
               isScrolled
-                ? "bg-gradient-to-br from-gray-50/80 to-white/90 shadow-xl border border-gray-200/50 backdrop-blur-sm"
-                : "bg-gradient-to-br from-white/40 to-white/80 backdrop-blur-lg border border-white/30 shadow-2xl"
+                ? "bg-gradient-to-r from-gray-50/90 to-white/95 shadow-xl backdrop-blur-sm"
+                : "bg-gradient-to-r from-white/50 to-white/80 backdrop-blur-lg shadow-2xl"
             }`}
+            style={{
+              clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%)'
+            }}
           >
             <img
               src="/images/assets/Logo BIG 2022.png"
               alt="BIG Logo"
-              className="h-6 sm:h-20 object-contain relative z-10"
+              className="h-6 sm:h-16 object-contain relative z-10"
             />
-            {/* Effet de lueur subtile avec forme circulaire */}
+            {/* Effet de lueur subtile avec forme de flèche */}
             <div
-              className={`absolute inset-0 rounded-full transition-all duration-500 ${
+              className={`absolute inset-0 transition-all duration-500 ${
                 isScrolled
-                  ? "bg-gradient-to-br from-blue-100/20 to-indigo-50/10 opacity-60"
-                  : "bg-gradient-to-br from-white/10 to-blue-50/5 opacity-100"
+                  ? "bg-gradient-to-r from-blue-100/15 to-indigo-50/10 opacity-50"
+                  : "bg-gradient-to-r from-white/8 to-blue-50/5 opacity-100"
               }`}
+              style={{
+                clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%)'
+              }}
             />
-            {/* Anneau de lumière externe */}
+            {/* Bordure de la flèche */}
             <div
-              className={`absolute -inset-1 rounded-full transition-all duration-500 ${
+              className={`absolute inset-0 transition-all duration-500 ${
                 isScrolled
-                  ? "bg-gradient-to-r from-blue-200/20 via-transparent to-indigo-200/20 opacity-0"
-                  : "bg-gradient-to-r from-white/20 via-transparent to-blue-100/20 opacity-100 animate-pulse"
+                  ? "border border-gray-200/60"
+                  : "border border-white/40"
               }`}
+              style={{
+                clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%)'
+              }}
+            />
+            {/* Effet de halo externe */}
+            <div
+              className={`absolute -inset-1 transition-all duration-500 ${
+                isScrolled
+                  ? "bg-gradient-to-r from-blue-200/10 via-transparent to-indigo-200/15 opacity-0"
+                  : "bg-gradient-to-r from-white/15 via-transparent to-blue-100/20 opacity-100"
+              }`}
+              style={{
+                clipPath: 'polygon(0 0, calc(100% - 22px) 0, 100% 50%, calc(100% - 22px) 100%, 0 100%)'
+              }}
             />
           </div>
           {/* <span
