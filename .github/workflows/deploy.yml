@@ -32,6 +32,6 @@ jobs:
           port: 22
           password: ${{ secrets.OVH_SFTP_PASSWORD }}
           local_path: "./dist/*"
-          remote_path: "dev/"
+          remote_path: "www/"
           args: "-o StrictHostKeyChecking=no"
           delete_remote_files: true

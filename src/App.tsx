@@ -78,12 +78,13 @@ function App() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   
   // Analytics SEO en temps réel (développement uniquement)
-  const { seoScore } = useSEOAnalytics();
+  // const { seoScore } = useSEOAnalytics();
+  useSEOAnalytics();
   const [cataloguePage, setCataloguePage] = useState<number | undefined>(
     undefined
   );
 
-  console.log("SEO Score :", seoScore);
+  // console.log("SEO Score :", seoScore);
   const handlePageTransition = async (newDirection: number) => {
     // Si nous sommes en mode maintenance, bloquer toute navigation
     if (currentSection === "maintenance") {
