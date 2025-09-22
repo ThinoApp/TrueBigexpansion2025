@@ -41,10 +41,10 @@ const Header = ({ onContactClick, onNavigateHome }: HeaderProps) => {
           onClick={() => onNavigateHome && onNavigateHome()}
         >
           <div
-            className={`relative p-2 sm:p-3 rounded-xl transition-all duration-300 ${
+            className={`relative p-2 sm:p-3 rounded-full transition-all duration-500 hover:scale-105 ${
               isScrolled
-                ? "bg-gradient-to-br from-gray-100 to-white shadow-lg border border-gray-200/100"
-                : "bg-gradient-to-br from-white/50 to-white/100 backdrop-blur-md border border-white/20 shadow-2xl"
+                ? "bg-gradient-to-br from-gray-50/80 to-white/90 shadow-xl border border-gray-200/50 backdrop-blur-sm"
+                : "bg-gradient-to-br from-white/40 to-white/80 backdrop-blur-lg border border-white/30 shadow-2xl"
             }`}
           >
             <img
@@ -52,12 +52,20 @@ const Header = ({ onContactClick, onNavigateHome }: HeaderProps) => {
               alt="BIG Logo"
               className="h-6 sm:h-20 object-contain relative z-10"
             />
-            {/* Effet de lueur subtile */}
+            {/* Effet de lueur subtile avec forme circulaire */}
             <div
-              className={`absolute inset-0 rounded-xl transition-opacity duration-300 ${
+              className={`absolute inset-0 rounded-full transition-all duration-500 ${
                 isScrolled
-                  ? "bg-gradient-to-br from-blue-50/30 to-transparent opacity-0"
-                  : "bg-gradient-to-br from-white/5 to-transparent opacity-100"
+                  ? "bg-gradient-to-br from-blue-100/20 to-indigo-50/10 opacity-60"
+                  : "bg-gradient-to-br from-white/10 to-blue-50/5 opacity-100"
+              }`}
+            />
+            {/* Anneau de lumière externe */}
+            <div
+              className={`absolute -inset-1 rounded-full transition-all duration-500 ${
+                isScrolled
+                  ? "bg-gradient-to-r from-blue-200/20 via-transparent to-indigo-200/20 opacity-0"
+                  : "bg-gradient-to-r from-white/20 via-transparent to-blue-100/20 opacity-100 animate-pulse"
               }`}
             />
           </div>
