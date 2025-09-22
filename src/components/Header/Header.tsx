@@ -34,31 +34,31 @@ const Header = ({ onContactClick, onNavigateHome }: HeaderProps) => {
       transition={{ duration: 0.8, ease: [0.645, 0.045, 0.355, 1.0] }}
     >
       <nav className="flex items-center justify-between max-w-7xl mx-auto">
-        {/* Forme trapèze innovante qui s'étend sur toute la largeur */}
-        <div className="absolute top-0 left-0 right-0 h-full overflow-hidden">
+        {/* Forme parallélogramme sur la moitié gauche */}
+        <div className="absolute top-0 left-0 h-full w-1/2 overflow-hidden">
           <div 
             className={`absolute inset-0 transition-all duration-300 ${
               isScrolled 
-                ? "bg-gradient-to-r from-transparent via-white/90 to-transparent" 
-                : "bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                ? "bg-gradient-to-r from-white/90 to-white/60" 
+                : "bg-gradient-to-r from-white/25 to-white/10"
             } backdrop-blur-md`}
             style={{
-              clipPath: 'polygon(25% 0%, 75% 0%, 85% 100%, 15% 100%)',
-              transform: 'translateX(-10vw)',
-              width: '120vw'
+              clipPath: 'polygon(0% 0%, 85% 0%, 75% 100%, 0% 100%)',
+              width: '100%',
+              height: '100%'
             }}
           />
           {/* Effet de lueur supplémentaire */}
           <div 
             className={`absolute inset-0 transition-all duration-300 ${
               isScrolled 
-                ? "bg-gradient-to-r from-blue-50/10 via-blue-100/30 to-blue-50/10" 
-                : "bg-gradient-to-r from-white/5 via-white/15 to-white/5"
+                ? "bg-gradient-to-r from-blue-50/20 to-transparent" 
+                : "bg-gradient-to-r from-white/15 to-transparent"
             }`}
             style={{
-              clipPath: 'polygon(30% 0%, 70% 0%, 80% 100%, 20% 100%)',
-              transform: 'translateX(-5vw)',
-              width: '110vw'
+              clipPath: 'polygon(0% 0%, 80% 0%, 70% 100%, 0% 100%)',
+              width: '95%',
+              height: '100%'
             }}
           />
         </div>
