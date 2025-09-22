@@ -34,59 +34,54 @@ const Header = ({ onContactClick, onNavigateHome }: HeaderProps) => {
       transition={{ duration: 0.8, ease: [0.645, 0.045, 0.355, 1.0] }}
     >
       <nav className="flex items-center justify-between max-w-7xl mx-auto">
-        <motion.button
-          className="flex items-center gap-2 cursor-pointer h-full -ml-4 sm:-ml-8"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => onNavigateHome && onNavigateHome()}
-        >
-          <div
-            className={`relative w-28 sm:w-44 h-full transition-all duration-500 hover:scale-[1.02] py-1 ${
-              isScrolled
-                ? "bg-gradient-to-r from-gray-50/90 to-white/95 shadow-xl backdrop-blur-sm"
-                : "bg-gradient-to-r from-white/50 to-white/80 backdrop-blur-lg shadow-2xl"
+        {/* Forme trapèze innovante qui s'étend sur toute la largeur */}
+        <div className="absolute top-0 left-0 right-0 h-full overflow-hidden">
+          <div 
+            className={`absolute inset-0 transition-all duration-300 ${
+              isScrolled 
+                ? "bg-gradient-to-r from-transparent via-white/90 to-transparent" 
+                : "bg-gradient-to-r from-transparent via-white/20 to-transparent"
+            } backdrop-blur-md`}
+            style={{
+              clipPath: 'polygon(25% 0%, 75% 0%, 85% 100%, 15% 100%)',
+              transform: 'translateX(-10vw)',
+              width: '120vw'
+            }}
+          />
+          {/* Effet de lueur supplémentaire */}
+          <div 
+            className={`absolute inset-0 transition-all duration-300 ${
+              isScrolled 
+                ? "bg-gradient-to-r from-blue-50/10 via-blue-100/30 to-blue-50/10" 
+                : "bg-gradient-to-r from-white/5 via-white/15 to-white/5"
             }`}
             style={{
-              clipPath: 'polygon(0 0, calc(100% - 24px) 0, 100% 50%, calc(100% - 24px) 100%, 0 100%)'
+              clipPath: 'polygon(30% 0%, 70% 0%, 80% 100%, 20% 100%)',
+              transform: 'translateX(-5vw)',
+              width: '110vw'
             }}
-          >
+          />
+        </div>
+
+        <motion.button
+          className="flex items-center gap-2 cursor-pointer relative z-20"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => onNavigateHome && onNavigateHome()}
+        >
+          <div className="relative p-2 sm:p-3 transition-all duration-300">
             <img
               src="/images/assets/Logo BIG 2022.png"
               alt="BIG Logo"
-              className="h-6 sm:h-16 object-contain relative z-10 ml-2 sm:ml-4"
+              className="h-6 sm:h-20 object-contain relative z-30 drop-shadow-lg"
             />
-            {/* Effet de lueur subtile avec forme de flèche */}
-            <div
-              className={`absolute inset-0 transition-all duration-500 ${
+            {/* Halo autour du logo */}
+            <div 
+              className={`absolute inset-0 transition-opacity duration-300 ${
                 isScrolled
-                  ? "bg-gradient-to-r from-blue-100/15 to-indigo-50/10 opacity-50"
-                  : "bg-gradient-to-r from-white/8 to-blue-50/5 opacity-100"
-              }`}
-              style={{
-                clipPath: 'polygon(0 0, calc(100% - 24px) 0, 100% 50%, calc(100% - 24px) 100%, 0 100%)'
-              }}
-            />
-            {/* Bordure de la flèche */}
-            <div
-              className={`absolute inset-0 transition-all duration-500 ${
-                isScrolled
-                  ? "border border-gray-200/60"
-                  : "border border-white/40"
-              }`}
-              style={{
-                clipPath: 'polygon(0 0, calc(100% - 24px) 0, 100% 50%, calc(100% - 24px) 100%, 0 100%)'
-              }}
-            />
-            {/* Effet de halo externe */}
-            <div
-              className={`absolute -inset-1 transition-all duration-500 ${
-                isScrolled
-                  ? "bg-gradient-to-r from-blue-200/10 via-transparent to-indigo-200/15 opacity-0"
-                  : "bg-gradient-to-r from-white/15 via-transparent to-blue-100/20 opacity-100"
-              }`}
-              style={{
-                clipPath: 'polygon(0 0, calc(100% - 26px) 0, 100% 50%, calc(100% - 26px) 100%, 0 100%)'
-              }}
+                  ? "bg-white/40 opacity-50"
+                  : "bg-white/20 opacity-80"
+              } rounded-full blur-xl scale-150`}
             />
           </div>
           {/* <span
