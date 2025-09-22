@@ -83,6 +83,7 @@ function App() {
     undefined
   );
 
+  console.log("SEO Score :", seoScore);
   const handlePageTransition = async (newDirection: number) => {
     // Si nous sommes en mode maintenance, bloquer toute navigation
     if (currentSection === "maintenance") {
