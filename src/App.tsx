@@ -8,6 +8,8 @@ import Agencies from "./pages/Agencies/Agencies";
 import Timelapses from "./pages/Timelapses/Timelapses";
 import Catalogue from "./pages/Catalogue/Catalogue";
 import Maintenance from "./pages/Maintenance/Maintenance";
+import SEO from "./components/SEO/SEO";
+import { pagesSEO, organizationSchema, websiteSchema, serviceSchema } from "./data/seoData";
 import "./App.css";
 import "./styles/pageTransition.scss";
 import BottomSheet from "./components/BottomSheet/BottomSheet";
@@ -15,6 +17,7 @@ import Header from "./components/Header/Header";
 import ContactForm from "./components/ContactForm/ContactForm";
 import LoadingScreen from "./components/LoadingScreen/LoadingScreen";
 import { useLoading } from "./hooks/useLoading";
+import { useSEOAnalytics } from "./hooks/useSEOAnalytics";
 
 type Section =
   | "hero"
@@ -73,6 +76,9 @@ function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const { isLoading, withLoading } = useLoading();
   const [isTransitioning, setIsTransitioning] = useState(false);
+  
+  // Analytics SEO en temps réel (développement uniquement)
+  const { seoScore } = useSEOAnalytics();
   const [cataloguePage, setCataloguePage] = useState<number | undefined>(
     undefined
   );
@@ -194,8 +200,54 @@ function App() {
     });
   };
 
+  // Fonction pour obtenir les données SEO selon la section
+  const getSEOData = (section: Section) => {
+    const baseSchema = [organizationSchema, websiteSchema];
+    
+    switch (section) {
+      case 'hero':
+        return {
+          ...pagesSEO.home,
+          structuredData: baseSchema
+        };
+      case 'services':
+        return {
+          ...pagesSEO.services,
+          structuredData: [...baseSchema, serviceSchema]
+        };
+      case 'realisations':
+        return {
+          ...pagesSEO.realisations,
+          structuredData: baseSchema
+        };
+      case 'references':
+        return {
+          ...pagesSEO.references,
+          structuredData: baseSchema
+        };
+      case 'agencies':
+        return {
+          ...pagesSEO.agencies,
+          structuredData: baseSchema
+        };
+      default:
+        return {
+          ...pagesSEO.home,
+          structuredData: baseSchema
+        };
+    }
+  };
+
+  const currentSEO = getSEOData(currentSection);
+
   return (
     <main className="min-h-screen relative overflow-hidden bg-gradient-to-b from-gray-900 to-black perspective-1000">
+      <SEO
+        title={currentSEO.title}
+        description={currentSEO.description}
+        keywords={currentSEO.keywords}
+        structuredData={currentSEO.structuredData}
+      />
       <LoadingScreen isLoading={isLoading || isTransitioning} />
 
       {currentSection !== "maintenance" && (

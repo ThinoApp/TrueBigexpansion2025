@@ -264,6 +264,11 @@ const Hero = ({ onNavigateToServices, onNavigate }: HeroProps) => {
         {/* Overlay avec motif */}
         <div className="absolute inset-0 z-10 bg-pattern opacity-30" />
 
+        {/* Titre SEO invisible */}
+        <h1 className="sr-only">
+          Big Expansion - Cabinet d'ingénierie BIG spécialisé dans la conception et réalisation d'équipements sportifs : stades, terrains de football, pistes d'athlétisme, courts de tennis - Maîtrise d'œuvre et expertise technique
+        </h1>
+
         {/* Contenu */}
         <div
           ref={contentRef}
@@ -291,7 +296,7 @@ const Hero = ({ onNavigateToServices, onNavigate }: HeroProps) => {
 
             {/* Titre principal */}
             <div className="space-y-4 sm:space-y-5">
-              <h1
+              <h2
                 ref={titleRef}
                 className="hero-title text-4xl sm:text-4xl md:text-7xl lg:text-7xl font-light text-white leading-tight"
               >
@@ -304,14 +309,12 @@ const Hero = ({ onNavigateToServices, onNavigate }: HeroProps) => {
                 <div className="word overflow-hidden">
                   <span className="block">Réaliser</span>
                 </div>
-              </h1>
+              </h2>
             </div>
 
-            {/* Description */}
+            {/* Description optimisée SEO */}
             <p className="text-white/80 text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl">
-              Nous sommes spécialisés dans la conception et la réalisation de
-              projets innovants, alliant expertise technique et créativité pour
-              donner vie à vos ambitions.
+              <strong>Big Expansion (BIG)</strong> - Cabinet d'<strong>ingénierie BIG</strong> spécialisé dans la conception et la réalisation d'équipements sportifs innovants : stades, terrains de football, pistes d'athlétisme, courts de tennis. Expertise technique et créativité pour donner vie à vos projets d'infrastructures sportives.
             </p>
 
             {/* Navigation rapide */}
@@ -395,10 +398,14 @@ const Hero = ({ onNavigateToServices, onNavigate }: HeroProps) => {
           </div>
         </div>
 
-        {/* Préchargement invisible des images */}
+        {/* Préchargement invisible des images avec alt optimisés */}
         <div className="hidden">
           {images.map((src, index) => (
-            <img key={index} src={src} alt="preload" />
+            <img 
+              key={index} 
+              src={src} 
+              alt={`Big Expansion - Projet d'ingénierie sportive ${index + 1} - Équipements et infrastructures réalisés par BIG`} 
+            />
           ))}
         </div>
       </section>

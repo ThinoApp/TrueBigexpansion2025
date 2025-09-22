@@ -180,15 +180,20 @@ RealisationsProps) => {
         {/* Grille de fond */}
         <div className="pattern-grid" />
 
+        {/* Titre SEO invisible pour la section */}
+        <h2 className="sr-only">
+          Réalisations Big Expansion - BIG : Projets d'ingénierie d'équipements sportifs - Stades, terrains de football, pistes d'athlétisme réalisés en France
+        </h2>
+
         {/* En-tête flottant */}
         <header className="floating-header">
-          <motion.h1
+          <motion.h3
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
             Réalisations
-          </motion.h1>
+          </motion.h3>
         </header>
 
         {/* Navigation des projets - masquée sur mobile */}
@@ -271,7 +276,10 @@ RealisationsProps) => {
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <img src={project.image} alt={project.title} />
+                    <img 
+                      src={project.image} 
+                      alt={`${project.title} - Big Expansion BIG - Projet d'ingénierie ${project.category} réalisé en ${project.year}`} 
+                    />
                     <div className="preview-overlay">
                       <h3>{project.title}</h3>
                       <p>{project.category}</p>
@@ -301,7 +309,7 @@ RealisationsProps) => {
               <div className="project-media">
                 <motion.img
                   src={project.image}
-                  alt={project.title}
+                  alt={`${project.title} - Big Expansion BIG - Réalisation d'ingénierie ${project.category} à ${project.location} en ${project.year}`}
                   className="project-image"
                   initial={{ scale: 1.1 }}
                   animate={{ scale: 1 }}

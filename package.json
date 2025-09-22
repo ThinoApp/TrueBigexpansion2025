@@ -6,8 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:seo": "tsc -b && vite build --mode production",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "analyze": "vite-bundle-analyzer dist",
+    "seo:check": "echo 'Vérification SEO - Consultez SEO_OPTIMIZATIONS.md pour les détails'",
+    "seo:validate": "node scripts/seo-validator.js"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

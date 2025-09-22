@@ -219,6 +219,11 @@ const Services = ({
         {/* Pattern overlay */}
         <div className="absolute inset-0 z-10 bg-pattern opacity-30" />
 
+        {/* Titre SEO invisible pour la section */}
+        <h2 className="sr-only">
+          Services d'ingénierie Big Expansion - BIG : Conception Réalisation, Maîtrise d'Œuvre, AMO, Programmation et Pilotage d'Opérations pour équipements sportifs
+        </h2>
+
         {/* Contenu */}
         <div className="relative z-20 container mx-auto px-4 h-screen flex items-center">
           <div className="w-full flex justify-between items-center">
@@ -316,7 +321,7 @@ const Services = ({
                       display: activeIndex === index ? "flex" : "none",
                     }}
                   >
-                    <motion.h2
+                    <motion.h3
                       className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-white glitch-text ${layout.titleClass}`}
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
@@ -324,7 +329,7 @@ const Services = ({
                     >
                       {service.title}
                       <span className="text-white/50 dot">.</span>
-                    </motion.h2>
+                    </motion.h3>
                     <motion.p
                       className={`text-base sm:text-lg md:text-xl text-white/80 font-light leading-relaxed px-2 sm:px-4 service-description ${layout.descriptionClass}`}
                       initial={{ y: 20, opacity: 0 }}
