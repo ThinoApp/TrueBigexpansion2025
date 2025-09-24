@@ -272,9 +272,9 @@ const Hero = ({ onNavigateToServices, onNavigate }: HeroProps) => {
         {/* Contenu */}
         <div
           ref={contentRef}
-          className="relative z-20 container mx-auto px-4 sm:px-6 h-screen flex flex-col justify-center items-start"
+          className="relative z-20 container mx-auto px-4 sm:px-6 h-screen flex flex-col justify-center items-start pt-16 sm:pt-20 md:pt-24 lg:pt-28"
         >
-          <div className="w-full md:w-2/3 lg:w-1/2 space-y-8 sm:space-y-12">
+          <div className="w-full md:w-2/3 lg:w-1/2 space-y-6 sm:space-y-8 md:space-y-10">
             {/* Tag line */}
             <div className="space-y-3">
               {/* <div className="text-white/70 text-lg tracking-wider uppercase">
@@ -295,10 +295,10 @@ const Hero = ({ onNavigateToServices, onNavigate }: HeroProps) => {
             </div>
 
             {/* Titre principal */}
-            <div className="space-y-4 sm:space-y-5">
+            <div className="space-y-3 sm:space-y-4 md:space-y-5">
               <h2
                 ref={titleRef}
-                className="hero-title text-4xl sm:text-4xl md:text-7xl lg:text-7xl font-light text-white leading-tight"
+                className="hero-title text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-white leading-tight"
               >
                 <div className="word overflow-hidden">
                   <span className="block">Penser</span>
