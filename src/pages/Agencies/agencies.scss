@@ -123,20 +123,20 @@
       }
       
       .agencies-vertical-list {
-        max-height: calc(100vh - 420px); // Ajusté dynamiquement selon la hauteur d'écran
+        max-height: calc(100vh - 350px); // Plus d'espace disponible
         overflow-y: auto;
-        padding: 0.5rem 0.5rem 1rem; // Ajout de padding-bottom pour éviter la coupure
+        padding: 0.5rem 0.5rem 1.5rem; // Plus de padding-bottom
         
         @media (max-width: 1024px) {
-          max-height: calc(100vh - 400px);
+          max-height: calc(100vh - 330px);
         }
 
         @media (max-width: 768px) {
-          max-height: calc(100vh - 360px);
+          max-height: calc(100vh - 300px);
         }
 
         @media (max-width: 640px) {
-          max-height: calc(100vh - 320px);
+          max-height: calc(100vh - 280px);
         }
         
         &::-webkit-scrollbar {
