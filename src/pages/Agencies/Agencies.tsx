@@ -197,7 +197,7 @@ const Agencies = () => {
 
   return (
     <PageTransition isEntering={isEntering}>
-      <div className="agencies-map-container">
+      <div className="agencies-map-container pt-16 sm:pt-20 md:pt-24 lg:pt-28">
         {/* Header */}
         <motion.div
           className="agencies-header"
