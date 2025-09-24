@@ -53,24 +53,24 @@
 
   .map-wrapper {
     position: relative;
-    height: calc(100vh - 240px); // Ajusté pour le padding-top + header optimisé
+    height: calc(100vh - 320px); // padding-top (112px) + header page (~100px) + marges (~108px)
     margin: 2rem;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 
     @media (max-width: 1024px) {
-      height: calc(100vh - 220px); // Large screens
+      height: calc(100vh - 300px); // padding-top (96px) + header + marges
     }
 
     @media (max-width: 768px) {
       margin: 1rem;
-      height: calc(100vh - 200px); // Medium screens
+      height: calc(100vh - 260px); // padding-top (80px) + header réduit + marges
       border-radius: 15px;
     }
 
     @media (max-width: 640px) {
-      height: calc(100vh - 180px); // Small screens
+      height: calc(100vh - 240px); // padding-top (64px) + header mobile + marges
     }
 
     .map-container {
