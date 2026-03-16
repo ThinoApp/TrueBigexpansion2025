@@ -483,6 +483,34 @@ function App() {
         />
       )}
 
+      {/* Badge créateur Surf Software */}
+      {currentSection !== "maintenance" && (
+        <motion.a
+          href="https://surfsoftware.tech/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-4 left-4 sm:left-8 z-40 flex items-center gap-2 px-3 py-2 sm:px-5 sm:py-3
+            bg-white/20 backdrop-blur-md border border-white/30 rounded-xl
+            shadow-[0_0_15px_rgba(255,255,255,0.1)]
+            hover:bg-white/30 hover:border-white/40 hover:shadow-[0_0_25px_rgba(255,255,255,0.25)]
+            transition-all duration-300 group"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.2, ease: [0.645, 0.045, 0.355, 1.0] }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <img
+            src="/images/Surf/logo.png"
+            alt="Surf Software - Créateur du site"
+            className="h-6 sm:h-8 object-contain group-hover:brightness-110 transition-all duration-300"
+          />
+          <span className="text-white/70 text-xs sm:text-sm font-medium tracking-wide group-hover:text-white transition-colors duration-300">
+            Créé par Surf Web Development
+          </span>
+        </motion.a>
+      )}
+
       <ContactForm
         isOpen={isContactOpen}
         onClose={() => setIsContactOpen(false)}

@@ -380,6 +380,7 @@ const Hero = ({ onNavigateToServices, onNavigate }: HeroProps) => {
                 />
                 <span className="text-white text-sm font-light">Agences</span>
               </button>
+
             </div>
           </div>
         </div>
