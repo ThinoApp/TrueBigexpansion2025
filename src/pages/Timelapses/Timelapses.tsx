@@ -19,7 +19,7 @@ const timelapseVideos: TimelapseVideo[] = [
   {
     id: 1,
     title: "Bourges Mélange",
-    path: "https://doc.bigexpansion.eu/TIMELAPSE/BOURGES MELANGE.mp4",
+    path: "https://minio.surfsoftware.tech/bigexpansion-video/BOURGES MELANGE.mp4",
     description:
       "Processus de mélange des matériaux sur le chantier de Bourges",
     thumbnail: "/images/thumbnails/BOURGES MELANGE.png",
@@ -27,49 +27,49 @@ const timelapseVideos: TimelapseVideo[] = [
   {
     id: 2,
     title: "Bourges Traitement",
-    path: "https://doc.bigexpansion.eu/TIMELAPSE/BOURGES TRAITEMENT big.mp4",
+    path: "https://minio.surfsoftware.tech/bigexpansion-video/BOURGES TRAITEMENT big.mp4",
     description: "Traitement spécial sur le site de Bourges",
     thumbnail: "/images/thumbnails/BOURGES TRAITEMENT big.png",
   },
   {
     id: 3,
     title: "Couverture Montholon",
-    path: "https://doc.bigexpansion.eu/TIMELAPSE/Couverture Montholon TIMELAPSE.mp4",
+    path: "https://minio.surfsoftware.tech/bigexpansion-video/Couverture Montholon TIMELAPSE.mp4",
     description: "Installation de la couverture sur le projet Montholon",
     thumbnail: "/images/thumbnails/Couverture Montholon TIMELAPSE.png",
   },
   {
     id: 4,
     title: "Dépose Gazon Jean Brivot",
-    path: "https://doc.bigexpansion.eu/TIMELAPSE/DEPOSE GAZON JEAN BRIVOT BIG.mp4",
+    path: "https://minio.surfsoftware.tech/bigexpansion-video/DEPOSE GAZON JEAN BRIVOT BIG.mp4",
     description: "Processus de dépose du gazon sur le site Jean Brivot",
     thumbnail: "/images/thumbnails/DEPOSE GAZON JEAN BRIVOT BIG.png",
   },
   {
     id: 5,
     title: "Pose Gazon Synthétique",
-    path: "https://doc.bigexpansion.eu/TIMELAPSE/POSE GAZON SYNTHETIQUE BIG.mp4",
+    path: "https://minio.surfsoftware.tech/bigexpansion-video/POSE GAZON SYNTHETIQUE BIG.mp4",
     description: "Installation professionnelle de gazon synthétique",
     thumbnail: "/images/thumbnails/POSE GAZON SYNTHETIQUE BIG.png",
   },
   {
     id: 6,
     title: "Substrat",
-    path: "https://doc.bigexpansion.eu/TIMELAPSE/SUBSTRAT TIMELAPSE BIG.mp4",
+    path: "https://minio.surfsoftware.tech/bigexpansion-video/SUBSTRAT TIMELAPSE BIG.mp4",
     description: "Application du substrat spécial pour surfaces végétalisées",
     thumbnail: "/images/thumbnails/SUBSTRAT TIMELAPSE BIG.png",
   },
   {
     id: 7,
     title: "Mitry",
-    path: "https://doc.bigexpansion.eu/TIMELAPSE/TIMELAPSE MITRY BIG.mp4",
+    path: "https://minio.surfsoftware.tech/bigexpansion-video/TIMELAPSE MITRY BIG.mp4",
     description: "Vue accélérée du chantier de Mitry",
     thumbnail: "/images/thumbnails/TIMELAPSE MITRY BIG.png",
   },
   {
     id: 8,
     title: "Charléty",
-    path: "https://doc.bigexpansion.eu/TIMELAPSE/Video finale Timelapse Charlety BIG.mp4",
+    path: "https://minio.surfsoftware.tech/bigexpansion-video/Video finale Timelapse Charlety BIG.mp4",
     description: "Projet complet de rénovation du stade Charléty",
     thumbnail: "/images/thumbnails/Vidéo finale Timelapse Charléty BIG.png",
   },
@@ -102,7 +102,7 @@ const Timelapses = () => {
           duration: 0.6,
           ease: "power2.out",
           delay: 0.3,
-        }
+        },
       );
     }
 
@@ -118,7 +118,7 @@ const Timelapses = () => {
         y: 0,
         duration: 0.8,
         ease: "power2.out",
-      }
+      },
     );
   }, []);
 
