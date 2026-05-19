@@ -1,4 +1,4 @@
-name: Deploy React dist to OVH WebCloud via SSH Password
+name: Deploy to OVH VPS
 
 on:
   push:
@@ -10,28 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
 
-      - name: Install dependencies
-        run: npm install
+      - run: npm ci
+      - run: npm run build
 
-      - name: Build React project
-        run: npm run build
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "${{ secrets.VPS_HOST }}" >> ~/.ssh/known_hosts
 
-      - name: Deploy dist folder to OVH via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-        with:
-          username: ${{ secrets.OVH_SFTP_USER }}
-          server: ${{ secrets.OVH_SFTP_HOST }}
-          port: 22
-          password: ${{ secrets.OVH_SFTP_PASSWORD }}
-          local_path: "./dist/*"
-          remote_path: "www/"
-          args: "-o StrictHostKeyChecking=no"
-          delete_remote_files: true
+      - name: Deploy dist to VPS
+        run: |
+          rsync -az --delete dist/ \
+            "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_TARGET }}/"
