@@ -32,7 +32,7 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
     (_, i) => ({
       id: String(i + 1).padStart(2, "0"),
       imageSrc: `/images/catalogue/${i + 1}.jpg`,
-    })
+    }),
   );
 
   // Fonction pour gérer le chargement des images
@@ -179,7 +179,7 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
         y: 0,
         duration: 0.8,
         ease: "power2.out",
-      }
+      },
     );
 
     // Animation pour le flipbook
@@ -195,7 +195,7 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
         duration: 0.8,
         delay: 0.3,
         ease: "power2.out",
-      }
+      },
     );
   }, []);
 
@@ -385,7 +385,7 @@ const Catalogue = ({ initialPage }: CatalogueProps = {}) => {
                     </h2>
                     <div className="relative z-10 flex flex-col gap-2 text-white/90">
                       <p className="text-base sm:text-lg font-light">
-                        www.bigexpansion.eu
+                        www.bigexpansion.fr
                       </p>
                       <p className="text-base sm:text-lg font-light">
                         contact@bigexpansion.fr

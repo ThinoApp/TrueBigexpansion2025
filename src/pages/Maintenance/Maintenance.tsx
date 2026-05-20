@@ -40,7 +40,7 @@ const Maintenance = () => {
       75,
       window.innerWidth / window.innerHeight,
       0.1,
-      1000
+      1000,
     );
     newCamera.position.z = 5;
     setCamera(newCamera);
@@ -279,10 +279,10 @@ const Maintenance = () => {
           <div className="maint-contact-info">
             <p>Pour toute question, contactez-nous à :</p>
             <a
-              href="mailto:contact@bigexpansion.eu"
+              href="mailto:contact@bigexpansion.fr"
               className="maint-email-link"
             >
-              contact@bigexpansion.eu
+              contact@bigexpansion.fr
             </a>
           </div>
 

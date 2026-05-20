@@ -6,7 +6,7 @@
 
   <!-- Page d'accueil - Big Expansion -->
   <url>
-    <loc>https://bigexpansion.eu/</loc>
+    <loc>https://bigexpansion.fr/</loc>
     <lastmod>2025-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -14,7 +14,7 @@
 
   <!-- Services d'ingénierie -->
   <url>
-    <loc>https://bigexpansion.eu/#services</loc>
+    <loc>https://bigexpansion.fr/#services</loc>
     <lastmod>2025-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -22,7 +22,7 @@
 
   <!-- Réalisations et projets -->
   <url>
-    <loc>https://bigexpansion.eu/#realisations</loc>
+    <loc>https://bigexpansion.fr/#realisations</loc>
     <lastmod>2025-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -30,7 +30,7 @@
 
   <!-- Références clients -->
   <url>
-    <loc>https://bigexpansion.eu/#references</loc>
+    <loc>https://bigexpansion.fr/#references</loc>
     <lastmod>2025-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -38,7 +38,7 @@
 
   <!-- Vidéos et timelapses -->
   <url>
-    <loc>https://bigexpansion.eu/#timelapses</loc>
+    <loc>https://bigexpansion.fr/#timelapses</loc>
     <lastmod>2025-01-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -46,7 +46,7 @@
 
   <!-- Catalogue -->
   <url>
-    <loc>https://bigexpansion.eu/#catalogue</loc>
+    <loc>https://bigexpansion.fr/#catalogue</loc>
     <lastmod>2025-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -54,7 +54,7 @@
 
   <!-- Agences et contact -->
   <url>
-    <loc>https://bigexpansion.eu/#agencies</loc>
+    <loc>https://bigexpansion.fr/#agencies</loc>
     <lastmod>2025-01-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
